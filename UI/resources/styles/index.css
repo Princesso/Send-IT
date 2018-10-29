@@ -5,3 +5,9 @@ body, html {
   background-size: cover;
   height: 100vh;
 }
+
+.registration-form{
+  width: 300px;
+  margin: auto;
+  padding: 30%;
+}
