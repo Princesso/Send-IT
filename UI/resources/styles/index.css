@@ -1,13 +1,25 @@
-body, html {
+body {
   background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('../images/parcel.jpg');
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
   height: 100vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
-.registration-form{
+.caption {
+  font-size: 2rem;
+  font-weight: 300;
+  color: white;
+  font-family: "Andale Mono", AndaleMono, monospace;
+}
+
+.registration-form {
   width: 300px;
-  margin: auto;
-  padding: 30%;
+  height: 300px;
+  padding: 5px;
+  border-radius: 5%;
+  background: white;
 }
