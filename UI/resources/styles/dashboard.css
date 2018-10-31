@@ -1,0 +1,77 @@
+body {
+  margin: 0;
+  font-family: "Andale Mono", AndaleMono, monospace;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  background: gray;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 2rem;
+  flex-wrap: wrap;
+  flex: 0 1 60%;
+}
+
+@media (min-width: 550px) {
+  .header {
+    flex: 0 1 100%
+  }
+  nav {
+    flex: 0 1 100%;
+  }
+}
+ 
+nav {
+  flex: 0 1 40%;
+}
+
+a {
+  color: black;
+  text-decoration: none;
+}
+
+#new-delivery {
+  background: gray;
+  border-radius: 10%;
+}
+
+ul {
+  list-style: none;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.main-content {
+  height: 80vh;
+  flex: 1 0 auto;
+}
+
+.cards {
+  display: flex;
+  justify-content: space-around;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: gray;
+}
+
+table td {
+
+}
+
+.footer {
+  background: gray;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 2rem;
+  flex-wrap: wrap;
+  flex: 0 1 60%;
+}
