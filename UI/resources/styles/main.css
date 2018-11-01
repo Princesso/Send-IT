@@ -103,4 +103,7 @@ button {
   .footer {
     min-height: 160px;
   }
+  body {
+    line-height: 1;
+  }
 }
