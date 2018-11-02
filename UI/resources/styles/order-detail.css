@@ -23,10 +23,27 @@ button {
   padding: 2px;
 }
 
+.fieldset {
+  font-size: 0.8em;
+}
+
+#button-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  padding:10px;
+}
+
+#button-link {
+  margin: 8px;
+}
+
 @media all and (max-width:550px) and (min-width:0px) {
   .description {
     width: 80%;
-    margin-top: 3%;
+    margin-top: 10%;
     margin-left: 1%;
   }
   button {
