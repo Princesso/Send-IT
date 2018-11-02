@@ -22,3 +22,16 @@ button {
   margin:2px;
   padding: 2px;
 }
+
+@media all and (max-width:550px) and (min-width:0px) {
+  .description {
+    width: 80%;
+    margin-top: 3%;
+    margin-left: 1%;
+  }
+  button {
+    font-size: 0.5em !important;
+    height: 60%;
+    text-align: center;
+  }
+}
