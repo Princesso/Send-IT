@@ -24,4 +24,28 @@ router.get('/', (req,res) => {
   //res.render('index', { title: 'Express' });
 });
 
+router.get('/:id', (req,res) => {
+  let parcel = parcels.find(p => p.id === parseInt(req.params.id))
+  if(!parcel){
+    res.status(400).send('No such Parcel please check the ID again')
+  } else {
+    res.send(parcel);
+    //res.render('index', { title: 'Express' });
+  }
+});
+
+router.post('/', (req, res) => {
+  if(!req.body.item_name && req.body.weigth){
+    res.status(400).send('error saving new parcel delivery order')
+  } else {
+    const newOrder = {
+      id: parcels.length +1,
+      item_name: req.body.item_name,
+      weigth: req.body.weigth
+    };
+    parcels.push(newOrder);
+    res.send(newOrder);
+  }
+});
+
 export default router;
