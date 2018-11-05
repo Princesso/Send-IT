@@ -23,14 +23,12 @@ router.get('/', (req,res) => {
   //res.render('index', { title: 'Express' });
 });
 
-
 router.get('/:id', (req,res) => {
   let parcel = parcels.find(p => p.id === parseInt(req.params.id))
   if(!parcel){
     res.status(400).send('No such Parcel please check the ID again')
   } else {
     res.send(parcel);
-    //res.render('index', { title: 'Express' });
   }
 });
 
