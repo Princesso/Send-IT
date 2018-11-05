@@ -1,6 +1,7 @@
 # Send-IT
 SendIT is a courier service that helps users deliver parcels to different destinations. SendIT provides courier quotes based on weight categories.
 
+
 ## Link to project
 
 https://princesso.github.io/Send-IT/UI/index.html
@@ -10,6 +11,14 @@ https://princesso.github.io/Send-IT/UI/index.html
 So far, this project only has UI pages
 
 ## Images
+
+## To view this UI template, visit
+https://princesso.github.io/Send-IT
+
+## A sneak peak into the admin functionalities
+
+https://princesso.github.io/Send-IT/UI/resources/pages/admin.html
+
 
 ## Author
 
