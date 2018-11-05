@@ -67,4 +67,18 @@ router.get('/:id', (req,res) => {
   }
 });
 
+router.get('/:id/parcels', (req,res) => {
+  let user = users.find(u => u.id === parseInt(req.params.id))
+  if(!user){
+    res.status(400).send('No such User please check the ID again')
+  } else if(user.parcels.length==0){
+    res.send("user has no parcel delivery orders");
+    //res.render('index', { title: 'Express' });
+  }
+  else {
+    res.send(user.parcels);
+    //res.render('index', { title: 'Express' });
+  }
+});
+
 export default router;
