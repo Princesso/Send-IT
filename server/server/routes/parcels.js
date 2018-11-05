@@ -34,4 +34,18 @@ router.get('/:id', (req,res) => {
   }
 });
 
+router.post('/', (req, res) => {
+  if(!req.body.item_name && req.body.weigth){
+    res.status(400).send('error saving new parcel delivery order')
+  } else {
+    const newOrder = {
+      id: parcels.length +1,
+      item_name: req.body.item_name,
+      weigth: req.body.weigth
+    };
+    parcels.push(newOrder);
+    res.send(newOrder);
+  }
+});
+
 export default router;
