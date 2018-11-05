@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="SendIT is a courier service that helps users deliver parcels to different destinations. SendIT provides courier quotes based on weight categories.">
+  <meta name="keywords" content="SendIT, courier service, deliver parcels anywhere, courier quotes ">
+  <meta name="author" description="Priness Oluebube Egbuna">
+  <link rel="stylesheet" type="text/css" media="screen" href="../styles/dashboard.css" />
+  <link rel="stylesheet" type="text/css" media="screen" href="../styles/main.css" />
+  <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:100,300,400,700" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css" integrity="sha384-/rXc/GQVaYpyDdyxK+ecHPVYJSN9bmVFBvjA/9eOB+pb3F2w2N6fc5qB9Ew5yIns" crossorigin="anonymous">
+</head>
+<body>
+  <header class="header">
+    <div><h1>Send-It</h1></div>
+    <nav>
+      <ul>
+        <li><a href="../../index.html">Home</a></li>
+        <li><a href="#">Notifications</a></li>
+        <li><a href="../../index.html">Logout</a></li>
+      </ul>
+    </nav>
+  </header>
+  <section class="main-content">
+    <div class="welcome">
+      <h5>Welcome Princess</h5>
+      <a href="../pages/new-order.html"><button id="new-delivery"><span class="fas fa-plus"></span></button></a>
+    </div>
+    <div class="cards">
+      <div class="card">
+        <h6>Orders</h6>
+        <p>30</p>
+      </div>
+      <div class="card">
+        <h6>Delivered</h6>
+        <p>30</p>
+      </div>
+      <div class="card">
+        <h6>Pending</h6>
+        <p>30</p>
+      </div>
+    </div>
+    <div id="all">
+        All Orders
+    </div>
+    <div class="table-container">
+      <table class="table">
+        <tr>
+          <th>ID</th>
+          <th>ITEM</th>
+          <th>DESCRIPTION</th>
+          <th>STATUS</th>
+          <th>ACTION</th>
+        </tr>
+        <tr>
+          <td>1</td>
+          <td>Shoes</td>
+          <td>1 kg bla</td>
+          <td>pending</td>
+          <td><a href="./order-detail.html"><button>View</button></a></td>
+        </tr>
+        <tr>
+          <td>1</td>
+          <td>Clothes</td>
+          <td>1 kg bla</td>
+          <td>Delivered</td>
+          <td><a href="./order-detail.html"><button>View</button></a></td>
+        </tr>
+        <tr>
+          <td>1</td>
+          <td>Bags</td>
+          <td>1 kg bla</td>
+          <td>pending</td>
+          <td><a href="./new-order.html"><button><span class="fas fa-eye"></span></button></a></td>
+        </tr>
+      </table>
+    </div>
+  </section>
+  <footer class="footer">
+      <div><h1>Send-It</h1></div>
+      <nav>
+        <ul>
+          <li><a href="#">Contact</a></li>
+          <li><a href="#">FAQ</a></li>
+        </ul>
+      </nav>
+  </footer> 
+  <!--<script src="../javascript/dashboard.js"></script> -->
+</body>
+</html>
