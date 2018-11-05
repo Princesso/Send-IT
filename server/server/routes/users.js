@@ -57,4 +57,14 @@ router.get('/', (req,res) => {
   //res.render('index', { title: 'Express' });
 });
 
+router.get('/:id', (req,res) => {
+  let user = users.find(u => u.id === parseInt(req.params.id))
+  if(!user){
+    res.status(400).send('No such User please check the ID again')
+  } else {
+    res.send(user);
+    //res.render('index', { title: 'Express' });
+  }
+});
+
 export default router;
