@@ -15,6 +15,7 @@ let parcels = [
   {id: 8, item_name: 'Shoes', weigth: 8},
   {id: 9, item_name: 'Shoes', weigth: 4},
   {id: 10, item_name: 'Shoes', weigth: 10},
+  {id: 11, item_name: 'Shoes', weigth: 2},
 ]
 
 /* GET home page. */
@@ -22,7 +23,6 @@ router.get('/', (req,res) => {
   res.send(parcels);
   //res.render('index', { title: 'Express' });
 });
-
 
 router.get('/:id', (req,res) => {
   let parcel = parcels.find(p => p.id === parseInt(req.params.id))
