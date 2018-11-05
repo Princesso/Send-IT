@@ -48,4 +48,15 @@ router.post('/', (req, res) => {
   }
 });
 
+router.delete('/:id/cancel', (req,res) => {
+  const deleteOrder= parcels.find(p => p.id ===parseInt(req.params.id))
+  if (!deleteOrder){
+    res.status(400).send('The order you are trying to cancel does not exist');
+  } else {
+    const deleteindex = parcels.indexOf(deleteOrder);
+    parcels.splice(deleteindex,1)
+    res.send(deleteOrder);
+  }
+})
+
 export default router;
