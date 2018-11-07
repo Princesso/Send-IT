@@ -28,5 +28,19 @@ describe('Parcel delivery orders', () => {
     });
   });
 
+  describe('/GET/:id/parcels', () => {
+    it('it should GET parcel delivery order with specific ID', (done) => {
+      let userId = 2;
+      const url = `/api/v1/users/:${userId}`
+      request
+        .get(url)
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.should.be.json;
+          done();
+        });
+    });
+  });
+
 });
 
