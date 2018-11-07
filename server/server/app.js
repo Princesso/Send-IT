@@ -18,6 +18,12 @@ app.get('/', (req, res) => {
   return res.status(200).json({ msg: 'Welcome to Send-It API'});
 });
 
-app.listen(8080, () => console.log('app Running on port 8080'));
+const port = process.env.PORT || 8080;
+
+const server = app.listen(port, () => console.log(`app Running on ${port}`));
+
+process.on('exit', () => server.close())
+process.on('SIGTERM', () => server.close())
+process.on('uncaughtException', () => server.close())
 
 export default app;
