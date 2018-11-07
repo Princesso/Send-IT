@@ -1,8 +1,8 @@
 import express from 'express'
 import bodyParser from 'body-parser'
 
-
 let router = express.Router();
+router.use(bodyParser.json())
 
 let parcels = [
   {id: 1, item_name: 'Shoes', weigth: 4, from: 'Yaba', destination: 'Ojuelegba'},
@@ -33,10 +33,10 @@ router.get('/:id', (req,res) => {
 });
 
 router.post('/', (req, res) => {
-  if(!req.body.item_name && req.body.weigth){
+  if(!req.body.item_name && req.body.weigth && req.body.from && req.body.destination){
     res.status(400).send('error saving new parcel delivery order')
   } else {
-    const newOrder = {
+    let newOrder = {
       id: parcels.length +1,
       item_name: req.body.item_name,
       weigth: req.body.weigth,
