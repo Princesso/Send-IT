@@ -4,18 +4,13 @@ SendIT is a courier service that helps users deliver parcels to different destin
 [![Build Status](https://travis-ci.org/Princesso/Send-IT.png?branch=develop)](https://travis-ci.org/Princesso/Send-IT)
 
 
-## Link to project
+## Link to project gh-pages
 
 https://princesso.github.io/Send-IT/UI/index.html
 
-##Feature
+## Feature
 
-So far, this project only has UI pages
-
-## Images
-
-## To view this UI template, visit
-https://princesso.github.io/Send-IT
+So far, this project has UI pages, and node end-points
 
 ## A sneak peak into the admin functionalities
 
