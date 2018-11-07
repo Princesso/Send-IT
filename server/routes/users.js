@@ -7,17 +7,17 @@ let router = express.Router();
 let users = [
   {
     id: 1, 
-    email: 'Shoes', 
-    phone: 4, 
+    email: 'boobae@gmail.com', 
+    phone: 0906387999, 
     parcels: [
       {
-        id: 2, 
+        id: 1, 
         item_name: 'Shoes', 
         weigth: 3
       },
       {
         id: 6, 
-        item_name: 'Shoes', 
+        item_name: 'Bags', 
         weigth: 1.5
       },
       {
@@ -29,22 +29,22 @@ let users = [
   },
   {
     id: 2, 
-    email: 'Shoes', 
-    phone: 4, 
+    email: 'princess@gmail.com', 
+    phone: 09088888888, 
     parcels: [
       {
-        id: 2, 
-        item_name: 'Shoes', 
+        id: 3, 
+        item_name: 'Bag', 
         weigth: 3
       },
       {
-        id: 6, 
+        id: 7, 
         item_name: 'Shoes', 
         weigth: 1.5
       },
       {
-        id: 10, 
-        item_name: 'Shoes', 
+        id: 12, 
+        item_name: 'Shirt', 
         weigth: 10
       }
     ]
@@ -63,7 +63,6 @@ router.get('/:id', (req,res) => {
     res.status(400).send('No such User please check the ID again')
   } else {
     res.send(user);
-    //res.render('index', { title: 'Express' });
   }
 });
 
@@ -73,11 +72,9 @@ router.get('/:id/parcels', (req,res) => {
     res.status(400).send('No such User please check the ID again')
   } else if(user.parcels.length==0){
     res.send("user has no parcel delivery orders");
-    //res.render('index', { title: 'Express' });
   }
   else {
     res.send(user.parcels);
-    //res.render('index', { title: 'Express' });
   }
 });
 
