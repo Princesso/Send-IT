@@ -1,24 +1,23 @@
 import express from 'express'
 import bodyParser from 'body-parser'
 
-
 let router = express.Router();
+router.use(bodyParser.json())
 
 let parcels = [
-  {id: 1, item_name: 'Shoes', weigth: 4},
-  {id: 2, item_name: 'Shoes', weigth: 3},
-  {id: 3, item_name: 'Shoes', weigth: 7},
-  {id: 4, item_name: 'Shoes', weigth: 2},
-  {id: 5, item_name: 'Shoes', weigth: 1},
-  {id: 6, item_name: 'Shoes', weigth: 1.5},
-  {id: 7, item_name: 'Shoes', weigth: 2.3},
-  {id: 8, item_name: 'Shoes', weigth: 8},
-  {id: 9, item_name: 'Shoes', weigth: 4},
-  {id: 10, item_name: 'Shoes', weigth: 10},
-  {id: 11, item_name: 'Shoes', weigth: 2},
+  {id: 1, item_name: 'Shoes', weigth: 4, from: 'Yaba', destination: 'Ojuelegba'},
+  {id: 2, item_name: 'Shoes', weigth: 3, from: 'Yaba', destination: 'Ojuelegba'},
+  {id: 3, item_name: 'Shoes', weigth: 7, from: 'Yaba', destination: 'Ojuelegba'},
+  {id: 4, item_name: 'Shoes', weigth: 2, from: 'Yaba', destination: 'Ojuelegba'},
+  {id: 5, item_name: 'Shoes', weigth: 1, from: 'Yaba', destination: 'Ojuelegba'},
+  {id: 6, item_name: 'Shoes', weigth: 1.5, from: 'Yaba', destination: 'Ojuelegba'},
+  {id: 7, item_name: 'Shoes', weigth: 2.3, from: 'Yaba', destination: 'Ojuelegba'},
+  {id: 8, item_name: 'Shoes', weigth: 8, from: 'Yaba', destination: 'Ojuelegba'},
+  {id: 9, item_name: 'Shoes', weigth: 4, from: 'Yaba', destination: 'Ojuelegba'},
+  {id: 10, item_name: 'Shoes', weigth: 10, from: 'Yaba', destination: 'Ojuelegba'},
+  {id: 11, item_name: 'Shoes', weigth: 2, from: 'Yaba', destination: 'Ojuelegba'},
 ]
 
-/* GET home page. */
 router.get('/', (req,res) => {
   res.send(parcels);
   //res.render('index', { title: 'Express' });
@@ -30,18 +29,19 @@ router.get('/:id', (req,res) => {
     res.status(400).send('No such Parcel please check the ID again')
   } else {
     res.send(parcel);
-    //res.render('index', { title: 'Express' });
   }
 });
 
 router.post('/', (req, res) => {
-  if(!req.body.item_name && req.body.weigth){
+  if(!req.body.item_name && req.body.weigth && req.body.from && req.body.destination){
     res.status(400).send('error saving new parcel delivery order')
   } else {
-    const newOrder = {
+    let newOrder = {
       id: parcels.length +1,
       item_name: req.body.item_name,
-      weigth: req.body.weigth
+      weigth: req.body.weigth,
+      from: req.body.from,
+      destination: req.body.destination
     };
     parcels.push(newOrder);
     res.send(newOrder);
