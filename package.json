@@ -4,8 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --require @babel/register \"./server/**/*.spec.js*\" --exit"
-    ,
+    "test": "mocha --require @babel/register \"./server/**/*.spec.js*\" --exit",
     "dev": "webpack --mode development",
     "build": "webpack --mode production",
     "start:server": "babel-node server/app.js"
