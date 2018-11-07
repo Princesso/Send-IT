@@ -7,7 +7,8 @@
     "test": "mocha --require @babel/register \"./server/**/*.spec.js*\" --exit",
     "dev": "webpack --mode development",
     "build": "webpack --mode production",
-    "start:server": "babel-node server/app.js"
+    "start:server": "babel-node server/app.js",
+    "start": "babel-node server/app.js"
   },
   "keywords": [],
   "author": "",
