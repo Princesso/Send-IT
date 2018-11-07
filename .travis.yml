@@ -2,7 +2,6 @@ language: node_js
 
 script:  
   - npm install
-  - npm run postinstall
 
 after_script:  
   - npm run test
