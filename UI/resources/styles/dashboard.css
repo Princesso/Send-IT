@@ -1,0 +1,152 @@
+#all {
+  margin-bottom: 3%;
+}
+
+#new-delivery {
+  top: 10%;
+  right: 1%;
+  background: #0178E6;
+  color: #fff;
+  border: 2px solid #dddfe2;
+  outline: none;
+  font-size: 0.8em;
+  border-radius: 9px;
+}
+
+#delivery-truck {
+  height: 3em;
+  width: 3em;
+  font-size: 2.5em;
+  color: rgb(138, 130, 130);
+  align-items: center;
+
+}
+
+h5 {
+  font-size: 1.3em;
+  font-weight: 700;
+}
+
+.welcome {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1em;
+  font-weight: 300;
+  height: 20%;
+}
+
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-bottom: 2em; 
+}
+
+.card {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  border: 1px solid #dddfe2;
+  height: 60px;
+  width: 15%;
+  background: white;
+  padding: 0.5rem 2rem;
+  border-radius:9px;
+  
+}
+
+.card h6 {
+  margin: 0;
+  color: #ccc;
+  font-size: 1em;
+  font-weight: 300;
+}
+
+.card p {
+  margin: 0;
+  color: #333;
+  font-size: 1.5em;
+  font-weight: 700;
+}
+
+.table-container {
+  overflow-x: scroll;
+}
+
+table {
+  width: 100%;
+  border: 1px solid #dddfe2;
+  border-left: none;
+  border-right: none;
+}
+
+table tr:nth-child(even) {
+  background-color: whitesmoke
+}
+
+table tr:nth-child(odd) {
+  background-color: white
+}
+
+table tr td,
+table tr th {
+  padding: 1em;
+  font-weight: 400;
+  margin: 1.5em 0;
+  text-align: center;
+}
+
+table tr th {
+  font-weight: 700;
+  background-color: #333;
+  color: #fff;
+}
+
+table tr td button {
+  background: #0178E6;
+  color: #fff;
+  padding: 0.7em;
+  text-align: center;
+  width: 7em;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+table tr td button:hover,
+table tr td button:focus {
+  color: #ccc;
+  filter: grayscale(70%);
+}
+
+.dashboard-container {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+@media all and (max-width:550px) and (min-width:0px) {
+  button {
+    font-size: 1em;
+  }
+  .card {
+    margin-bottom: 5px;
+  }
+  #delivery-truck {
+    height: 2em;
+    width: 2em;
+    font-size: 2em;
+    margin-right: 3px;
+  }
+  .card h6 {
+    font-size: 1em;
+    font-weight: 300;
+    margin: auto;
+  }
+  
+  .card p {
+    font-size: 1em;
+    font-weight: 700;
+  }
+}

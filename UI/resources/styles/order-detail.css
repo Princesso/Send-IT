@@ -1,0 +1,54 @@
+.description {
+  display: flex;
+  flex-direction: column;
+  margin-top: 15%;
+  margin-left: 20%;
+  font-size: 1.5em;
+  background: white;
+  width: 50%;
+  padding: 1em 1em;
+  border-radius: 10px;
+
+}
+
+button {
+  font-size: 0.5em;
+  border-radius: 9px;
+  padding: 2px;
+}
+
+#font-awe {
+  font-size: 2em;
+  margin:2px;
+  padding: 2px;
+}
+
+.fieldset {
+  font-size: 0.8em;
+}
+
+#button-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  padding:10px;
+}
+
+#button-link {
+  margin: 8px;
+}
+
+@media all and (max-width:550px) and (min-width:0px) {
+  .description {
+    width: 80%;
+    margin-top: 10%;
+    margin-left: 1%;
+  }
+  button {
+    font-size: 0.5em !important;
+    height: 60%;
+    text-align: center;
+  }
+}
