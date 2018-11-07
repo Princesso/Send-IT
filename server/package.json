@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha NODE_ENV=test --require @babel/register \"./server/**/*.spec.js*\"",
+    "test": "mocha --require @babel/register \"./server/**/*.spec.js*\" --exit"
+    ,
     "dev": "webpack --mode development",
     "build": "webpack --mode production",
     "start:server": "babel-node server/app.js"
@@ -22,6 +23,7 @@
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "^3.2.0",
     "mini-css-extract-plugin": "^0.4.4",
+    "should": "^13.2.3",
     "webpack": "^4.23.1",
     "webpack-cli": "^3.1.2",
     "webpack-dev-server": "^3.1.10"
