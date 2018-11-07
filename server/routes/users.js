@@ -63,7 +63,6 @@ router.get('/:id', (req,res) => {
     res.status(400).send('No such User please check the ID again')
   } else {
     res.send(user);
-    //res.render('index', { title: 'Express' });
   }
 });
 
@@ -73,11 +72,9 @@ router.get('/:id/parcels', (req,res) => {
     res.status(400).send('No such User please check the ID again')
   } else if(user.parcels.length==0){
     res.send("user has no parcel delivery orders");
-    //res.render('index', { title: 'Express' });
   }
   else {
     res.send(user.parcels);
-    //res.render('index', { title: 'Express' });
   }
 });
 
