@@ -8,7 +8,7 @@ let users = [
   {
     id: 1, 
     email: 'boobae@gmail.com', 
-    phone: 0906387999, 
+    phone: '0906387999', 
     parcels: [
       {
         id: 1, 
@@ -30,7 +30,7 @@ let users = [
   {
     id: 2, 
     email: 'princess@gmail.com', 
-    phone: 09088888888, 
+    phone: '09088888888', 
     parcels: [
       {
         id: 3, 
