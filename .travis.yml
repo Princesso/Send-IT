@@ -1,3 +1,4 @@
+
 language: node_js
 
 script:  
@@ -8,3 +9,4 @@ after_script:
 
 after_success:
   - ./node_modules/.bin/mocha \"./server/**/*.spec.js*\" -R mocha-lcov-reporter | ./node_modules/coveralls/bin/coveralls.js
+
