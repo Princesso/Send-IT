@@ -9,6 +9,7 @@
     "build": "webpack --mode production",
     "start:server": "babel-node server/app.js",
     "start:client": "webpack-dev-server --mode development --open --hot",
+    "start:prod": "babel-node server/app.prod.js",
     "start": "concurrently \"npm run start:client\" \"npm run start:server\""
   },
   "keywords": [],
