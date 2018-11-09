@@ -10,7 +10,9 @@
     "start:server": "babel-node server/app.js",
     "start:client": "webpack-dev-server --mode development --open --hot",
     "start:prod": "babel-node server/app.prod.js",
-    "start": "concurrently \"npm run start:client\" \"npm run start:server\""
+    "start": "concurrently \"npm run start:client\" \"npm run start:server\"",
+    "coverage": "`npm bin`/istanbul cover \"./server/**/*.spec.js*\"",
+    "coveralls": "npm run-script coverage && node bin/coveralls.js < coverage/lcov.info"
   },
   "keywords": [],
   "author": "",
