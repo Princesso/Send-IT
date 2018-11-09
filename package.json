@@ -40,6 +40,7 @@
     "concurrently": "^4.0.1",
     "coveralls": "^3.0.2",
     "express": "^4.16.4",
+    "istanbul": "^0.4.5",
     "mocha": "^5.2.0",
     "pug": "^2.0.3"
   }
