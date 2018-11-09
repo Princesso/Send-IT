@@ -8,5 +8,7 @@ after_script:
   - npm run test
 
 after_success:
-  - ./node_modules/.bin/mocha \"./server/**/*.spec.js*\" -R mocha-lcov-reporter | ./node_modules/coveralls/bin/coveralls.js
+  - coveralls
+  - sbt coveralls
+  
 
