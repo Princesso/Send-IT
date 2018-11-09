@@ -5,18 +5,13 @@ SendIT is a courier service that helps users deliver parcels to different destin
 [![Coverage Status](https://coveralls.io/repos/github/Princesso/Send-IT/badge.svg?branch=develop)](https://coveralls.io/github/Princesso/Send-IT?branch=develop)
 
 
-## Link to project
+## Link to project gh-pages
 
 https://princesso.github.io/Send-IT/UI/index.html
 
-##Feature
+## Feature
 
-So far, this project only has UI pages
-
-## Images
-
-## To view this UI template, visit
-https://princesso.github.io/Send-IT
+So far, this project has UI pages, and node end-points
 
 ## A sneak peak into the admin functionalities
 
