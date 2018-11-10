@@ -4,18 +4,21 @@ import app from '../app'
 
 let should = chai.should();
 chai.use(chaiHttp)
-const request = chai.request(app)
 
+// after(() => {
+//   request.server.close();
+// })
 
 
 describe('Parcel delivery orders', () => {
-  beforeEach((done) => {
+  afterEach((done) => {
     done();
   });
 
-  //after(() => request.server.close());
 
   describe('/GET users', () => {
+    const request = chai.request(app)
+
     it('it should GET all users', (done) => {
       request
         .get('/api/v1/users')
@@ -29,9 +32,11 @@ describe('Parcel delivery orders', () => {
   });
 
   describe('/GET/:id/parcels', () => {
+    const request = chai.request(app)
+
     it('it should GET parcel delivery order with specific ID', (done) => {
       let userId = 2;
-      const url = `/api/v1/users/:${userId}`
+      const url = `/api/v1/users/${userId}`
       request
         .get(url)
         .end((err, res) => {

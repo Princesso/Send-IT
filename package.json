@@ -4,14 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "NODE_ENV=test nyc mocha --require @babel/register \"./server/**/*.spec.js*\"  --exit && nyc report --reporter=text-lcov | coveralls",
+    "test": "NODE_ENV=test nyc --require @babel/register mocha \"./server/**/*.spec.js*\"  --exit",
     "dev": "webpack --mode development",
     "build": "webpack --mode production",
     "start:server": "babel-node server/app.js",
     "start:client": "webpack-dev-server --mode development --open --hot",
     "start:prod": "babel-node server/app.prod.js",
     "start": "concurrently \"npm run start:client\" \"npm run start:server\"",
-    "coveralls": "cat ./coverage/lcov.info | ./node_modules/.bin/coveralls"
+    "coveralls": "cat ./coverage/lcov.info | ./node_modules/.bin/coveralls",
+    "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
   "keywords": [],
   "author": "",
@@ -22,6 +23,7 @@
     "css-loader": "^1.0.0",
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "^3.2.0",
+    "istanbul": "^0.4.5",
     "jscoverage": "^0.6.0",
     "mini-css-extract-plugin": "^0.4.4",
     "nyc": "^13.1.0",
