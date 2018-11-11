@@ -2,7 +2,7 @@
 SendIT is a courier service that helps users deliver parcels to different destinations. SendIT provides courier quotes based on weight categories.
 
 [![Build Status](https://travis-ci.org/Princesso/Send-IT.png?branch=develop)](https://travis-ci.org/Princesso/Send-IT)
-[![Coverage Status](https://coveralls.io/repos/github/Princesso/Send-IT/badge.svg?branch=epic-##4131278-add-database-to-project)](https://coveralls.io/github/Princesso/Send-IT?branch=develop)
+[![Coverage Status](https://coveralls.io/repos/github/Princesso/Send-IT/badge.svg?branch=develop)](https://coveralls.io/github/Princesso/Send-IT?branch=develop)
 
 
 ## Link to project gh-pages
