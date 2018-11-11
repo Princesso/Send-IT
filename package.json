@@ -12,7 +12,8 @@
     "start:prod": "babel-node server/app.prod.js",
     "start": "concurrently \"npm run start:client\" \"npm run start:server\"",
     "coveralls": "cat ./coverage/lcov.info | ./node_modules/.bin/coveralls",
-    "coverage": "NODE_ENV=test nyc report --reporter=text-lcov | coveralls"
+    "coverage": "nyc report --reporter=text-lcov | coveralls",
+    "report": "nyc report"
   },
   "keywords": [],
   "author": "",
@@ -59,7 +60,7 @@
       "html"
     ],
     "include": [
-      "src/**/*.js"
+      "server/**/*.spec.js*"
     ],
     "require": [
       "@babel/register"
