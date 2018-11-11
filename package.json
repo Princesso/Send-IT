@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "cross-env NODE_ENV=test nyc --require @babel/register mocha \"./server/**/*.spec.js*\"  --exit",
+    "test": "NODE_ENV=test nyc --require @babel/register mocha \"./server/**/*.spec.js*\"  --exit",
     "dev": "webpack --mode development",
     "build": "webpack --mode production",
     "start:server": "babel-node server/app.js",
@@ -12,7 +12,7 @@
     "start:prod": "babel-node server/app.prod.js",
     "start": "concurrently \"npm run start:client\" \"npm run start:server\"",
     "coveralls": "cat ./coverage/lcov.info | ./node_modules/.bin/coveralls",
-    "coverage": "cross-env NODE_ENV=test nyc --require @babel/register report --reporter=text-lcov | coveralls"
+    "coverage": "NODE_ENV=test nyc --require @babel/register report --reporter=text-lcov | coveralls"
   },
   "keywords": [],
   "author": "",

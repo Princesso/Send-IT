@@ -4,6 +4,9 @@ node_js:
   - "iojs"
   - "10.13"
 
+env:
+  - NODE_ENV=test
+
 script:  
   - npm install
 
