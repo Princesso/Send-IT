@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "NODE_ENV=test nyc  --reporter=text-lcov  --require @babel/register mocha \"./server/**/*.spec.js*\"  --exit | coveralls",
+    "test": "NODE_ENV=test nyc --require @babel/register mocha \"./server/**/*.spec.js*\"  --exit",
     "dev": "webpack --mode development",
     "build": "webpack --mode production",
     "start:server": "babel-node server/app.js",
