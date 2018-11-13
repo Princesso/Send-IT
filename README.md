@@ -7,20 +7,26 @@ SendIT is a courier service that helps users deliver parcels to different destin
 [![Test Coverage](https://api.codeclimate.com/v1/badges/a99a88d28ad37a79dbf6/test_coverage)](https://codeclimate.com/github/Princesso/Send-IT/test_coverage)
 
 
-## Link to project
+## Link to github pages
 
 https://princesso.github.io/Send-IT/UI/index.html
 
-##Feature
+## Link to API endpoints
 
-So far, this project only has UI pages
+https://sendit-pro.herokuapp.com/
+
+## How to clone the project:
+
+To clone this repository: 
+
+git clone https://github.com/Princesso/Send-IT.git
 
 ## Images
 
 ## To view this UI template, visit
 https://princesso.github.io/Send-IT
 
-## A sneak peak into the admin functionalities
+## A sneak peak into the admin UI functionalities
 
 https://princesso.github.io/Send-IT/UI/resources/pages/admin.html
 
