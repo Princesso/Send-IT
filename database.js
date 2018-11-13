@@ -32,7 +32,29 @@ const createTables = async () => {
       console.log('An error occured while creating users table: ', err);
       pool.end();
     });
-
+  const parcelsTable = `
+    CREATE TABLE IF NOT EXISTS
+      parcels(
+        id SERIAL PRIMARY KEY,
+        ownerid UUID REFERENCES users(id),
+        weight INTEGER NOT NULL, 
+        description VARCHAR,
+        fromaddress VARCHAR NOT NULL,
+        status VARCHAR NOT NULL,
+        toaddress VARCHAR NOT NULL,
+        created_date TIMESTAMP,
+        modified_date TIMESTAMP
+      )
+  `;
+  pool.query(parcelsTable)
+  .then((res) => {
+    console.log('parcels table created!: ', res);
+    pool.end();
+  })
+  .catch((err) => {
+    console.log('An error occured while creating parcels table: ', err);
+    pool.end();
+  });
 };
 
 createTables().then(res => console.log('All tables created'));
