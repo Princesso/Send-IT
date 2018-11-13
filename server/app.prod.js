@@ -14,10 +14,10 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use('/api/v1/parcels', parcelRoute)
 app.use('/api/v1/users',userRoute)
 
-app.use(express.static(path.join(__dirname, '..', 'src')));
+app.use(express.static(path.join(__dirname, '..', 'UI')));
 
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '..','src','index.html'));
+  res.sendFile(path.join(__dirname, '..','UI','index.html'));
 });
 
 const port = process.env.PORT || 8080;
