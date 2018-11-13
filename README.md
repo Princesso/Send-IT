@@ -6,29 +6,48 @@ SendIT is a courier service that helps users deliver parcels to different destin
 [![Maintainability](https://api.codeclimate.com/v1/badges/a99a88d28ad37a79dbf6/maintainability)](https://codeclimate.com/github/Princesso/Send-IT/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/a99a88d28ad37a79dbf6/test_coverage)](https://codeclimate.com/github/Princesso/Send-IT/test_coverage)
 
+## Feature
+* There are two types of users admin and regular user
+* Users can Register if they have no account or login otherwise
+* Users can create a new parcel delivery order by adding required fields
+* Users can change the destination of their parcels
+* Users can cancel a parcel delivery order
+* Users can see a list of delivery orders they have made if they have made any
+* Admin can change the status of a delivery order
+* Admin can change the location a parcel delivery order
 
 ## Link to github pages
 
 https://princesso.github.io/Send-IT/UI/index.html
 
-## Link to API endpoints
+## Link to API endpoints 
 
 https://sendit-pro.herokuapp.com/
+
+
+## API endpoints
+
+View all parcel delivery ordes: /api/v1/parcels
+View one parcel delivery order: /api/v1/parcels/<id>
+Cancel a parcel delivery order: /api/v1/parcels/<id>/cancel
+View all users:                 /api/v1/users
+View a single user:             /api/v1/users/<id>
+View parcels belonging to user: /api/v1/users/<id>/parcels
+
 
 ## How to clone the project:
 
 To clone this repository: 
 
-git clone https://github.com/Princesso/Send-IT.git
+* Ensure you have git installed
 
-## Images
+* git clone https://github.com/Princesso/Send-IT.git
 
-So far, this project has UI pages, and node end-points
+* Run npm install
 
-## A sneak peak into the admin UI functionalities
+* Run npm start to start the server
 
-https://princesso.github.io/Send-IT/UI/resources/pages/admin.html
-
+* Follow the UI directory to view UI pages
 
 ## Author
 
