@@ -15,7 +15,7 @@ form input {
   width: 90%;
   height: 30px;
   margin:5px 0px;
-  padding:2px 2px;
+  padding-left: 6%;
   flex-wrap: wrap;
 }
 

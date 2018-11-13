@@ -10,7 +10,7 @@ body {
 
 .main-content {
   background: #122c460f;
-  height: 90vh;
+  height: 80vh;
   flex: 1 0 auto;
   padding: 0 2rem;
 }
@@ -71,7 +71,7 @@ ul {
   flex-wrap: wrap;
   flex: 0 1 60%;
   color: white;
-  min-height: 70px;
+  min-height: 97px;
 }
 
 button {
