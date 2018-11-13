@@ -14,10 +14,11 @@
  width: 90%
 }
 
-.change-destination {
+.change-destination, .change-status {
   padding: 15px;
   font-size: 20px;
 }
+
 
 .cancel-order {
   background-color: red;
