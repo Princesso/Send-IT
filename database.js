@@ -57,6 +57,24 @@ const createTables = async () => {
   });
 };
 
+const dropTables = async () => {
+  const dropQuery = 'DROP TABLE IF EXISTS parcels, users';
+  await pool.query(dropQuery)
+    .then((res) => {
+      console.log(res);
+      pool.end();
+    })
+    .catch((err) => {
+      console.log(err);
+      pool.end();
+    });
+}
+
+pool.on('remove', () => {
+  console.log('client removed');
+  process.exit(0);
+});
+
 createTables().then(res => console.log('All tables created'));
 
 export default {
