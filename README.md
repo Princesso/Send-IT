@@ -6,6 +6,12 @@ SendIT is a courier service that helps users deliver parcels to different destin
 [![Maintainability](https://api.codeclimate.com/v1/badges/a99a88d28ad37a79dbf6/maintainability)](https://codeclimate.com/github/Princesso/Send-IT/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/a99a88d28ad37a79dbf6/test_coverage)](https://codeclimate.com/github/Princesso/Send-IT/test_coverage)
 
+## Feature
+* There are two types of users admin and regular user
+* Users can Register if they have no account or login otherwise
+* Users can create a new parcel delivery order by adding required fields
+* Users can 
+* Users can see a list of delivery orders they have made if they have
 
 ## Link to github pages
 
