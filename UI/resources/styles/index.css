@@ -46,7 +46,8 @@
 .call-to-action {
   margin-bottom: 6%;
   font-size: 2em;
-  border-radius: 2%;
+  border-radius: 10px;
+  cursor: pointer;
 }
 
 .form input {
@@ -54,7 +55,7 @@
   height: 34px;
   font-size: 14px;
   margin:5px 0px;
-  padding:2px 2px;
+  padding-left: 6%;
   border-radius: 5%;
   flex-wrap: wrap;
   border: 1px solid #ccc;
