@@ -8,7 +8,22 @@
   width: 50%;
   padding: 1em 1em;
   border-radius: 10px;
+}
 
+.description-child {
+ width: 90%
+}
+
+.change-destination, .change-status {
+  padding: 15px;
+  font-size: 20px;
+}
+
+
+.cancel-order {
+  background-color: red;
+  padding: 15px;
+  font-size: 20px;
 }
 
 button {
@@ -18,7 +33,7 @@ button {
 }
 
 #font-awe {
-  font-size: 2em;
+  font-size: 0.8em;
   margin:2px;
   padding: 2px;
 }
