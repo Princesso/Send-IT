@@ -27,12 +27,12 @@ https://sendit-pro.herokuapp.com/
 
 ## API endpoints
 
-View all parcel delivery ordes: /api/v1/parcels
-View one parcel delivery order: /api/v1/parcels/<id>
-Cancel a parcel delivery order: /api/v1/parcels/<id>/cancel
-View all users:                 /api/v1/users
-View a single user:             /api/v1/users/<id>
-View parcels belonging to user: /api/v1/users/<id>/parcels
+* View all parcel delivery ordes: /api/v1/parcels
+* View one parcel delivery order: /api/v1/parcels/<id>
+* Cancel a parcel delivery order: /api/v1/parcels/<id>/cancel
+* View all users:                 /api/v1/users
+* View a single user:             /api/v1/users/<id>
+* View parcels belonging to user: /api/v1/users/<id>/parcels
 
 
 ## How to clone the project:
