@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const pool = new Pool({
+export const pool = new Pool({
   connectionString: process.env.DATABASE_URL
 });
 
@@ -28,7 +28,6 @@ const createTables = async () => {
   await pool.query(userTable)
     .then((res) => {
       console.log('users table created!: ', res);
-      //pool.end();
     })
     .catch((err) => {
       console.log('An error occured while creating users table: ', err);
@@ -52,7 +51,6 @@ const createTables = async () => {
   pool.query(parcelsTable)
   .then((res) => {
     console.log('parcels table created!: ', res);
-    pool.end();
   })
   .catch((err) => {
     console.log('An error occured while creating parcels table: ', err);
@@ -65,7 +63,6 @@ const dropTables = async () => {
   await pool.query(dropQuery)
     .then((res) => {
       console.log(res);
-      pool.end();
     })
     .catch((err) => {
       console.log(err);
