@@ -1,61 +1,79 @@
 import express from 'express'
 import bodyParser from 'body-parser'
+import parcels from '../mockdata/parcels'
+import Joi from 'joi'
 
 let router = express.Router();
-router.use(bodyParser.json())
-
-let parcels = [
-  {id: 1, item_name: 'Shoes', weigth: 4, from: 'Yaba', destination: 'Ojuelegba'},
-  {id: 2, item_name: 'Shoes', weigth: 3, from: 'Yaba', destination: 'Ojuelegba'},
-  {id: 3, item_name: 'Shoes', weigth: 7, from: 'Yaba', destination: 'Ojuelegba'},
-  {id: 4, item_name: 'Shoes', weigth: 2, from: 'Yaba', destination: 'Ojuelegba'},
-  {id: 5, item_name: 'Shoes', weigth: 1, from: 'Yaba', destination: 'Ojuelegba'},
-  {id: 6, item_name: 'Shoes', weigth: 1.5, from: 'Yaba', destination: 'Ojuelegba'},
-  {id: 7, item_name: 'Shoes', weigth: 2.3, from: 'Yaba', destination: 'Ojuelegba'},
-  {id: 8, item_name: 'Shoes', weigth: 8, from: 'Yaba', destination: 'Ojuelegba'},
-  {id: 9, item_name: 'Shoes', weigth: 4, from: 'Yaba', destination: 'Ojuelegba'},
-  {id: 10, item_name: 'Shoes', weigth: 10, from: 'Yaba', destination: 'Ojuelegba'},
-  {id: 11, item_name: 'Shoes', weigth: 2, from: 'Yaba', destination: 'Ojuelegba'},
-]
+router.use(express.json())
 
 router.get('/', (req,res) => {
-  res.send(parcels);
-  //res.render('index', { title: 'Express' });
+  if(parcels.length==0) {
+    res.send({'status': res.statusCode, 'error': 'No parcels found'});
+    return
+  }
+  res.send({'status': res.statusCode, 'data': parcels});
 });
 
 router.get('/:id', (req,res) => {
   let parcel = parcels.find(p => p.id === parseInt(req.params.id))
   if(!parcel){
-    res.status(400).send('No such Parcel please check the ID again')
+    res.status(400).send({'status': res.statusCode, 'error': 'No parcel with such ID, check the parcel ID again'})
+    return
   } else {
-    res.send(parcel);
+    res.send({'status': res.statusCode, 'data': parcel});
   }
 });
 
+let schema = Joi.object().keys({
+  ownerid: Joi.number().required(),
+  item_name: Joi.string().min(3).required(),
+  weight: Joi.number().required(),
+  description: Joi.string().min(3).required(),
+  fromaddress: Joi.string().min(3).required(),
+  status: Joi.string().min(3).required(),
+  toaddress: Joi.string().min(3).required(),
+})
+
 router.post('/', (req, res) => {
-  if(!req.body.item_name && req.body.weigth && req.body.from && req.body.destination){
-    res.status(400).send('error saving new parcel delivery order')
+  const result = Joi.validate(req.body, schema)
+  if(result.error){
+    res.send({'status': res.statusCode, 'error':result.error.details[0].message})
+    return
   } else {
     let newOrder = {
       id: parcels.length +1,
+      ownerid: req.body.ownerid,
       item_name: req.body.item_name,
-      weigth: req.body.weigth,
-      from: req.body.from,
-      destination: req.body.destination
+      weight: req.body.weight,
+      description: req.body.description,
+      fromaddress: req.body.fromaddress,
+      status: req.body.status,
+      toaddress: req.body.toaddress
     };
     parcels.push(newOrder);
-    res.send(newOrder);
+    res.send({'status': res.statusCode, 'data': newOrder});
   }
 });
 
-router.delete('/:id/cancel', (req,res) => {
-  const deleteOrder= parcels.find(p => p.id ===parseInt(req.params.id))
+router.put('/:id/cancel', (req, res) => {
+  const changeStatusId = parcels.find(p => p.id === parseInt(req.params.id))
+  if(!changeStatusId) {
+    res.send({'status': res.statusCode, 'error': 'No parcel with the id provided'})
+  } else {
+    const changeIndex = parcels.indexOf(changeStatusId)
+    parcels[changeIndex].status = 'cancel'
+    res.send({'status': res.statusCode, 'data': changeStatusId})
+  }
+})
+
+router.delete('/:id', (req, res) => {
+  const deleteOrder = parcels.find(p => p.id === parseInt(req.params.id))
   if (!deleteOrder){
-    res.status(400).send('The order you are trying to cancel does not exist');
+    res.send({'status': res.statusCode, 'error': 'No parcel with the id provided'});
   } else {
     const deleteindex = parcels.indexOf(deleteOrder);
     parcels.splice(deleteindex,1)
-    res.send(deleteOrder);
+    res.send({'status': res.statusCode, 'data': deleteOrder});
   }
 })
 
