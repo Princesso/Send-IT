@@ -25,13 +25,15 @@ router.get('/:id', (req,res) => {
 });
 
 let schema = Joi.object().keys({
-  ownerid: Joi.number().required(),
-  item_name: Joi.string().min(3).required(),
+  placedBy: Joi.number().required(),
   weight: Joi.number().required(),
-  description: Joi.string().min(3).required(),
-  fromaddress: Joi.string().min(3).required(),
+  weightmetric: Joi.string().required(),
+  sentOn: Joi.string().min(3).required(),
+  deliveredOn: Joi.string().min(3).required(),
   status: Joi.string().min(3).required(),
-  toaddress: Joi.string().min(3).required(),
+  fromAddress: Joi.string().min(3).required(),
+  toAddress: Joi.string().min(3).required(),
+  currentLocation: Joi.string().min(3).required(),
 })
 
 router.post('/', (req, res) => {
@@ -42,13 +44,15 @@ router.post('/', (req, res) => {
   } else {
     let newOrder = {
       id: parcels.length +1,
-      ownerid: req.body.ownerid,
-      item_name: req.body.item_name,
+      placedBy: req.body.placedBy,
       weight: req.body.weight,
-      description: req.body.description,
-      fromaddress: req.body.fromaddress,
+      weightmetric: req.body.weightmetric,
+      sentOn: req.body.sentOn,
+      deliveredOn: req.body.deliveredOn,
       status: req.body.status,
-      toaddress: req.body.toaddress
+      fromAddress: req.body.fromaddress,
+      toAddress: req.body.toaddress,
+      currentLocation: req.body.currentLocation
     };
     parcels.push(newOrder);
     res.send({'status': res.statusCode, 'data': newOrder});
