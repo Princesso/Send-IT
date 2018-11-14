@@ -4,6 +4,8 @@ import path from 'path'
 
 let app = express();
 
+app.use(express.json())
+
 import parcelRoute from './routes/parcels'
 import userRoute from './routes/users'
 
