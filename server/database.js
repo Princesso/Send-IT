@@ -21,7 +21,7 @@ const createTables = async () => {
         othernames VARCHAR(30),
         email VARCHAR(128) UNIQUE,
         username VARCHAR(128) NOT NULL,
-        registered_date TIMESTAMP,
+        registered DATE,
         isAdmin BOOLEAN
       )
   `;
@@ -38,16 +38,15 @@ const createTables = async () => {
     CREATE TABLE IF NOT EXISTS
       parcels(
         id SERIAL PRIMARY KEY,
-        placedby INTEGER REFERENCES users(id),
+        placedBy INTEGER REFERENCES users(id),
         weight FLOAT NOT NULL, 
-        weight_metric VARCHAR NOT NULL,
-        sent_on DATE,
-        delivered_on DATE,
-        description VARCHAR, 
+        weightmetric VARCHAR NOT NULL,
+        sentOn DATE,
+        deliveredOn DATE,
         status VARCHAR NOT NULL,
-        fromaddress VARCHAR NOT NULL,
-        toaddress VARCHAR NOT NULL,
-        current_location VARCHAR NOT NULL
+        fromAddress VARCHAR NOT NULL,
+        toAddress VARCHAR NOT NULL,
+        currentLocation VARCHAR NOT NULL
       )
   `;
   pool.query(parcelsTable)
