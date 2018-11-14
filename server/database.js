@@ -39,8 +39,8 @@ const createTables = async () => {
       parcels(
         id SERIAL PRIMARY KEY,
         placedby INTEGER REFERENCES users(id),
-        weight INTEGER NOT NULL, 
-        item_name VARCHAR NOT NULL,
+        weight FLOAT NOT NULL, 
+        weight_metric VARCHAR NOT NULL,
         sent_on DATE,
         delivered_on DATE,
         description VARCHAR, 
