@@ -1,25 +1,29 @@
 
 let parcels = [
   {
-    id: 1, 
-    ownerid: 4563, 
-    item_name: 'Shoes', 
+    id: 2, 
+    placedby: 1, 
     weigth: 4, 
-    description: "Non edible", 
-    from: 'Yaba', 
-    status: "pending", 
-    destination: 'Ojuelegba'
+    weigthmetric: 'kg', 
+    sentOn: '1999-6-15', 
+    deliveredOn: '1999-6-15', 
+    status: "pending",
+    fromaddress: 'Yaba', 
+    destination: 'Ojuelegba',
+    currentLocation: 'Ojuelegba',
   },
   {
-    id: 2, 
-    ownerid: 4573, 
-    item_name: 'Chocolates', 
-    weigth: 2, 
-    description: "edible", 
-    from: 'Abuja', 
-    status: "delivered", 
-    destination: 'Enugu'
-  }
+    id: 3, 
+    placedby: 1, 
+    weigth: 4, 
+    weigthmetric: 'kg', 
+    sentOn: '1999-6-15', 
+    deliveredOn: '1999-6-15', 
+    status: "pending",
+    fromaddress: 'Yaba', 
+    destination: 'Ojuelegba',
+    currentLocation: 'Ojuelegba',
+  },
 ]
 
 export default parcels
