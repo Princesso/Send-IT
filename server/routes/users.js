@@ -2,7 +2,7 @@ import express from 'express'
 import bodyParser from 'body-parser'
 import Joi from 'joi'
 import users from '../mockdata/users'
-import {pool, dbQuery} from '../database'
+import { pool, dbQuery } from '../database'
 
 
 let router = express.Router();
@@ -16,12 +16,20 @@ router.get('/', (req,res) => {
 });
 
 router.get('/:id', (req,res) => {
-  let user = users.find(u => u.id === parseInt(req.params.id))
-  if(!user){
-    res.status(400).send({ "status": res.statusCode, "error": 'No such User please check the ID again'})
-  } else {
-    res.send({"status": res.statusCode, "data": users});
-  }
+  //let user = users.find(u => u.id === parseInt(req.params.id))
+  let id = req.params.id
+  dbQuery('SELECT * FROM users WHERE ID=$1',[id], (req, res) => {
+    if (err) {
+      res.status(400).send({ "status": res.statusCode, "error": 'No such User please check the ID again'})
+    } else {
+      res.send({"status": res.statusCode, "data": res.rows[0]});
+    }
+  })
+  // if(!user){
+  //   res.status(400).send({ "status": res.statusCode, "error": 'No such User please check the ID again'})
+  // } else {
+  //   res.send({"status": res.statusCode, "data": users});
+  // }
 });
 
 router.get('/:id/parcels', (req,res) => {
