@@ -2,6 +2,7 @@ import express from 'express'
 import bodyParser from 'body-parser'
 import Joi from 'joi'
 import users from '../mockdata/users'
+import {pool, dbQuery} from '../database'
 
 
 let router = express.Router();

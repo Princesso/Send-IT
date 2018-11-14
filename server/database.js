@@ -80,7 +80,12 @@ pool.on('remove', () => {
 
 createTables().then(res => console.log('All tables created'));
 
+export const dbQuery = (queryStatement, params, callback) => {
+  return pool.query(queryStatement, params, callback)
+ };
+
 export default {
+  pool,
   createTables,
   dropTables
 }
