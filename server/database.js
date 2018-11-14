@@ -73,11 +73,6 @@ const dropTables = async () => {
     });
 }
 
-pool.on('remove', () => {
-  console.log('client removed');
-  process.exit(0);
-});
-
 createTables().then(res => console.log('All tables created'));
 
 export const dbQuery = (queryStatement, params, callback) => {
