@@ -10,7 +10,21 @@ import parcelRoute from './routes/parcels'
 import userRoute from './routes/users'
 
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
+
+app.use(
+  cors({
+    origin: "*",
+    methods: "GET, HEAD, PUT, PATCH, POST, DELETE, OPTIONS",
+    preflightContinue: false,
+    optionsSuccessStatus: 204
+  })
+);
+
+app.all('/*', function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "X-Requested-With");
+  next();
+});
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use('/api/v1/parcels', parcelRoute)

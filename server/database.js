@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const pool = new Pool({
+export const pool = new Pool({
   connectionString: process.env.DATABASE_URL
 });
 
@@ -15,20 +15,20 @@ const createTables = async () => {
   const userTable = `
     CREATE TABLE IF NOT EXISTS
       users(
-        id INTEGER PRIMARY KEY,
-        firstname VARCHAR(30),
-        lastname VARCHAR(30),
+        id SERIAL PRIMARY KEY,
+        firstname VARCHAR(30) NOT NULL,
+        lastname VARCHAR(30) NOT NULL,
         othernames VARCHAR(30),
         email VARCHAR(128) UNIQUE,
         username VARCHAR(128) NOT NULL,
-        registered_date TIMESTAMP,
-        isAdmin BOOLEAN
+        registered TIMESTAMP,
+        isAdmin BOOLEAN,
+        password VARCHAR NOT NULL
       )
   `;
   await pool.query(userTable)
     .then((res) => {
       console.log('users table created!: ', res);
-      //pool.end();
     })
     .catch((err) => {
       console.log('An error occured while creating users table: ', err);
@@ -38,22 +38,20 @@ const createTables = async () => {
     CREATE TABLE IF NOT EXISTS
       parcels(
         id SERIAL PRIMARY KEY,
-        placedby INTEGER REFERENCES users(id),
-        weight INTEGER NOT NULL, 
-        item_name VARCHAR NOT NULL,
-        sent_on DATE,
-        delivered_on DATE,
-        description VARCHAR, 
+        placedBy INTEGER REFERENCES users(id),
+        weight FLOAT NOT NULL, 
+        weightmetric VARCHAR NOT NULL,
+        sentOn TIMESTAMP,
+        deliveredOn DATE,
         status VARCHAR NOT NULL,
-        fromaddress VARCHAR NOT NULL,
-        toaddress VARCHAR NOT NULL,
-        current_location VARCHAR NOT NULL
+        fromAddress VARCHAR NOT NULL,
+        toAddress VARCHAR NOT NULL,
+        currentLocation VARCHAR
       )
   `;
   pool.query(parcelsTable)
   .then((res) => {
     console.log('parcels table created!: ', res);
-    pool.end();
   })
   .catch((err) => {
     console.log('An error occured while creating parcels table: ', err);
@@ -66,7 +64,6 @@ const dropTables = async () => {
   await pool.query(dropQuery)
     .then((res) => {
       console.log(res);
-      pool.end();
     })
     .catch((err) => {
       console.log(err);
@@ -74,14 +71,14 @@ const dropTables = async () => {
     });
 }
 
-pool.on('remove', () => {
-  console.log('client removed');
-  process.exit(0);
-});
-
 createTables().then(res => console.log('All tables created'));
 
+export const dbQuery = (queryStatement, params, callback) => {
+  return pool.query(queryStatement, params, callback)
+ };
+
 export default {
+  pool,
   createTables,
   dropTables
 }

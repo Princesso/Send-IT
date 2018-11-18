@@ -2,79 +2,98 @@ import express from 'express'
 import bodyParser from 'body-parser'
 import parcels from '../mockdata/parcels'
 import Joi from 'joi'
+import { pool, dbQuery } from '../database'
+import moment from 'moment'
 
 let router = express.Router();
 router.use(express.json())
 
-router.get('/', (req,res) => {
-  if(parcels.length==0) {
-    res.send({'status': res.statusCode, 'error': 'No parcels found'});
-    return
-  }
-  res.send({'status': res.statusCode, 'data': parcels});
+router.get('/', (req, res) => {
+  dbQuery('SELECT * FROM parcels', [], (err, dbres) => {
+    if(err) {
+      console.log(err)
+      res.status(400).json({ "status": res.statusCode, "error": err})
+    } else {
+        if (dbres.rows.length < 1) {
+          return res.status(400).json({ "status": res.statusCode, "error": 'No parcels found'})
+        }
+        res.status(200).json({"status": res.statusCode, "data": dbres.rows});
+    }
+  })
 });
 
-router.get('/:id', (req,res) => {
-  let parcel = parcels.find(p => p.id === parseInt(req.params.id))
-  if(!parcel){
-    res.status(400).send({'status': res.statusCode, 'error': 'No parcel with such ID, check the parcel ID again'})
-    return
-  } else {
-    res.send({'status': res.statusCode, 'data': parcel});
-  }
+router.get('/:id', (req, res) => {
+  let id = req.params.id
+  dbQuery('SELECT * FROM parcels WHERE ID=$1',[id], (err, dbres) => {
+    if (err) {
+      res.status(400).send({ "status": res.statusCode, "error": 'An error occured while retrieving the requested parcel'});
+    } else {
+      res.status(200).send({"status": res.statusCode, "data": dbres.rows[0]});
+    }
+  })
 });
-
-let schema = Joi.object().keys({
-  ownerid: Joi.number().required(),
-  item_name: Joi.string().min(3).required(),
-  weight: Joi.number().required(),
-  description: Joi.string().min(3).required(),
-  fromaddress: Joi.string().min(3).required(),
-  status: Joi.string().min(3).required(),
-  toaddress: Joi.string().min(3).required(),
-})
 
 router.post('/', (req, res) => {
-  const result = Joi.validate(req.body, schema)
-  if(result.error){
-    res.send({'status': res.statusCode, 'error':result.error.details[0].message})
-    return
-  } else {
-    let newOrder = {
-      id: parcels.length +1,
-      ownerid: req.body.ownerid,
-      item_name: req.body.item_name,
-      weight: req.body.weight,
-      description: req.body.description,
-      fromaddress: req.body.fromaddress,
-      status: req.body.status,
-      toaddress: req.body.toaddress
-    };
-    parcels.push(newOrder);
-    res.send({'status': res.statusCode, 'data': newOrder});
-  }
+  let newOrder = {
+    placedBy: req.body.placedBy,
+    weight: req.body.weight,
+    weightmetric: 'kg',
+    sentOn: moment(new Date()),
+    status: 'pending',
+    fromAddress: req.body.fromAddress,
+    toAddress: req.body.toAddress,
+    currentLocation: req.body.fromAddress
+  };
+  dbQuery('INSERT INTO parcels (placedBy,weight,weightmetric,sentOn,status,fromAddress,toAddress,currentLocation) VALUES($1,$2,$3,$4,$5,$6,$7,$8) RETURNING *',
+  [newOrder.placedBy,newOrder.weight,newOrder.weightmetric,newOrder.sentOn,newOrder.status,newOrder.fromAddress,newOrder.toAddress,newOrder.currentLocation],
+  (err, dbres) => {
+    if(err) {
+      res.status(400).json({ "status": res.statusCode, "error": 'An error occured while trying to save your order '})
+    } else {
+      res.status(200).json({"status": res.statusCode, "data": dbres.rows[0]});
+    }
+  })
 });
 
-router.put('/:id/cancel', (req, res) => {
-  const changeStatusId = parcels.find(p => p.id === parseInt(req.params.id))
-  if(!changeStatusId) {
-    res.send({'status': res.statusCode, 'error': 'No parcel with the id provided'})
-  } else {
-    const changeIndex = parcels.indexOf(changeStatusId)
-    parcels[changeIndex].status = 'cancel'
-    res.send({'status': res.statusCode, 'data': changeStatusId})
-  }
+router.patch('/:id/cancel', (req, res) => {
+  const id = req.params.id;
+  const newStatus = 'canceled'
+  dbQuery('UPDATE parcels SET status=$1 WHERE id=$2',[newStatus,id], (err, dbres) => {
+    if(err) {
+      res.status(400).json({ "status": res.statusCode, "error": 'An error occured while trying to cancel your parcel delivery order'})
+      pool.end();
+    } else {
+      res.status(200).json({"status": res.statusCode, "Message": "Your Order has been canceled successfully"});
+    }
+  })
 })
 
-router.delete('/:id', (req, res) => {
-  const deleteOrder = parcels.find(p => p.id === parseInt(req.params.id))
-  if (!deleteOrder){
-    res.send({'status': res.statusCode, 'error': 'No parcel with the id provided'});
-  } else {
-    const deleteindex = parcels.indexOf(deleteOrder);
-    parcels.splice(deleteindex,1)
-    res.send({'status': res.statusCode, 'data': deleteOrder});
-  }
+router.patch('/:id/destination', (req, res) => {
+  const id = req.params.id;
+  const newDestination = req.params.toAddress
+  dbQuery('UPDATE parcels SET toAddress=$1 WHERE id=$2',[newDestination,id], (err, dbres) => {
+    if(err) {
+      res.send({ "status": res.statusCode, "error": 'An error occured while trying to change the destination of your parcel delivery order'})
+      pool.end();
+    } else {
+      res.send({"status": res.statusCode, "Message": "Parcel destination updated"});
+      console.log(dbres)
+    }
+  })
+})
+
+router.patch('/:id/currentlocation', (req, res) => {
+  const id = req.params.id;
+  const currentLocation = req.params.currentLocation
+  dbQuery('UPDATE parcels SET toAddress=$1 WHERE id=$2',[currentLocation,id], (err, dbres) => {
+    if(err) {
+      res.send({ "status": res.statusCode, "error": 'An error occured while trying to change the destination of your parcel delivery order'})
+      pool.end();
+    } else {
+      res.send({"status": res.statusCode, "Message": "Current location is"});
+      console.log(dbres)
+    }
+  })
 })
 
 export default router;
