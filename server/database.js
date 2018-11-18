@@ -16,14 +16,14 @@ const createTables = async () => {
     CREATE TABLE IF NOT EXISTS
       users(
         id SERIAL PRIMARY KEY,
-        firstname VARCHAR(30),
-        lastname VARCHAR(30),
+        firstname VARCHAR(30) NOT NULL,
+        lastname VARCHAR(30) NOT NULL,
         othernames VARCHAR(30),
         email VARCHAR(128) UNIQUE,
         username VARCHAR(128) NOT NULL,
         registered TIMESTAMP,
         isAdmin BOOLEAN,
-        password VARCHAR
+        password VARCHAR NOT NULL
       )
   `;
   await pool.query(userTable)
@@ -46,7 +46,7 @@ const createTables = async () => {
         status VARCHAR NOT NULL,
         fromAddress VARCHAR NOT NULL,
         toAddress VARCHAR NOT NULL,
-        currentLocation VARCHAR NOT NULL
+        currentLocation VARCHAR
       )
   `;
   pool.query(parcelsTable)
