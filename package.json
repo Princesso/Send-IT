@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --require @babel/register \"./server/**/*.spec.js*\" --exit",
+    "test": "mocha --require @babel/register --require @babel/polyfill \"./server/**/*.spec.js*\" --exit",
     "start": "babel-node server/app.js",
     "start:prod": "babel-node server/app.prod.js"
   },
@@ -17,6 +17,7 @@
   "dependencies": {
     "@babel/core": "^7.1.5",
     "@babel/node": "^7.0.0",
+    "@babel/polyfill": "^7.0.0",
     "@babel/preset-env": "^7.1.5",
     "babel-loader": "^8.0.4",
     "bcryptjs": "^2.4.3",
