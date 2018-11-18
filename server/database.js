@@ -15,14 +15,15 @@ const createTables = async () => {
   const userTable = `
     CREATE TABLE IF NOT EXISTS
       users(
-        id INTEGER PRIMARY KEY,
+        id SERIAL PRIMARY KEY,
         firstname VARCHAR(30),
         lastname VARCHAR(30),
         othernames VARCHAR(30),
         email VARCHAR(128) UNIQUE,
         username VARCHAR(128) NOT NULL,
-        registered DATE,
-        isAdmin BOOLEAN
+        registered TIMESTAMP,
+        isAdmin BOOLEAN,
+        password VARCHAR
       )
   `;
   await pool.query(userTable)
@@ -40,7 +41,7 @@ const createTables = async () => {
         placedBy INTEGER REFERENCES users(id),
         weight FLOAT NOT NULL, 
         weightmetric VARCHAR NOT NULL,
-        sentOn DATE,
+        sentOn TIMESTAMP,
         deliveredOn DATE,
         status VARCHAR NOT NULL,
         fromAddress VARCHAR NOT NULL,
