@@ -15,7 +15,6 @@ before_script:
 
 script:  
   - npm install
-  - bundle exec rspec
 
 after_script:  
   - npm run test
