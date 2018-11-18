@@ -1,20 +1,7 @@
-
 language: node_js
-node_js:
-  - "iojs"
-  - "10.13"
-
-env:
-  - NODE_ENV=test
-  global:
-    - CC_TEST_REPORTER_ID=44dbbb02e79725901edd551157c725b5d39fb04ab2834133e51ed8d147f3f44d
-
-before_script:
-  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
 
 script:  
   - npm install
-  - bundle exec rspec
 
 after_script:  
   - npm run test
