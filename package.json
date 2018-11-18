@@ -6,7 +6,10 @@
   "scripts": {
     "test": "mocha --require @babel/register --require @babel/polyfill \"./server/**/*.spec.js*\" --exit",
     "start": "babel-node server/app.js",
-    "start:prod": "babel-node server/app.prod.js"
+    "start:prod": "babel-node server/app.prod.js",
+    "build": "webpack --mode production",
+    "coveralls": "cat ./coverage/lcov.info | ./node_modules/.bin/coveralls",
+    "coverage": "nyc report --reporter=text-lcov | coveralls && nyc report --reporter=lcov"
   },
   "keywords": [],
   "author": "",
