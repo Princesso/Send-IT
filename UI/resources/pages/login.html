@@ -27,11 +27,11 @@
     <section class="main-content" id="main-content"> 
         <div class="login-container">
               <div class="form-holder">
-                <form class="form" id="login" action="../pages/dashboard.html" > 
+                <form class="form" id="loginForm" action="../pages/dashboard.html" method="POST"> 
                   <h3>Login</h3>
-                  <input type="email" placeholder="Email" required >
-                  <input type="password" placeholder="Password" required >
-                  <button type="submit" onclick="validateInput()">Login</button>
+                  <input type="email" placeholder="Email" required id="email">
+                  <input type="password" placeholder="Password" required  id="password">
+                  <button type="submit" id="submitBtn">Login</button>
                   <p id="message">Have no account? <a href="../pages/register.html"> Register</a></p>
                 </form>
               </div>
@@ -48,4 +48,44 @@
         </nav>
     </footer> 
 </body>
+<script>
+  function validateEmail(email) {
+    var re = /\S+@\S+\.\S+/;
+    return re.test(email);
+  }
+
+  function submitLoginForm(e, d) {
+    e.preventDefault()
+    const loginInfo = {
+      email: document.getElementById('email').value,
+      password: document.getElementById("password").value
+    }
+    fetch('http://localhost:8080/api/v1/auth/login', {
+      method: "POST",
+      body: JSON.stringify(loginInfo),
+    })
+    .then(function(response) {
+        return response.json();
+      })
+    .then((res) => {
+      if(!res.token) throw('no token in response')
+      document.cookie = `user_token=${res.token}`
+      window.location.href = '/'
+    })
+    .catch(error => {
+      console.log(error)
+    })
+  }
+  
+  const getUserToken = () => {
+    let tokenStr = document.cookie.split(';')
+      .find(c => c.split('=')[0] == ' user_token')
+    if(tokenStr) {
+      return tokenStr.split('=').pop()
+    }
+  }
+
+document.getElementById("submitBtn").addEventListener("click", submitLoginForm);
+
+</script>
 </html>
