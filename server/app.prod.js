@@ -9,6 +9,7 @@ app.use(express.json())
 
 import parcelRoute from './routes/parcels'
 import userRoute from './routes/users'
+import authRoute from './routes/auth'
 
 app.set('views', path.join(__dirname, 'views'));
 
