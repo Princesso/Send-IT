@@ -1,6 +1,7 @@
 import express from 'express'
 import bodyParser from 'body-parser'
 import path from 'path'
+import cors from 'cors'
 
 let app = express();
 
@@ -27,6 +28,7 @@ app.all('/*', function(req, res, next) {
 });
 
 app.use(bodyParser.urlencoded({ extended: false }))
+app.use('/api/v1/auth', authRoute)
 app.use('/api/v1/parcels', parcelRoute)
 app.use('/api/v1/users',userRoute)
 
