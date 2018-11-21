@@ -1,10 +1,4 @@
 import express from 'express'
-import bodyParser from 'body-parser'
-import parcels from '../mockdata/parcels'
-import Joi from 'joi'
-import { pool, dbQuery } from '../config'
-import moment from 'moment'
-import nodeMailer from 'nodemailer'
 import parcelController from '../controllers/parcels'
 import Auth from '../middleware/auth'
 
