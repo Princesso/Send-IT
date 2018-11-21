@@ -18,7 +18,7 @@ export default {
       "/auth/login": {
           post: {
               tags: ["Auth"],
-              summary: "Login the API to get authentication token",
+              summary: "Login to the API to get authentication token",
               consumes: ["application/x-www-form-urlencoded"],
               parameters: [
                   {
@@ -72,34 +72,26 @@ export default {
                       type: "string"
                   },
                   {
-                      name: "gender",
+                      name: "othernames",
                       in: "formData",
                       description:
-                          "The gender for the user account to be created",
+                          "The other name of the user to be created",
+                      required: false,
+                      type: "string"
+                  },
+                  {
+                      name: "email",
+                      in: "formData",
+                      description:
+                          "The email of the user account to be created",
                       required: true,
                       type: "string"
                   },
                   {
-                      name: "date_of_birth",
+                      name: "username",
                       in: "formData",
                       description:
-                          "The date_of_birth of the user account to be created",
-                      required: true,
-                      type: "string"
-                  },
-                  {
-                      name: "phone_mumber",
-                      in: "formData",
-                      description:
-                          "The phone_number of the user account to be created",
-                      required: true,
-                      type: "string"
-                  },
-                  {
-                      name: "image_url",
-                      in: "formData",
-                      description:
-                          "The image_url for the user account to be created",
+                          "The username of the user account to be created",
                       required: true,
                       type: "string"
                   },
@@ -108,62 +100,6 @@ export default {
                       in: "formData",
                       description:
                           "The password for the user account to be created",
-                      required: true,
-                      type: "string"
-                  },
-                  {
-                      name: "oauth_type",
-                      in: "formData",
-                      description:
-                          "The oauth_type of the user account to be created",
-                      required: true,
-                      type: "string"
-                  },
-                  {
-                      name: "oauth_id",
-                      in: "formData",
-                      description:
-                          "The oauth_id of the user account to be created",
-                      required: true,
-                      type: "string"
-                  },
-                  {
-                      name: "state_code",
-                      in: "formData",
-                      description:
-                          "The state_code for the user account to be created",
-                      required: true,
-                      type: "string"
-                  },
-                  {
-                      name: "county_code",
-                      in: "formData",
-                      description:
-                          "The country_code for the user account to be created",
-                      required: true,
-                      type: "string"
-                  },
-                  {
-                      name: "city_code",
-                      in: "formData",
-                      description:
-                          "The city_code of the user account to be created",
-                      required: true,
-                      type: "string"
-                  },
-                  {
-                      name: "address",
-                      in: "formData",
-                      description:
-                          "The address of the user account to be created",
-                      required: true,
-                      type: "string"
-                  },
-                  {
-                      name: "email",
-                      in: "formData",
-                      description:
-                          "The email for the user account to be created",
                       required: true,
                       type: "string"
                   }
@@ -184,111 +120,60 @@ export default {
               }
           }
       },
-      "/auth/changepassword": {
+      "/parcels": {
           post: {
-              tags: ["Auth"],
-              summary: "Change password on forgot password",
+              tags: ["Parcels"],
+              summary: "Work with parcel delivery orders",
               consumes: ["application/x-www-form-urlencoded"],
               parameters: [
                   {
-                      name: "x-access-token",
+                      name: "Bearer",
                       in: "header",
                       description: "Authorization token",
                       required: true,
                       type: "string"
                   },
                   {
-                      name: "email",
-                      in: "formData",
-                      description: "The email used on signup",
-                      required: true,
-                      type: "string"
-                  }
-              ],
-              description: "Sends a Mail to User.",
-              responses: {
-                  "200": {
-                      description: "Please Check Mail to Change Password"
-                  },
-                  "400": {
-                      description: "Error Sending Mail To Change Password"
-                  }
-              }
-          }
-      },
-      "/auth/email/verify/:id": {
-          get: {
-              tags: ["Auth"],
-              summary: "Verify Token Sent with Email",
-              consumes: ["application/x-www-form-urlencoded"],
-              parameters: [
-                  {
-                      name: "x-access-token",
-                      in: "header",
-                      description: "Authorization token",
-                      required: true,
-                      type: "string"
-                  }
-              ],
-              description: "Verify Token Sent with Email ",
-              responses: {
-                  "200": {
-                      description:
-                          "Token Verification Successful, Please Change Password"
-                  },
-                  "400": {
-                      description: "Token Verification Failed"
-                  }
-              }
-          }
-      },
-      "/auth/email/changepassword": {
-          post: {
-              tags: ["Auth"],
-              summary: "Actual Change of Password",
-              consumes: ["application/x-www-form-urlencoded"],
-              parameters: [
-                  {
-                      name: "x-access-token",
-                      in: "header",
-                      description: "Authorization token",
-                      required: true,
-                      type: "string"
-                  },
-                  {
-                      name: "newpassword",
+                      name: "weight",
                       in: "formData",
                       description: "The newpassword to be changed",
                       required: true,
-                      type: "string"
+                      type: "number"
                   },
                   {
-                      name: "token",
+                      name: "fromAddress",
                       in: "formData",
                       description: "The verified token",
                       required: true,
                       type: "string"
-                  }
+                  },
+                  {
+                    name: "toddress",
+                    in: "formData",
+                    description: "The verified token",
+                    required: true,
+                    type: "string"
+                }
               ],
-              description: "Actual Change of Password",
+              description: "Create a new parcel delivery order",
               responses: {
                   "200": {
-                      description: "Password Updated Successfully"
+                      description: "Parcel created Successfully"
                   },
                   "400": {
-                      description: "There Was an Error Changing Password"
+                      description: "There Was an Error creating the parcel delivery order"
                   }
               }
           }
       },
-      "/auth/google": {
+      "/parcels": {
           get: {
-              tags: ["Auth"],
-              summary: "Login using Google OAUTH",
+              tags: ["Parcels"],
+              summary: "Get parcel delivery orders",
               consumes: ["application/x-www-form-urlencoded"],
               parameters: [
                   {
-                      name: "x-access-token",
+                      name: "Bearer",
                       in: "header",
                       description: "Authorization token",
                       required: true,
@@ -297,21 +182,28 @@ export default {
               ]
           }
       },
-      "/auth/facebook": {
+      "/parcels/:id": {
           get: {
-              tags: ["Auth"],
-              summary: "Login using Facebook OAUTH",
+              tags: ["Parcels"],
+              summary: "Get a parcel by it's identity number",
               consumes: ["application/x-www-form-urlencoded"],
               parameters: [
                   {
-                      name: "x-access-token",
+                      name: "Bearer",
                       in: "header",
                       description: "Authorization token",
                       required: true,
                       type: "string"
-                  }
+                  },
+                  {
+                    name: "parcel ID",
+                    in: "formData",
+                    description: "Parcel identity number",
+                    required: true,
+                    type: "string"
+                }
               ]
           }
-      }
+      },
   }
 };
