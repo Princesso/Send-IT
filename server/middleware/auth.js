@@ -1,11 +1,11 @@
-import { pool, dbQuery } from '../database'
+import db from '../config'
 import jwt from 'jsonwebtoken'
 import dotenv from 'dotenv'
 
 dotenv.config();
 
-const Auth = {
-  verifyToken (req, res, next) {
+class Auth {
+  static verifyToken (req, res, next) {
   const bearerHeader = req.headers['authorization']
 
   if (typeof bearerHeader !== 'undefined') {
@@ -18,19 +18,23 @@ const Auth = {
         res.send("You cannot access this page")
       } else {
           req.user = data.userId
-          dbQuery("SELECT isAdmin FROM users where id=$1", [req.user], (err, dbres) => {
-            if(err) {
-              return res.send('Something went wrong')
-            } else {
-              req.adminStatus = dbres.rows[0].isadmin
-              next()
+          const query= `SELECT isadmin FROM users where id='${req.user}'`
+          db.query(query)
+          .then((result) => {
+            if (result.rowCount === 0) {
+              res.json({"status": 400, "message": "An error occurred"})
+            } else if (result.rowCount >=1 ) {
+                req.adminStatus = result.rows[0].isadmin
+                next()
             }
+          })
+          .catch((error) => {
+            return res.json('Something went wrong')
           })
         }
       })
     } else {
-      res.json("Forbidden")
-      next()
+      res.status(403).json({"status":403, "message":"Forbidden"})
     }
   }
 }
