@@ -1,14 +1,13 @@
-import bcrypt from 'bcryptjs'
-import jwt from 'jsonwebtoken'
 import moment from 'moment'
-import { pool, dbQuery } from '../database'
+import db  from '../config'
 import dotenv from 'dotenv'
 import Helper from './helper'
 
 dotenv.config();
 
-const Parcels = {
-  async create(req, res) {
+class Parcels {
+  static create(req, res) {
+    //console.log(req.body)
     let newOrder = {
       placedBy: req.user,
       weight: req.body.weight,
@@ -19,104 +18,141 @@ const Parcels = {
       toAddress: req.body.toAddress,
       currentLocation: req.body.fromAddress
     };
-   await dbQuery('INSERT INTO parcels (placedBy,weight,weightmetric,sentOn,status,fromAddress,toAddress,currentLocation) VALUES($1,$2,$3,$4,$5,$6,$7,$8) RETURNING *',
-    [newOrder.placedBy,newOrder.weight,newOrder.weightmetric,newOrder.sentOn,newOrder.status,newOrder.fromAddress,newOrder.toAddress,newOrder.currentLocation],
-    (err, dbres) => {
-      if (err) {
-        res.status(400).json({ "status": res.statusCode, "error": 'An error occured while trying to save your order '})
-      } else {
-        res.status(200).json({"status": res.statusCode, "data": dbres.rows[0]});
+   // console.log(newOrder)
+    const query = `INSERT INTO parcels (placedby,weight,weightmetric,senton,status,fromaddress,toaddress,currentlocation) 
+                  VALUES('${newOrder.placedBy}','${newOrder.weight}','${newOrder.weightmetric}','${newOrder.sentOn}','${newOrder.status}','${newOrder.fromAddress}'
+                  ,'${newOrder.toAddress}','${newOrder.currentLocation}')`
+    db.query(query)
+    .then((result) => {
+     // console.log()
+      if(result.rowCount === 0) {
+        res.status(400).json({ "status": res.statusCode, "Message": 'An error occured while trying to save your order'})
+      } else if(result.rowCount >= 1) {
+        res.status(200).json({"status": res.statusCode, "message": "New parcel added successfuly"});
       }
     })
-  },
+    .catch((error) => {
+      console.log(error)
+      res.status(400).json({ "status": res.statusCode, "error": 'An error occured while trying to save your order '})
+    })
+  }
+  static getAll(req, res) {
+      if(!req.adminStatus) {
+        const query =  `SELECT * FROM parcels where placedBy ='${req.user}'`
+        db.query(query)
+        .then((result) => {
+          if(result.rowCount === 0) {
+            return res.status(400).json({ "status": res.statusCode, "error": 'You have not created any parcels'})
+          } else if (result.rowCount >= 1) {
+            res.status(200).json({"status": res.statusCode, "data": result.rows});
+          }
+        })
+        .catch((error) => {
+          console.log(error)
+          res.status(400).json({ "status": res.statusCode, "error": "Could not get parcels from database"})
+        })
 
-  async getAll(req, res) {
-    if(!req.adminStatus) {  
-      await dbQuery('SELECT * FROM parcels where placedBy =$1', [req.user], (err, dbres) => {
-        if (err) {
-          res.status(400).json({ "status": res.statusCode, "error": "Could not get parcels from database"})
-        } else {
-            if (dbres.rows.length < 1) {
-              return res.status(400).json({ "status": res.statusCode, "error": 'You have not created any parcels'})
-            }
-           // Helper.sendEmail()
-            res.status(200).json({"status": res.statusCode, "data": dbres.rows});
-        }
-      })
-    } else {
-      await dbQuery('SELECT * FROM parcels', [], (err, dbres) => {
-        if (err) {
-          res.status(400).json({ "status": res.statusCode, "error": "Could not get parcels from database"})
-        } else {
-            if (dbres.rows.length < 1) {
-              return res.status(400).json({ "status": res.statusCode, "error": 'No parcels found'})
-            }
-            res.status(200).json({"status": res.statusCode, "data": dbres.rows});
-        }
-      })
-    }
-  },
-  async getOne(req, res) {
-    if (!req.adminStatus) {
-      let id = req.params.id
-      await dbQuery('SELECT * FROM parcels WHERE ID=$1 and placedBy=$2',[id,req.user], (err, dbres) => {
-         if (err) {
-           res.status(400).send({ "status": res.statusCode, "error": 'An error occured while retrieving the requested parcel'});
-         } else {
-           if (dbres.rows < 1) res.status(400).send({"status": res.statusCode, "message": "No such parcel delivery order" });
-           res.status(200).send({"status": res.statusCode, "data": dbres.rows});
-         }
-       })
-    } else {
-      let id = req.params.id
-      await dbQuery('SELECT * FROM parcels WHERE ID=$1',[id], (err, dbres) => {
-         if (err) {
-           res.status(400).send({ "status": res.statusCode, "error": 'An error occured while retrieving the requested parcel'});
-         } else {
-           if (dbres.rows < 1) res.status(400).send({"status": res.statusCode, "message": "No such parcel delivery order" });
-           res.status(200).send({"status": res.statusCode, "data": dbres.rows[0]});
-         }
-       })
-    }
-   },
-  async cancel(req, res) {
-    const id = req.params.id;
-    const newStatus = 'canceled'
-   await dbQuery('UPDATE parcels SET status=$1 WHERE id=$2 and placedBy=$3',[newStatus,id, req.user], (err, dbres) => {
-      if (err) {
-        res.status(400).json({ "status": res.statusCode, "error": 'An error occured while trying to cancel your parcel delivery order'})
       } else {
-        if (dbres.rows < 1) res.status(400).send({"status": res.statusCode, "message": "You do not own such parcel delivery order" });
-        res.status(200).json({"status": res.statusCode, "Message": "Your Order has been canceled successfully"});
+        const query =  `SELECT * FROM parcels`
+        db.query(query)
+        .then((result) => {
+          if(result.rowCount === 0) {
+            return res.status(400).json({ "status": res.statusCode, "error": 'No Parcels'})
+          } else if (result.rowCount >= 1) {
+            res.status(200).json({"status": res.statusCode, "data": result.rows});
+          }
+        })
+        .catch((error) => {
+          res.status(400).json({ "status": res.statusCode, "error": "Could not get parcels from database"})
+        })
       }
-    })
-  },
-  async changeDestination(req, res) {
+    }
+    static getOne(req, res) {
+      let id = req.params.id
+    if (!req.adminStatus) {
+      const query = `SELECT * FROM parcels WHERE ID='${id}'and placedBy='${req.user}'`
+      db.query(query)
+        .then((result) => {
+          if(result.rowCount === 0) {
+            return res.status(400).json({ "status": res.statusCode, "error": 'No such parcel'})
+          } else if (result.rowCount >= 1) {
+            res.status(200).json({"status": res.statusCode, "data": result.rows[0]});
+          }
+        })
+        .catch((error) => {
+          res.status(400).json({ "status": res.statusCode, "error": "Could not get parcels from database"})
+        })
+      
+    } else {
+      const query = `SELECT * FROM parcels WHERE ID='${id}'`
+      db.query(query)
+        .then((result) => {
+          if(result.rowCount === 0) {
+            return res.status(400).json({ "status": res.statusCode, "error": 'No such parcel'})
+          } else if (result.rowCount >= 1) {
+            res.status(200).json({"status": res.statusCode, "data": result.rows[0]});
+          }
+        })
+        .catch((error) => {
+          res.status(400).json({ "status": res.statusCode, "error": "Could not get parcels from database"})
+        })
+    }
+   }
+  static cancel(req, res) {
+    const id = req.params.id;
+    const newStatus = 'canceled';
+    console.log(req.user);
+    const query = `UPDATE parcels SET status='${newStatus}' WHERE id='${id}' and placedby='${req.user}'`
+    db.query(query)
+        .then((result) => {
+          console.log(result)
+          if(result.rowCount === 0) {
+            return res.status(400).json({ "status": 400, "error": 'No such parcel'})
+          } else if (result.rowCount >= 1) {
+            res.status(200).json({"status": 200, "message": "Your parcel delivery order has been cancelled "});
+          }
+        })
+        .catch((error) => {
+          res.status(400).json({ "status": 400, "error": "Could not get parcels from database"})
+        })
+  }
+  static changeDestination(req, res) {
     const id = req.params.id;
     const newDestination = req.body.toAddress
-    await dbQuery('UPDATE parcels SET toAddress=$1 WHERE id=$2 AND placedBy=$3 returning *',[newDestination,id,req.user], (err, dbres) => {
-      if(err) {
-        res.status(400).send({ "status": res.statusCode, "error": 'An error occured while trying to change the destination of your parcel delivery order'})
-      } else {
-        if (dbres.rows < 1) res.status(400).send({"status": res.statusCode, "message": "You do not own such parcel delivery order" });
-        else res.status(200).send({"status": res.statusCode, "Message": "Parcel destination updated"});
+    const query = `UPDATE parcels SET toAddress='${newDestination}' WHERE id='${id}' AND placedby='${req.user}'`
+    db.query(query)
+    .then((result) => {
+      if(result.rowCount === 0) {
+        return res.status(400).json({ "status": 400, "error": 'No such parcel'})
+      } else if (result.rowCount >= 1) {
+        res.status(200).json({"status": 200, "Message": "The destination has been changed successfully "});
       }
     })
-  },
-  async changeCurrentLocation(req, res) {
+    .catch((error) => {
+      console.log(error)
+      res.status(400).json({ "status": 400, "error": "An error ocurred while trying to change the parcel Destination"})
+    })
+  }
+  static changeCurrentLocation(req, res) {
     if (req.adminStatus) {
       const id = req.params.id;
       const currentLocation = req.body.currentLocation
-      await dbQuery('UPDATE parcels SET toAddress=$1 WHERE id=$2',[currentLocation,id], (err, dbres) => {
-        if (err) {
-          res.status(400).send({ "status": res.statusCode, "error": 'An error occured while trying to change the current location of the parcel delivery order'})     
-        } else {
-            res.status(200).send({"status": res.statusCode, "Message": "The current location of the parcel has been updated"});
-        }
+      const query = `UPDATE parcels SET toaddress='${currentLocation}' WHERE id='${id}'` 
+      db.query(query)
+    .then((result) => {
+      if(result.rowCount === 0) {
+        return res.status(400).json({ "status": 400, "error": 'No such parcel'})
+      } else if (result.rowCount >= 1) {
+        res.status(200).json({"status": 200, "Message": "The destination has been changed successfully "});
+      }
     })
-    }
-    res.status(400).send({"status": res.statusCode, "Message": "Only admins can access this functionality"});    
-  },
+    .catch((error) => {
+      res.status(400).json({ "status": 400, "error": "Could find the parcel in database"})
+    })
+  } else {
+    res.json({"Message": "Only Admins can access this route"})
+  }
+}
 }
 
-export default Parcels
+export default Parcels;
