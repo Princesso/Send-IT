@@ -1,5 +1,3 @@
-import bcrypt from 'bcryptjs'
-import jwt from 'jsonwebtoken'
 import moment from 'moment'
 import db from '../config'
 import dotenv from 'dotenv'
@@ -85,41 +83,57 @@ class User {
             res.json({"status": 200, "data": result.rows})
         }
       })
+      .catch((error) => {
+        res.status(400).json({"status": 400, "message":"An error occurd when trying to get users from database"})
+      })
     } else {
       res.json({"status": 400, "data": "Only Admin can access this page"})
     }
   }
-  // static getOne (req, res) {
-  //   if(!req.adminStatus) {
-  //     let id = req.params.id
-  //     dbQuery('SELECT * FROM users WHERE ID=$1 AND placedBy=$2',[id,req.user], (err, dbres) => {
-  //     if (err) {
-  //       res.send({ "status": res.statusCode, "error": 'No such User please check the ID again'})
-  //     } else {
-  //       res.send({"status": res.statusCode, "data": dbres.rows[0]});
-  //     }
-  //   })
-  //   } else {
-  //     let id = req.params.id
-  //     dbQuery('SELECT * FROM users WHERE ID=$1',[id,req.user], (err, dbres) => {
-  //     if (err) {
-  //       res.send({ "status": res.statusCode, "error": 'No such User please check the ID again'})
-  //     } else {
-  //       res.send({"status": res.statusCode, "data": dbres.rows[0]});
-  //     }
-  //   })
-  //   }
-  // }
-  // static getUserParcels (req, res) {
-  // dbQuery('SELECT * FROM parcels WHERE placedBy=$1',[req.user], (err, dbres) => {
-  //   if (err) {
-  //     res.send({ "status": res.statusCode, "error": 'An error occured while trying to retrieve user parcels'})
-  //   } else {
-  //     res.send({"status": res.statusCode, "data": dbres.rows});
-  //   }
-  // })
-  // }
-
+  static getOne (req, res) {
+    let id = req.params.id
+    if(!req.adminStatus) {
+      const query = `SELECT * FROM users WHERE ID='${id}' AND placedBy='${req.user}'`
+      db.query(query)
+      .then((result) => {
+        if (result.rowCount ===0) {
+          res.json({"status": 400, "message": "No Such User Found"})
+        } else if (result.rowCount >=1 ) {
+            res.json({"status": 200, "data": result.rows})
+        }
+      })
+      .catch((error) => {
+        res.status(400).json({"status": 400, "message":"An error occurd when trying to get user from database"})
+      })   
+    } else {
+      const query = `SELECT * FROM users WHERE ID='${id}'`
+      db.query(query)
+      .then((result) => {
+        if (result.rowCount ===0) {
+          res.json({"status": 400, "message": "No Such User Found"})
+        } else if (result.rowCount >=1 ) {
+            res.json({"status": 200, "data": result.rows})
+        }
+      })
+      .catch((error) => {
+        res.status(400).json({"status": 400, "message":"An error occurd when trying to get user from database"})
+      })
+    }
+  }
+  static getUserParcels (req, res) {
+    const query = `SELECT * FROM parcels WHERE placedBy='${req.user}'`
+    db.query(query)
+      .then((result) => {
+        if (result.rowCount ===0) {
+          res.status(400).json({"status": 400, "message": "User has no parcel delivery orders"})
+        } else if (result.rowCount >=1 ) {
+            res.status(200).json({"status": 200, "data": result.rows})
+        }
+      })
+      .catch((error) => {
+        res.status(400).json({"status": 400, "message":"An error occurd when trying to get user parcels from database"})
+      })
+  }
 }
 
 export default User
