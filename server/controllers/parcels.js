@@ -147,11 +147,31 @@ class Parcels {
       }
     })
     .catch((error) => {
-      res.status(400).json({ "status": 400, "error": "Could find the parcel in database"})
+      res.status(400).json({ "status": 400, "error": "Could not find the parcel in database"})
     })
   } else {
     res.json({"Message": "Only Admins can access this route"})
   }
+}
+static changeStatus(req, res) {
+  if (req.adminStatus) {
+    const id = req.params.id;
+    const currentLocation = req.body.status
+    const query = `UPDATE parcels SET toaddress='${status}' WHERE id='${id}'` 
+    db.query(query)
+  .then((result) => {
+    if(result.rowCount === 0) {
+      return res.status(400).json({ "status": 400, "error": 'No such parcel'})
+    } else if (result.rowCount >= 1) {
+      res.status(200).json({"status": 200, "Message": "The status of the parcel has been changed successfully "});
+    }
+  })
+  .catch((error) => {
+    res.status(400).json({ "status": 400, "error": "Could not find the parcel in database"})
+  })
+} else {
+  res.json({"Message": "Only Admins can access this route"})
+}
 }
 }
 
