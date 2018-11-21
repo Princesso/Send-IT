@@ -2,7 +2,8 @@ import express from 'express'
 import bodyParser from 'body-parser'
 import path from 'path'
 import cors from 'cors'
-import jwt from 'jsonwebtoken'
+import swagger from "swagger-ui-express";
+import swaggerDocument from "../swagger.js";
 
 let app = express();
 
@@ -33,6 +34,7 @@ app.all('/*', function(req, res, next) {
 app.use('/api/v1/auth', authRoute)
 app.use('/api/v1/parcels', parcelRoute)
 app.use('/api/v1/users', userRoute)
+app.use("/docs", swagger.serve, swagger.setup(swaggerDocument));
 
 app.get('/', (req, res) => {
   return res.status(200).json({ msg: 'Welcome to Send-It API.'});
