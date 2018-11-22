@@ -38,54 +38,13 @@
         </div>
     </section>
     <footer class="footer">
-      <div><h1><a href="../../index.html">Send-It</a></h1></div>
+      <div><h4>Copyright made by Oluebube Princess Egbuna © 2018</h4></div>
         <nav>
           <ul>
             <li><a href="#">Contact</a></li>
             <li><a href="#">FAQs</a></li>
-            <li><a href="#">Join our team</a></li>
           </ul>
         </nav>
     </footer> 
 </body>
-<script>
-  function validateEmail(email) {
-    var re = /\S+@\S+\.\S+/;
-    return re.test(email);
-  }
-
-  function submitLoginForm(e, d) {
-    e.preventDefault()
-    const loginInfo = {
-      email: document.getElementById('email').value,
-      password: document.getElementById("password").value
-    }
-    fetch('http://localhost:8080/api/v1/auth/login', {
-      method: "POST",
-      body: JSON.stringify(loginInfo),
-    })
-    .then(function(response) {
-        return response.json();
-      })
-    .then((res) => {
-      if(!res.token) throw('no token in response')
-      document.cookie = `user_token=${res.token}`
-      window.location.href = '/'
-    })
-    .catch(error => {
-      console.log(error)
-    })
-  }
-  
-  const getUserToken = () => {
-    let tokenStr = document.cookie.split(';')
-      .find(c => c.split('=')[0] == ' user_token')
-    if(tokenStr) {
-      return tokenStr.split('=').pop()
-    }
-  }
-
-document.getElementById("submitBtn").addEventListener("click", submitLoginForm);
-
-</script>
 </html>

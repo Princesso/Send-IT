@@ -21,7 +21,8 @@
           <nav>
             <ul>
               <li><a href="../../index.html">Home</a></li>
-              <li><a href="#">Notification</a></li>
+              <li><a href="#"><span class="fas fa-bell"></span></a></li>
+              <li><a href="./admin.html">Admin</a></li>
               <li><a href="../../index.html">Logout</a></li>
             </ul>
           </nav>
@@ -77,6 +78,7 @@
               <thead>
                 <tr>
                     <th data-name="id">ID</th>
+                    <th data-name="item-name">ITEM NAME</th>
                     <th data-name="currentlocation">CURRENT LOCATION</th>
                     <th data-name="toaddress">DESTINATION</th>
                     <th data-name="status">STATUS</th>
@@ -86,81 +88,42 @@
 
               <tbody>
                 <tr>
-                    <!-- <td>1</td>
-                    <td>Shoes</td>
-                    <td>1 kg bla</td>
+                    <td>1</td>
+                    <td>Dress</td>
+                    <td>Alaba</td>
+                    <td>Ikeja</td>
                     <td>pending</td>
                     <td><a href="./order-detail.html"><button>View</button></a></td>
                   </tr>
                   <tr>
                     <td>1</td>
                     <td>Clothes</td>
-                    <td>1 kg bla</td>
+                    <td>Alaba</td>
+                    <td>Onitsha</td>
                     <td>Delivered</td>
                     <td><a href="./order-detail.html"><button>View</button></a></td>
                   </tr>
                   <tr>
                     <td>1</td>
                     <td>Bags</td>
-                    <td>1 kg bla</td>
+                    <td>Ojo</td>
+                    <td>Obanikoro</td>
                     <td>pending</td>
                     <td><a href="./order-detail.html"><button>View</button></a></td>
-                  </tr> -->
+                  </tr> 
               </tbody>
             </table>
           </div>
         </section>
         <footer class="footer">
-          <div><h1><a href="../../index.html">Send-It</a></h1></div>
+          <div><h4>Copyright made by Oluebube Princess Egbuna © 2018</h4></div>
             <nav>
               <ul>
                 <li><a href="#">Contact</a></li>
                 <li><a href="#">FAQs</a></li>
-                <li><a href="#">Join our team</a></li>
               </ul>
             </nav>
         </footer> 
   </div>
-  <script>
-    fetch('http://localhost:8080/api/v1/users/1/parcels')
-      .then(function(response) {
-        return response.json();
-      })
-      .then((res) => {
-        // we had stored the attributes to be filled in the rows using the data-attributes of the thead
-        // so we grab the thead (for the data attributes)
-        // and grab the tbody so we can append our new rows to them
-        let tableHeadRef = document.getElementById('dashboard-table').getElementsByTagName('thead')[0]
-        let tableRef = document.getElementById('dashboard-table').getElementsByTagName('tbody')[0]
-        
-        // we sort the data by id so it lines up neatly in asc order :)
-        // then we iterate
-        res.data.sort((d1, d2) => d1.id - d2.id).forEach(order => {
-
-          // we create a new row on the body of the table
-          let newRow   = tableRef.insertRow(tableRef.rows.length);
-
-          // we want to create as many cells as there are on the header
-          // notice we are leaving out the last row? For our button later :)
-          for(var i = 0;i < tableHeadRef.rows[0].cells.length - 1;i++) {
-            let newCell = newRow.insertCell(i);
-            
-            // text to be inserted in the cell?
-            // the order is an object in the format {id: 1, currentlocation: 'lagos', toaddress: 'Aba', ...}
-            // for the first cell in the header 
-            let newText = document.createTextNode(order[tableHeadRef.rows[0].cells[i].dataset.name])
-            newCell.appendChild(newText);
-          }
-          
-          let btn = document.createElement('button');
-          btn.innerText = 'View'
-          let tag = document.createElement('a')
-          tag.appendChild(btn)
-          let newCell  = newRow.insertCell(i);
-          newCell.appendChild(tag);
-        })
-      })
-      .catch(error => console.error('Error:', error))
-  </script>
 </body>
 </html>
