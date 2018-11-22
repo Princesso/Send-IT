@@ -23,7 +23,7 @@ const Helper = {
     return token;
   },
   sendEmail() {
-   
+   const API_KEY = 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
   }
 }
 
