@@ -196,7 +196,7 @@ export default {
                       type: "string"
                   },
                   {
-                    name: "parcel ID",
+                    name: "ID",
                     in: "formData",
                     description: "Parcel identity number",
                     required: true,
@@ -205,5 +205,67 @@ export default {
               ]
           }
       },
+      "/parcels/:id/cancel": {
+        get: {
+            tags: ["Parcels"],
+            summary: "Cancel a parcel delivery order",
+            consumes: ["application/x-www-form-urlencoded"],
+            parameters: [
+                {
+                    name: "Bearer",
+                    in: "header",
+                    description: "Authorization token",
+                    required: true,
+                    type: "string"
+                }
+            ]
+        }
+    },
+    "/parcels/:id/destination": {
+      get: {
+          tags: ["Parcels"],
+          summary: "Change a parcel delivery order's destination",
+          consumes: ["application/x-www-form-urlencoded"],
+          parameters: [
+              {
+                  name: "Bearer",
+                  in: "header",
+                  description: "Authorization token",
+                  required: true,
+                  type: "string"
+              },
+              {
+                name: "toAddress",
+                in: "formData",
+                description: "Parcel's new destination",
+                required: true,
+                type: "string"
+            }
+          ]
+      }
+  },
+  "/parcels/:id/currentlocation": {
+    get: {
+        tags: ["Parcels"],
+        summary: "Change a parcel delivery order's current location",
+        consumes: ["application/x-www-form-urlencoded"],
+        parameters: [
+            {
+                name: "Bearer",
+                in: "header",
+                description: "Authorization token",
+                required: true,
+                type: "string"
+            },
+            {
+              name: "toAddress",
+              in: "formData",
+              description: "Parcel's new destination",
+              required: true,
+              type: "string"
+          }
+        ]
+    }
+  },
   }
 };
