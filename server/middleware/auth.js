@@ -15,21 +15,21 @@ class Auth {
 
     jwt.verify(req.token, process.env.SECRET, (err, data) => {
       if (err) {
-        res.send("You cannot access this page")
+        res.status(403).send("You cannot access this page because you require a token to access it")
       } else {
           req.user = data.userId
           const query= `SELECT isadmin FROM users where id='${req.user}'`
           db.query(query)
           .then((result) => {
             if (result.rowCount === 0) {
-              res.json({"status": 400, "message": "An error occurred"})
+              res.status(400).json({"status": 400, "message": "An error occurred"})
             } else if (result.rowCount >=1 ) {
                 req.adminStatus = result.rows[0].isadmin
                 next()
             }
           })
           .catch((error) => {
-            return res.json('Something went wrong')
+            return res.status(400).json('Something went wrong')
           })
         }
       })
