@@ -1,7 +1,7 @@
 import moment from 'moment'
 import db  from '../config'
 import dotenv from 'dotenv'
-import Helper from '../Helpers/helper'
+import Helper from '../helpers/helper'
 
 dotenv.config();
 
