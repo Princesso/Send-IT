@@ -8,14 +8,17 @@
     "start": "babel-node server/app.js",
     "start:prod": "babel-node server/app.prod.js",
     "coveralls": "cat ./coverage/lcov.info | ./node_modules/.bin/coveralls",
-    "coverage": "nyc report --reporter=text-lcov | coveralls && nyc report --reporter=lcov"
+    "coverage": "nyc report --reporter=text-lcov | coveralls && nyc report --reporter=lcov",
+    "report": "nyc report"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "eslint": "^5.9.0",
-    "should": "^13.2.3"
+    "should": "^13.2.3",
+    "babel-cli": "^6.26.0",
+    "babel-plugin-istanbul": "^5.1.0"
   },
   "dependencies": {
     "@babel/core": "^7.1.5",
@@ -44,5 +47,21 @@
     "pg": "^7.6.1",
     "swagger-ui-express": "^4.0.1",
     "uuidv4": "^2.0.0"
+  },
+  "nyc": {
+    "reporter": [
+      "text",
+      "text-summary",
+      "lcov",
+      "html"
+    ],
+    "include": [
+      "server/**/*.spec.js*"
+    ],
+    "require": [
+      "@babel/register"
+    ],
+    "sourceMap": false,
+    "instrument": false
   }
 }
