@@ -4,25 +4,28 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --require @babel/register --require @babel/polyfill \"./server/**/*.spec.js*\" --exit",
+    "test": "nyc --reporter=html --reporter=lcov ./node_modules/.bin/mocha --timeout 100000 --require @babel/register --require @babel/polyfill server/test --exit || true",
     "start": "babel-node server/app.js",
     "start:prod": "babel-node server/app.prod.js",
-    "build": "webpack --mode production",
     "coveralls": "cat ./coverage/lcov.info | ./node_modules/.bin/coveralls",
-    "coverage": "nyc report --reporter=text-lcov | coveralls && nyc report --reporter=lcov"
+    "coverage": "nyc report --reporter=text-lcov | coveralls && nyc report --reporter=lcov",
+    "report": "nyc report"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "eslint": "^5.9.0",
-    "should": "^13.2.3"
+    "should": "^13.2.3",
+    "babel-cli": "^6.26.0",
+    "babel-plugin-istanbul": "^5.1.0"
   },
   "dependencies": {
     "@babel/core": "^7.1.5",
     "@babel/node": "^7.0.0",
     "@babel/polyfill": "^7.0.0",
     "@babel/preset-env": "^7.1.5",
+    "@babel/register": "^7.0.0",
     "babel-eslint": "^10.0.1",
     "babel-loader": "^8.0.4",
     "bcryptjs": "^2.4.3",
@@ -30,16 +33,35 @@
     "chai": "^4.2.0",
     "chai-http": "^4.2.0",
     "cors": "^2.8.5",
+    "coveralls": "^3.0.2",
     "dotenv": "^6.1.0",
     "express": "^4.16.4",
+    "istanbul": "^0.4.5",
     "joi": "^14.0.6",
     "jsdoc": "^3.5.5",
     "jsonwebtoken": "^8.4.0",
     "mocha": "^5.2.0",
     "moment": "^2.22.2",
     "nodemailer": "^4.6.8",
+    "nyc": "^13.1.0",
     "pg": "^7.6.1",
     "swagger-ui-express": "^4.0.1",
     "uuidv4": "^2.0.0"
+  },
+  "nyc": {
+    "reporter": [
+      "text",
+      "text-summary",
+      "lcov",
+      "html"
+    ],
+    "include": [
+      "server/**/*.spec.js*"
+    ],
+    "require": [
+      "@babel/register"
+    ],
+    "sourceMap": false,
+    "instrument": false
   }
 }

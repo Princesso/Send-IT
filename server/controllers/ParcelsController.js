@@ -1,13 +1,12 @@
 import moment from 'moment'
 import db  from '../config'
 import dotenv from 'dotenv'
-import Helper from './helper'
+import Helper from '../helpers/helper'
 
 dotenv.config();
 
 class Parcels {
   static create(req, res) {
-    //console.log(req.body)
     let newOrder = {
       placedBy: req.user,
       weight: req.body.weight,
@@ -18,24 +17,23 @@ class Parcels {
       toAddress: req.body.toAddress,
       currentLocation: req.body.fromAddress
     };
-   // console.log(newOrder)
+    if(newOrder.fromAddress.length<3 || newOrder.toAddress.length<3) res.status(400).json({"status": res.statusCode, "message": "Address cannot be empty or less than 3 characters"});
     const query = `INSERT INTO parcels (placedby,weight,weightmetric,senton,status,fromaddress,toaddress,currentlocation) 
                   VALUES('${newOrder.placedBy}','${newOrder.weight}','${newOrder.weightmetric}','${newOrder.sentOn}','${newOrder.status}','${newOrder.fromAddress}'
                   ,'${newOrder.toAddress}','${newOrder.currentLocation}')`
     db.query(query)
     .then((result) => {
-     // console.log()
       if(result.rowCount === 0) {
-        res.status(400).json({ "status": res.statusCode, "Message": 'An error occured while trying to save your order'})
+        res.status(400).json({ "status": res.statusCode, "Message": 'An error occured while trying to save your order ensure that weight is a valid number and Address are not empty'})
       } else if(result.rowCount >= 1) {
         res.status(200).json({"status": res.statusCode, "message": "New parcel added successfuly"});
       }
     })
     .catch((error) => {
-      console.log(error)
       res.status(400).json({ "status": res.statusCode, "error": 'An error occured while trying to save your order '})
     })
   }
+
   static getAll(req, res) {
       if(!req.adminStatus) {
         const query =  `SELECT * FROM parcels where placedBy ='${req.user}'`
@@ -48,7 +46,6 @@ class Parcels {
           }
         })
         .catch((error) => {
-          console.log(error)
           res.status(400).json({ "status": res.statusCode, "error": "Could not get parcels from database"})
         })
 
@@ -67,8 +64,9 @@ class Parcels {
         })
       }
     }
+
     static getOne(req, res) {
-      let id = req.params.id
+     let id = req.params.id
     if (!req.adminStatus) {
       const query = `SELECT * FROM parcels WHERE ID='${id}'and placedBy='${req.user}'`
       db.query(query)
@@ -98,14 +96,13 @@ class Parcels {
         })
     }
    }
+
   static cancel(req, res) {
     const id = req.params.id;
     const newStatus = 'canceled';
-    console.log(req.user);
     const query = `UPDATE parcels SET status='${newStatus}' WHERE id='${id}' and placedby='${req.user}'`
     db.query(query)
         .then((result) => {
-          console.log(result)
           if(result.rowCount === 0) {
             return res.status(400).json({ "status": 400, "error": 'No such parcel'})
           } else if (result.rowCount >= 1) {
@@ -116,9 +113,11 @@ class Parcels {
           res.status(400).json({ "status": 400, "error": "Could not get parcels from database"})
         })
   }
+
   static changeDestination(req, res) {
     const id = req.params.id;
     const newDestination = req.body.toAddress
+    if (newDestination.length<3) return res.status(400).json({ "status": 400, "error": 'Destination cannot be empty'})
     const query = `UPDATE parcels SET toAddress='${newDestination}' WHERE id='${id}' AND placedby='${req.user}'`
     db.query(query)
     .then((result) => {
@@ -129,22 +128,23 @@ class Parcels {
       }
     })
     .catch((error) => {
-      console.log(error)
       res.status(400).json({ "status": 400, "error": "An error ocurred while trying to change the parcel Destination"})
     })
   }
+
   static changeCurrentLocation(req, res) {
     if (req.adminStatus) {
       const id = req.params.id;
       const currentLocation = req.body.currentLocation
+      if (currentLocation.length<3) return res.status(400).json({ "status": 400, "error": 'Current location cannot be empty'})
       const query = `UPDATE parcels SET toaddress='${currentLocation}' WHERE id='${id}'` 
       db.query(query)
-    .then((result) => {
-      if(result.rowCount === 0) {
-        return res.status(400).json({ "status": 400, "error": 'No such parcel'})
-      } else if (result.rowCount >= 1) {
-        res.status(200).json({"status": 200, "Message": "The destination has been changed successfully "});
-      }
+      .then((result) => {
+        if(result.rowCount === 0) {
+          return res.status(400).json({ "status": 400, "error": 'No such parcel'})
+        } else if (result.rowCount >= 1) {
+          res.status(200).json({"status": 200, "Message": "The destination has been changed successfully "});
+        }
     })
     .catch((error) => {
       res.status(400).json({ "status": 400, "error": "Could not find the parcel in database"})
@@ -153,11 +153,13 @@ class Parcels {
     res.json({"Message": "Only Admins can access this route"})
   }
 }
+
 static changeStatus(req, res) {
   if (req.adminStatus) {
     const id = req.params.id;
-    const currentLocation = req.body.status
-    const query = `UPDATE parcels SET toaddress='${status}' WHERE id='${id}'` 
+    const status = req.body.status
+    if (status.length<3||status!=="delivered") return res.status(400).json({ "status": 400, "error": 'Status can only be pending or delivered and only parcel owners can cancel them '})
+    const query = `UPDATE parcels SET toaddress='${status}' WHERE id='${id}' AND status='pending'` 
     db.query(query)
   .then((result) => {
     if(result.rowCount === 0) {
@@ -170,8 +172,8 @@ static changeStatus(req, res) {
     res.status(400).json({ "status": 400, "error": "Could not find the parcel in database"})
   })
 } else {
-  res.json({"Message": "Only Admins can access this route"})
-}
+    res.json({"Message": "Only Admins can access this route"})
+  }
 }
 }
 

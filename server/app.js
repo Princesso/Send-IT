@@ -41,7 +41,6 @@ app.get('/', (req, res) => {
 });
 
 app.use(function (err, req, res, next) {
-  console.log('the error: ', err)
   res.status(500).send('Something broke!')
 })
 
