@@ -100,10 +100,17 @@ button {
   .header {
     min-height: 160px;
   }
+  .header div{
+    margin-left: 30%;
+  }
   .footer {
     min-height: 160px;
   }
   body {
     line-height: 1;
+  }
+  h4 {
+    font-size: 15px;
+    line-height: 1.5
   }
 }

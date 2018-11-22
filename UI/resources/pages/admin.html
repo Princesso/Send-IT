@@ -27,10 +27,9 @@
           </nav>
         </header>
         <section class="main-content">
-          <div class="welcome">
-            <h5>Welcome Princess (Admin) </h5>
-            
-          </div>
+            <div class="welcome">
+                <h5>Welcome Princess (Admin)</h5>
+              </div>
           <div class="cards">
             <div class="card">
               <div id="delivery-truck">
@@ -73,48 +72,56 @@
               All Orders
           </div>
           <div class="table-container">
-            <table class="table">
-              <tr>
-                <th>ID</th>
-                <th>ITEM</th>
-                <th>DESCRIPTION</th>
-                <th>STATUS</th>
-                <th>ACTION</th>
-              </tr>
-              <tr>
-                <td>1</td>
-                <td>Shoes</td>
-                <td>1 kg bla</td>
-                <td>pending</td>
-                <td><a href="./admin-action.html"><button>View</button></a></td>
-              </tr>
-              <tr>
-                <td>1</td>
-                <td>Clothes</td>
-                <td>1 kg bla</td>
-                <td>Delivered</td>
-                <td><a href="./admin-action.html"><button>View</button></a></td>
-              </tr>
-              <tr>
-                <td>1</td>
-                <td>Bags</td>
-                <td>1 kg bla</td>
-                <td>pending</td>
-                <td><a href="./admin-action.html"><button>View</button></a></td>
-              </tr>
+            <table class="table" id="dashboard-table">
+              <thead>
+                <tr>
+                    <th data-name="id">ID</th>
+                    <th data-name="item-name">ITEM NAME</th>
+                    <th data-name="currentlocation">CURRENT LOCATION</th>
+                    <th data-name="toaddress">DESTINATION</th>
+                    <th data-name="status">STATUS</th>
+                    <th data-name="action">ACTION</th>
+                  </tr>
+              </thead>
+
+              <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Dress</td>
+                    <td>Alaba</td>
+                    <td>Ikeja</td>
+                    <td>pending</td>
+                    <td><a href="./admin-action.html"><button>View</button></a></td>
+                  </tr>
+                  <tr>
+                    <td>1</td>
+                    <td>Clothes</td>
+                    <td>Alaba</td>
+                    <td>Onitsha</td>
+                    <td>Delivered</td>
+                    <td><a href="./admin-action.html"><button>View</button></a></td>
+                  </tr>
+                  <tr>
+                    <td>1</td>
+                    <td>Bags</td>
+                    <td>Ojo</td>
+                    <td>Obanikoro</td>
+                    <td>pending</td>
+                    <td><a href="./admin-action.html"><button>View</button></a></td>
+                  </tr> 
+              </tbody>
             </table>
           </div>
         </section>
         <footer class="footer">
-          <div><h1><a href="../../index.html">Send-It</a></h1></div>
-            <nav>
-              <ul>
-                <li><a href="#">Contact</a></li>
-                <li><a href="#">FAQs</a></li>
-                <li><a href="#">Join our team</a></li>
-              </ul>
-            </nav>
-        </footer> 
+            <div><h4>Copyright made by Oluebube Princess Egbuna © 2018</h4></div>
+              <nav>
+                <ul>
+                  <li><a href="#">Contact</a></li>
+                  <li><a href="#">FAQs</a></li>
+                </ul>
+              </nav>
+          </footer> 
   </div>
 </body>
 </html>
