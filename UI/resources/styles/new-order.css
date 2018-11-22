@@ -29,6 +29,10 @@ form button {
   font-size: 1em;
 }
 
+.send-parcel {
+  align-self: center;
+}
+
 #googleMap {
   width: 60%;
   margin-top: 2%;

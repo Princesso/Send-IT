@@ -1,7 +1,7 @@
 .description {
   display: flex;
   flex-direction: column;
-  margin-top: 15%;
+  margin-top: 8%;
   margin-left: 20%;
   font-size: 1.5em;
   background: white;
@@ -58,7 +58,7 @@ button {
 @media all and (max-width:550px) and (min-width:0px) {
   .description {
     width: 80%;
-    margin-top: 10%;
+    margin-top: 25%;
     margin-left: 1%;
   }
   button {

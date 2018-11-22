@@ -14,13 +14,9 @@
   align-self: center;
 }
 
-#login h3{
+#loginForm h3{
   font-size: 2em;
   text-align: center;
-}
-
-.register {
-
 }
 
 .form {
@@ -28,6 +24,13 @@
   flex-direction: column;
   margin: 20px 20px;
   width: 85%;
+}
+
+#message {
+  color:#122c46;
+  font-weight: 300;
+  font-size:17px;
+  line-height:1.5;
 }
 
 #message a {
@@ -56,7 +59,7 @@
   font-size: 14px;
   margin:5px 0px;
   padding-left: 6%;
-  border-radius: 5%;
+  border-radius: 5px;
   flex-wrap: wrap;
   border: 1px solid #ccc;
 }
@@ -64,7 +67,7 @@
 .form button {
   margin:5px 5px;
   padding:2px 2px;
-  border-radius: 5%;
+  border-radius: 9px;
   height: 35px;
   width: 35%;
   border: 1px solid #ccc;
@@ -95,5 +98,9 @@ p {
   .form-holder {
     width: 300px;
     margin-top: 45%;
+  }
+  h4 {
+    font-size: 15px;
+    line-height: 1.5
   }
 }
