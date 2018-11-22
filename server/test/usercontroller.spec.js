@@ -39,12 +39,12 @@ describe ('User Endpoint Tests', () => {
   describe('/GET specific user parcels', () => {
     it('should not return a specific user parcel if token is not defined', (done) => {
       chai.request(app)
-          .get('/api/v1/user/:id/parcels')
+          .get('/api/v1/users/1/parcels')
           .end((err, res) => {
-            res.should.have.status(404);
+            res.should.have.status(403);
             res.should.be.json;
             res.body.should.have.property('status');
-            res.body.should.have.property('data');
+            res.body.should.have.property('message');
             done();
           });
     });
