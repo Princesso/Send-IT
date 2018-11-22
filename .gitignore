@@ -4,3 +4,4 @@ coverage
 dist
 .DS_Store
 .env
+./server/.DS_Store
