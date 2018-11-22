@@ -1,5 +1,5 @@
 import express from 'express'
-import parcelController from '../controllers/parcels'
+import parcelController from '../controllers/ParcelsController'
 import Auth from '../middleware/auth'
 
 let router = express.Router();
