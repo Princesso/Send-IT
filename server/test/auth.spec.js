@@ -43,7 +43,7 @@ describe ('Authentication Tests', () => {
           .post('/api/v1/auth/signup')
           .send(loginData)
           .end((err, res) => {
-            res.should.have.status(500);
+            res.should.have.status(400);
             res.should.be.json;
             res.body.should.have.property('status');
             res.body.should.have.property('message');
