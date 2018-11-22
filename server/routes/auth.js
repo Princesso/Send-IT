@@ -1,6 +1,6 @@
 import express from 'express'
 import dotenv from 'dotenv'
-import userController from '../controllers/users'
+import userController from '../controllers/UsersController'
 
 dotenv.config();
 
