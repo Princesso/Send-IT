@@ -30,7 +30,6 @@ class Parcels {
       }
     })
     .catch((error) => {
-      console.log(error)
       res.status(400).json({ "status": res.statusCode, "error": 'An error occured while trying to save your order '})
     })
   }
@@ -47,7 +46,6 @@ class Parcels {
           }
         })
         .catch((error) => {
-          console.log(error)
           res.status(400).json({ "status": res.statusCode, "error": "Could not get parcels from database"})
         })
 
