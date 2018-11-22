@@ -7,6 +7,7 @@
     "test": "./node_modules/.bin/mocha --timeout 100000 --require @babel/register --require @babel/polyfill server/test --exit || true",
     "start": "babel-node server/app.js",
     "start:prod": "babel-node server/app.prod.js",
+    "start:prod1": "node dist/server/app.prod.js",
     "coveralls": "cat ./coverage/lcov.info | ./node_modules/.bin/coveralls",
     "coverage": "nyc report --reporter=text-lcov | coveralls && nyc report --reporter=lcov"
   },
