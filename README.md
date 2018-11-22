@@ -16,6 +16,10 @@ SendIT is a courier service that helps users deliver parcels to different destin
 * Admin can change the status of a delivery order
 * Admin can change the location a parcel delivery order
 
+## Technologies Used
+* Nodejs: an open source server framework that allows you to run JavaScript on the server.
+* Postgresql: open source object-relational database system
+
 ## Link to github pages
 
 https://princesso.github.io/Send-IT/UI/index.html
