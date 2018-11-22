@@ -7,7 +7,6 @@ dotenv.config();
 
 class User {
   static signup(req, res) {
-    const { email } = req.body;
     if (!req.body.email || !req.body.password || req.body.password.length<1) {
       return res.status(400).send({'message': 'Some values are missing'});
     }
@@ -15,7 +14,7 @@ class User {
       return res.status(400).send({ 'message': 'Please enter a valid email address' });
     }
     const hashedPassword = Helper.hashPassword(req.body.password);
-    let newUser = {
+    const newUser = {
       firstname: req.body.firstname,
       lastname: req.body.lastname,
       othernames: req.body.othernames,
@@ -25,20 +24,20 @@ class User {
       isAdmin: 'false',
       password: hashedPassword
     };
-    if(firstname.length<3||lastname.length<3) res.json({"status": 400, "message": "Empty fields are not allowed"})
+    if(newUser.firstname.length<3||newUser.lastname.length<3) res.status(400).json({"status": 400, "message": "Empty fields are not allowed"})
     const query = `INSERT INTO users (firstname,lastname,othernames,email,username,registered,isAdmin,password) 
                     VALUES('${newUser.firstname}','${newUser.lastname}','${newUser.othernames}','${newUser.email}','${newUser.username}',
                     '${newUser.registered}','${newUser.isAdmin}','${newUser.password}')`
     db.query(query)
     .then((result) => {
       if(result.rowCount >=1) {
-        res.json({"status":200,"message":"User saved successfully"})
+        res.status(200).json({"status":200,"message":"User saved successfully"})
       } else if (result.rowCount === 0) {
-        res.json({"staus": 400, "message": "The user could not be saved"})
+        res.status(400).json({"staus": 400, "message": "The user could not be saved"})
       }
     })
     .catch((error)=>{
-      res.json({"status": 400, "message": "An error occured while trying to save user"})
+      res.status(400).json({"status": 400, "message": "An error occured while trying to save user"})
     })
   }
 
