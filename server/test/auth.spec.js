@@ -52,3 +52,6 @@ describe ('Authentication Tests', () => {
     });
   });
 })
+describe('something', () => {
+  true.should.be.true
+})
