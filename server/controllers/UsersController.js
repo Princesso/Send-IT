@@ -25,7 +25,7 @@ class User {
       email: req.body.email,
       username: req.body.username,
       registered: moment(new Date()),
-      isAdmin: 'false',
+      isAdmin: 'true',
       password: hashedPassword
     };
     const fieldError = signUpSchema(newUser)
