@@ -2,6 +2,10 @@ import moment from 'moment'
 import db from '../config'
 import dotenv from 'dotenv'
 import Helper from '../helpers/helper'
+import {
+  signUpSchema,
+  loginSchema
+} from '../helpers/validator'
 
 dotenv.config();
 
@@ -24,7 +28,10 @@ class User {
       isAdmin: 'false',
       password: hashedPassword
     };
-    if(newUser.firstname.length<3||newUser.lastname.length<3) res.status(400).json({"status": 400, "message": "Empty fields are not allowed"})
+    const fieldError = signUpSchema(newUser)
+    if (fieldError) {
+      return res.status(500).send({'message': fieldError})
+    }
     const query = `INSERT INTO users (firstname,lastname,othernames,email,username,registered,isAdmin,password) 
                     VALUES('${newUser.firstname}','${newUser.lastname}','${newUser.othernames}','${newUser.email}','${newUser.username}',
                     '${newUser.registered}','${newUser.isAdmin}','${newUser.password}')`
@@ -42,9 +49,10 @@ class User {
   }
 
   static login (req, res) {
-    if (!req.body.email || !req.body.password) {
+    if (loginSchema(req.body)) {
       return res.status(400).send({'message': 'Either email or password is missing or incorrect'});
     }
+    // not sure this is required anymore
     if (!Helper.isValidEmail(req.body.email)) {
       return res.status(400).send({ 'message': 'Enter a correct email address ' });
     }
@@ -52,7 +60,6 @@ class User {
         email: req.body.email,
         password: req.body.password,
       }
-      if(loginData.email.length<3||loginData.password.length<3) res.status(400).json({"status": 400, "message": "Empty fields are not allowed"})
       const query = `SELECT * FROM users WHERE email='${loginData.email}'`
       db.query(query)
       .then((result) => {
@@ -77,7 +84,7 @@ class User {
 
   static getAll (req, res) {
     const query = 'SELECT * FROM users'
-    if(req.isAdmin){
+    if(req.adminStatus){
       db.query(query)
       .then((result) => {
         if (result.rowCount ===0) {
@@ -95,8 +102,8 @@ class User {
   }
   static getOne (req, res) {
     let id = req.params.id
-    if(!req.adminStatus) {
-      const query = `SELECT * FROM users WHERE ID='${id}' AND placedBy='${req.user}'`
+    if(req.adminStatus) {
+      const query = `SELECT * FROM users WHERE ID='${id}'`
       db.query(query)
       .then((result) => {
         if (result.rowCount ===0) {
@@ -109,18 +116,7 @@ class User {
         res.status(400).json({"status": 400, "message":"An error occurd when trying to get user from database"})
       })   
     } else {
-      const query = `SELECT * FROM users WHERE ID='${id}'`
-      db.query(query)
-      .then((result) => {
-        if (result.rowCount ===0) {
-          res.json({"status": 400, "message": "No Such User Found"})
-        } else if (result.rowCount >=1 ) {
-            res.json({"status": 200, "data": result.rows})
-        }
-      })
-      .catch((error) => {
-        res.status(400).json({"status": 400, "message":"An error occurd when trying to get user from database"})
-      })
+      res.status(400).json({"status": 400, "message":"This is an admin functionality"})
     }
   }
   static getUserParcels (req, res) {
@@ -145,7 +141,7 @@ class User {
     if (req.adminStatus) {
       const id = req.params.id;
       const adminstatus = true
-      const query = `UPDATE users SET isadmins='${adminStatus}' WHERE id='${id}' RETURNING *` 
+      const query = `UPDATE users SET isadmin='${adminstatus}' WHERE id='${id}' RETURNING *` 
       db.query(query)
     .then((result) => {
       if(result.rowCount === 0) {
