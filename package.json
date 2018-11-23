@@ -6,10 +6,12 @@
   "scripts": {
     "test": "nyc ./node_modules/.bin/mocha --timeout 100000 --require @babel/register --require @babel/polyfill server/test --exit || true",
     "start": "babel-node server/app.js",
-    "start:prod": "babel-node server/app.prod.js",
+    "start:prod": "node dist/app.prod.js",
     "start:prod1": "node dist/server/app.prod.js",
+    "build": "babel server -d dist",
     "coveralls": "cat ./coverage/lcov.info | ./node_modules/.bin/coveralls",
-    "coverage": "nyc report --reporter=text-lcov | coveralls && nyc report --reporter=lcov"
+    "coverage": "nyc report --reporter=text-lcov | coveralls && nyc report --reporter=lcov",
+    "postinstall": "npm run build"
   },
   "keywords": [],
   "author": "",
