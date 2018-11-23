@@ -2,6 +2,13 @@ import moment from 'moment'
 import db  from '../config'
 import dotenv from 'dotenv'
 import Helper from '../helpers/helper'
+import {
+  createParcelsSchema,
+  destinationSchema,
+  changeCurrentLocation,
+  currentLocationSchema,
+  changeStatusSchema
+} from '../helpers/validator'
 
 dotenv.config();
 
@@ -17,7 +24,12 @@ class Parcels {
       toAddress: req.body.toAddress,
       currentLocation: req.body.fromAddress
     };
-    if(newOrder.fromAddress.length<3 || newOrder.toAddress.length<3) res.status(400).json({"status": res.statusCode, "message": "Address cannot be empty or less than 3 characters"});
+
+    const fieldError = createParcelsSchema(newOrder)
+    if(fieldError) {
+      return res.status(400).json({"status": res.statusCode, "message": fieldError});
+    }
+
     const query = `INSERT INTO parcels (placedby,weight,weightmetric,senton,status,fromaddress,toaddress,currentlocation) 
                   VALUES('${newOrder.placedBy}','${newOrder.weight}','${newOrder.weightmetric}','${newOrder.sentOn}','${newOrder.status}','${newOrder.fromAddress}'
                   ,'${newOrder.toAddress}','${newOrder.currentLocation}')`
@@ -30,7 +42,7 @@ class Parcels {
       }
     })
     .catch((error) => {
-      res.status(400).json({ "status": res.statusCode, "error": 'An error occured while trying to save your order '})
+      res.status(400).json({ "status": res.statusCode, "error": 'An error occured while trying to save your order,weight may not be a number '})
     })
   }
 
@@ -116,8 +128,11 @@ class Parcels {
 
   static changeDestination(req, res) {
     const id = req.params.id;
+    const fieldError = destinationSchema(req.body)
+    if(fieldError) {
+      return res.status(400).json({ "status": 400, "error": fieldError})
+    }
     const newDestination = req.body.toAddress
-    if (newDestination.length<3) return res.status(400).json({ "status": 400, "error": 'Destination cannot be empty'})
     const query = `UPDATE parcels SET toAddress='${newDestination}' WHERE id='${id}' AND placedby='${req.user}'`
     db.query(query)
     .then((result) => {
@@ -135,8 +150,13 @@ class Parcels {
   static changeCurrentLocation(req, res) {
     if (req.adminStatus) {
       const id = req.params.id;
+      
+      const fieldError = currentLocationSchema(req.body)
+      if(fieldError) {
+        return res.status(400).json({ "status": 400, "error": fieldError})
+
+      }
       const currentLocation = req.body.currentLocation
-      if (currentLocation.length<3) return res.status(400).json({ "status": 400, "error": 'Current location cannot be empty'})
       const query = `UPDATE parcels SET toaddress='${currentLocation}' WHERE id='${id}'` 
       db.query(query)
       .then((result) => {
@@ -157,18 +177,25 @@ class Parcels {
 static changeStatus(req, res) {
   if (req.adminStatus) {
     const id = req.params.id;
+
+    const fieldError = changeStatusSchema(req.body)
+    if(fieldError) {
+      return res.status(400).json({ "status": res.statusCode, "error": fieldError})
+    }
+
     const status = req.body.status
-    if (status.length<3||status!=="delivered") return res.status(400).json({ "status": 400, "error": 'Status can only be pending or delivered and only parcel owners can cancel them '})
     const query = `UPDATE parcels SET toaddress='${status}' WHERE id='${id}' AND status='pending'` 
     db.query(query)
   .then((result) => {
     if(result.rowCount === 0) {
-      return res.status(400).json({ "status": 400, "error": 'No such parcel'})
+      return res.status(400).json({ "status": 400, "error": 'This parcel delivery order might have been cancelled or delivered'})
     } else if (result.rowCount >= 1) {
+      Helper.sendEmail()
       res.status(200).json({"status": 200, "Message": "The status of the parcel has been changed successfully "});
     }
   })
   .catch((error) => {
+    console.log(error)
     res.status(400).json({ "status": 400, "error": "Could not find the parcel in database"})
   })
 } else {
