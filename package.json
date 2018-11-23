@@ -4,30 +4,33 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "nyc --reporter=html --reporter=lcov ./node_modules/.bin/mocha --timeout 100000 --require @babel/register --require @babel/polyfill server/test --exit || true",
+    "test": "nyc ./node_modules/.bin/mocha --timeout 100000 --require @babel/register --require @babel/polyfill server/test --exit || true",
     "start": "babel-node server/app.js",
-    "start:prod": "babel-node server/app.prod.js",
+    "start:prod": "node dist/app.prod.js",
+    "start:prod1": "node dist/server/app.prod.js",
+    "build": "babel server -d dist",
     "coveralls": "cat ./coverage/lcov.info | ./node_modules/.bin/coveralls",
-    "coverage": "nyc report --reporter=text-lcov | coveralls && nyc report --reporter=lcov",
-    "report": "nyc report"
+    "coverage": "nyc report --reporter=text-lcov | coveralls && nyc report --reporter=lcov"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "eslint": "^5.9.0",
-    "should": "^13.2.3",
-    "babel-plugin-istanbul": "^5.1.0"
+    "should": "^13.2.3"
   },
   "dependencies": {
-    "@babel/core": "^7.1.5",
+    "@babel/cli": "^7.0.0",
+    "@babel/core": "^7.0.0",
     "@babel/node": "^7.0.0",
     "@babel/polyfill": "^7.0.0",
     "@babel/preset-env": "^7.1.5",
-    "babel-cli": "^6.26.0",
     "@babel/register": "^7.0.0",
+    "@sendgrid/mail": "^6.3.1",
+    "assert": "^1.4.1",
     "babel-eslint": "^10.0.1",
     "babel-loader": "^8.0.4",
+    "babel-plugin-istanbul": "^5.1.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
     "chai": "^4.2.0",
@@ -45,23 +48,8 @@
     "nodemailer": "^4.6.8",
     "nyc": "^13.1.0",
     "pg": "^7.6.1",
+    "serve": "^10.1.1",
     "swagger-ui-express": "^4.0.1",
     "uuidv4": "^2.0.0"
-  },
-  "nyc": {
-    "reporter": [
-      "text",
-      "text-summary",
-      "lcov",
-      "html"
-    ],
-    "include": [
-      "server/**/*.spec.js*"
-    ],
-    "require": [
-      "@babel/register"
-    ],
-    "sourceMap": false,
-    "instrument": false
   }
 }

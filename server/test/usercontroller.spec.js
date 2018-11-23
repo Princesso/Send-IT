@@ -2,6 +2,7 @@ import Auth from '../controllers/UsersController'
 import chai from 'chai'
 import chaiHttp from 'chai-http'
 import app from '../app'
+import assert from 'assert'
 
 let should = chai.should();
 chai.use(chaiHttp)
@@ -18,7 +19,7 @@ describe ('User Endpoint Tests', () => {
           .end((err, res) => {
             res.should.have.status(403);
             res.should.be.json;
-            res.body.should.have.property('Message');
+            res.body.should.have.property('message');
             done();
           });
     });

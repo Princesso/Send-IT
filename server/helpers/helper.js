@@ -1,7 +1,7 @@
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv'
-import nodeMailer from 'nodemailer'
+import sgMail from '@sendgrid/mail'
 
 dotenv.config();
 
@@ -23,7 +23,14 @@ const Helper = {
     return token;
   },
   sendEmail() {
-   
+     sgMail.setApiKey(process.env.sendGridKey);
+     const mail = {
+       to: "sannimicheal.se@gmail.com",
+       from: 'Send-IT <egbunaoluebube@gmail.com',
+       subject: `Dear customer`,
+       html: "Your PDO has been updated",
+     };
+     sgMail.send(mail);
   }
 }
 

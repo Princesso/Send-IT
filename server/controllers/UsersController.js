@@ -2,6 +2,10 @@ import moment from 'moment'
 import db from '../config'
 import dotenv from 'dotenv'
 import Helper from '../helpers/helper'
+import {
+  signUpSchema,
+  loginSchema
+} from '../helpers/validator'
 
 dotenv.config();
 
@@ -24,14 +28,18 @@ class User {
       isAdmin: 'false',
       password: hashedPassword
     };
-    if(newUser.firstname.length<3||newUser.lastname.length<3) res.status(400).json({"status": 400, "message": "Empty fields are not allowed"})
+    const fieldError = signUpSchema(newUser)
+    if (fieldError) {
+      return res.status(500).send({'message': fieldError})
+    }
     const query = `INSERT INTO users (firstname,lastname,othernames,email,username,registered,isAdmin,password) 
                     VALUES('${newUser.firstname}','${newUser.lastname}','${newUser.othernames}','${newUser.email}','${newUser.username}',
                     '${newUser.registered}','${newUser.isAdmin}','${newUser.password}')`
     db.query(query)
     .then((result) => {
       if(result.rowCount >=1) {
-        res.status(200).json({"status":200,"message":"User saved successfully"})
+        delete(result.rows[0].password)
+        res.status(200).json({"status":200,"message":"User saved successfully","data":result.rows[0]})
       } else if (result.rowCount === 0) {
         res.status(400).json({"staus": 400, "message": "The user could not be saved"})
       }
@@ -42,11 +50,8 @@ class User {
   }
 
   static login (req, res) {
-    if (!req.body.email || !req.body.password||req.body.password.length<2) {
+    if (loginSchema(req.body)) {
       return res.status(400).send({'message': 'Either email or password is missing or incorrect'});
-    }
-    if (!Helper.isValidEmail(req.body.email)) {
-      return res.status(400).send({ 'message': 'Enter a correct email address ' });
     }
       const loginData = {
         email: req.body.email,
@@ -70,13 +75,14 @@ class User {
         }
       })
       .catch((error) => {
+        console.log("The login error", error)
         res.status(400).json({ "status": 400, "error": 'An error occured while trying to log you in Check your details again'})
       })
   }
 
   static getAll (req, res) {
     const query = 'SELECT * FROM users'
-    if(req.isAdmin){
+    if(req.adminStatus){
       db.query(query)
       .then((result) => {
         if (result.rowCount ===0) {
@@ -94,8 +100,8 @@ class User {
   }
   static getOne (req, res) {
     let id = req.params.id
-    if(!req.adminStatus) {
-      const query = `SELECT * FROM users WHERE ID='${id}' AND placedBy='${req.user}'`
+    if(req.adminStatus) {
+      const query = `SELECT * FROM users WHERE ID='${id}'`
       db.query(query)
       .then((result) => {
         if (result.rowCount ===0) {
@@ -108,23 +114,13 @@ class User {
         res.status(400).json({"status": 400, "message":"An error occurd when trying to get user from database"})
       })   
     } else {
-      const query = `SELECT * FROM users WHERE ID='${id}'`
-      db.query(query)
-      .then((result) => {
-        if (result.rowCount ===0) {
-          res.json({"status": 400, "message": "No Such User Found"})
-        } else if (result.rowCount >=1 ) {
-            res.json({"status": 200, "data": result.rows})
-        }
-      })
-      .catch((error) => {
-        res.status(400).json({"status": 400, "message":"An error occurd when trying to get user from database"})
-      })
+      res.status(400).json({"status": 400, "message":"This is an admin functionality"})
     }
   }
   static getUserParcels (req, res) {
+    const id = req.params.id
     if(req.adminStatus) {
-      const query = `SELECT * FROM parcels WHERE placedBy='${req.user}'`
+      const query = `SELECT * FROM parcels WHERE placedBy='${id}'`
       db.query(query)
       .then((result) => {
         if (result.rowCount ===0) {
@@ -144,7 +140,7 @@ class User {
     if (req.adminStatus) {
       const id = req.params.id;
       const adminstatus = true
-      const query = `UPDATE users SET isadmins='${adminStatus}' WHERE id='${id}' RETURNING *` 
+      const query = `UPDATE users SET isadmin='${adminstatus}' WHERE id='${id}' RETURNING *` 
       db.query(query)
     .then((result) => {
       if(result.rowCount === 0) {
