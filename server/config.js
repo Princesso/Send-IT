@@ -24,7 +24,6 @@ const createTables = async () => {
         password VARCHAR NOT NULL
       )
   `;
-  console.log("In config file before user")
 
   await client.query(userTable)
     .then((res) => {
@@ -34,7 +33,6 @@ const createTables = async () => {
       console.log('An error occured while creating users table: ', err);
       client.end();
     });
-  console.log("In config file 1")
 
   const parcelsTable = `
     CREATE TABLE IF NOT EXISTS
@@ -51,8 +49,7 @@ const createTables = async () => {
         currentLocation VARCHAR
       )
   `;
-  console.log("In config file")
-  client.query(parcelsTable)
+  return client.query(parcelsTable)
   .then((res) => {
     console.log('parcels table created!: ', res);
   })
@@ -63,6 +60,8 @@ const createTables = async () => {
 };
 
 
-createTables().then(res => console.log('All tables created'));
+createTables().then(res => {
+  console.log('All tables created')
+});
 
 export default  client
