@@ -42,7 +42,7 @@ class User {
   }
 
   static login (req, res) {
-    if (!req.body.email || !req.body.password||req.body.password.length<2) {
+    if (!req.body.email || !req.body.password) {
       return res.status(400).send({'message': 'Either email or password is missing or incorrect'});
     }
     if (!Helper.isValidEmail(req.body.email)) {
@@ -52,6 +52,7 @@ class User {
         email: req.body.email,
         password: req.body.password,
       }
+      if(loginData.email.length<3||loginData.password.length<3) res.status(400).json({"status": 400, "message": "Empty fields are not allowed"})
       const query = `SELECT * FROM users WHERE email='${loginData.email}'`
       db.query(query)
       .then((result) => {

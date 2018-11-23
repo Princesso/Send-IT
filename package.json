@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "./node_modules/.bin/mocha --timeout 100000 --require @babel/register --require @babel/polyfill server/test --exit || true",
+    "test": "nyc ./node_modules/.bin/mocha --timeout 100000 --require @babel/register --require @babel/polyfill server/test --exit || true",
     "start": "babel-node server/app.js",
     "start:prod": "babel-node server/app.prod.js",
     "start:prod1": "node dist/server/app.prod.js",
@@ -25,6 +25,8 @@
     "@babel/polyfill": "^7.0.0",
     "@babel/preset-env": "^7.1.5",
     "@babel/register": "^7.0.0",
+    "@sendgrid/mail": "^6.3.1",
+    "assert": "^1.4.1",
     "babel-eslint": "^10.0.1",
     "babel-loader": "^8.0.4",
     "babel-plugin-istanbul": "^5.1.0",
