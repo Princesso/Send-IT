@@ -10,8 +10,7 @@
     "start:prod1": "node dist/server/app.prod.js",
     "build": "babel server -d dist",
     "coveralls": "cat ./coverage/lcov.info | ./node_modules/.bin/coveralls",
-    "coverage": "nyc report --reporter=text-lcov | coveralls && nyc report --reporter=lcov",
-    "postinstall": "npm run build"
+    "coverage": "nyc report --reporter=text-lcov | coveralls && nyc report --reporter=lcov"
   },
   "keywords": [],
   "author": "",
