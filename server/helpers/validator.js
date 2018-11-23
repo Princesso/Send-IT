@@ -57,8 +57,7 @@ const currentLocationSchema = (params) => {
 
 const changeStatusSchema = (params) => {
   const schema = {
-    status: params.status &&
-            (params.status.length<3 || params.status!=="delivered")
+    status: strPresent(params.status) && (params.status == "delivered")
   };
   return validate(schema)
 }

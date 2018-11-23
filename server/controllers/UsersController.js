@@ -38,7 +38,8 @@ class User {
     db.query(query)
     .then((result) => {
       if(result.rowCount >=1) {
-        res.status(200).json({"status":200,"message":"User saved successfully"})
+        delete(result.rows[0].password)
+        res.status(200).json({"status":200,"message":"User saved successfully","data":result.rows[0]})
       } else if (result.rowCount === 0) {
         res.status(400).json({"staus": 400, "message": "The user could not be saved"})
       }
@@ -117,8 +118,9 @@ class User {
     }
   }
   static getUserParcels (req, res) {
+    const id = req.params.id
     if(req.adminStatus) {
-      const query = `SELECT * FROM parcels WHERE placedBy='${req.user}'`
+      const query = `SELECT * FROM parcels WHERE placedBy='${id}'`
       db.query(query)
       .then((result) => {
         if (result.rowCount ===0) {

@@ -84,7 +84,7 @@ class Parcels {
       db.query(query)
         .then((result) => {
           if(result.rowCount === 0) {
-            return res.status(400).json({ "status": res.statusCode, "error": 'No such parcel'})
+            return res.status(400).json({ "status": res.statusCode, "error": 'You do not own such parcel delivery order'})
           } else if (result.rowCount >= 1) {
             res.status(200).json({"status": res.statusCode, "data": result.rows[0]});
           }
@@ -116,7 +116,7 @@ class Parcels {
     db.query(query)
         .then((result) => {
           if(result.rowCount === 0) {
-            return res.status(400).json({ "status": 400, "error": 'No such parcel'})
+            return res.status(400).json({ "status": 400, "error": 'Only parcel owners can cancel their delivery order'})
           } else if (result.rowCount >= 1) {
             res.status(200).json({"status": 200, "message": "Your parcel delivery order has been cancelled "});
           }
@@ -137,7 +137,7 @@ class Parcels {
     db.query(query)
     .then((result) => {
       if(result.rowCount === 0) {
-        return res.status(400).json({ "status": 400, "error": 'No such parcel'})
+        return res.status(400).json({ "status": 400, "error": 'Only parcel owners can change order destination'})
       } else if (result.rowCount >= 1) {
         res.status(200).json({"status": 200, "Message": "The destination has been changed successfully "});
       }
@@ -163,7 +163,7 @@ class Parcels {
         if(result.rowCount === 0) {
           return res.status(400).json({ "status": 400, "error": 'No such parcel'})
         } else if (result.rowCount >= 1) {
-          res.status(200).json({"status": 200, "Message": "The destination has been changed successfully "});
+          res.status(200).json({"status": 200, "Message": "The current location of the order has been updated successfully "});
         }
     })
     .catch((error) => {
@@ -182,9 +182,8 @@ static changeStatus(req, res) {
     if(fieldError) {
       return res.status(400).json({ "status": res.statusCode, "error": fieldError})
     }
-
     const status = req.body.status
-    const query = `UPDATE parcels SET toaddress='${status}' WHERE id='${id}' AND status='pending'` 
+    const query = `UPDATE parcels SET status='${status}' WHERE id='${id}' AND status='pending'` 
     db.query(query)
   .then((result) => {
     if(result.rowCount === 0) {
