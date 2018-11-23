@@ -52,10 +52,6 @@ class User {
     if (loginSchema(req.body)) {
       return res.status(400).send({'message': 'Either email or password is missing or incorrect'});
     }
-    // not sure this is required anymore
-    if (!Helper.isValidEmail(req.body.email)) {
-      return res.status(400).send({ 'message': 'Enter a correct email address ' });
-    }
       const loginData = {
         email: req.body.email,
         password: req.body.password,
@@ -78,6 +74,7 @@ class User {
         }
       })
       .catch((error) => {
+        console.log("The login error", error)
         res.status(400).json({ "status": 400, "error": 'An error occured while trying to log you in Check your details again'})
       })
   }
