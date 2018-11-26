@@ -128,6 +128,10 @@ table tr td button:focus {
   padding: 0;
 }
 
+ul {
+  max-width: 225px !important;
+}
+
 @media all and (max-width:550px) and (min-width:0px) {
   button {
     font-size: 1em;

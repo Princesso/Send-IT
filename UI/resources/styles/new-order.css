@@ -30,7 +30,10 @@ form button {
 }
 
 .send-parcel {
+  background: #0178E6;
   align-self: center;
+  border-radius:9px;
+  padding: 5px 15px;
 }
 
 #googleMap {
@@ -43,6 +46,10 @@ form button {
   flex-direction: column;
   flex-wrap: wrap;
   justify-content: space-around;
+}
+
+ul {
+  max-width: 225px !important;
 }
 
 .container {
