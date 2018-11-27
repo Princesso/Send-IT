@@ -28,7 +28,7 @@ body {
 }
  
 nav {
-  flex: 0 1 30%;
+  /* flex: 0 1 30%; */
 }
 
 a {
@@ -60,6 +60,10 @@ ul {
   display: flex;
   justify-content: space-around;
   align-items: center;
+  max-width: 170px;
+}
+li {
+  margin: 9px;
 }
 
 .footer {
@@ -72,6 +76,10 @@ ul {
   flex: 0 1 60%;
   color: white;
   min-height: 97px;
+}
+
+.footer p {
+  color: white;
 }
 
 button {

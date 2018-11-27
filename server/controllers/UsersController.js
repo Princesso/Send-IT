@@ -38,13 +38,13 @@ class User {
     db.query(query)
     .then((result) => {
       if(result.rowCount >=1) {
-        delete(result.rows[0].password)
-        res.status(200).json({"status":200,"message":"User saved successfully","data":result.rows[0]})
+        res.status(200).json({"status":200,"message":"User saved successfully"})
       } else if (result.rowCount === 0) {
         res.status(400).json({"staus": 400, "message": "The user could not be saved"})
       }
     })
     .catch((error)=>{
+      console.log(error)
       res.status(400).json({"status": 400, "message": "An error occured while trying to save user"})
     })
   }
