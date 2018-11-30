@@ -40,12 +40,12 @@ class User {
       if(result.rowCount >=1) {
         res.status(200).json({"status":200,"message":"User saved successfully"})
       } else if (result.rowCount === 0) {
-        res.status(400).json({"staus": 400, "message": "The user could not be saved"})
+        res.status(500).json({"staus": 500, "message": "The user could not be saved"})
       }
     })
     .catch((error)=>{
       console.log(error)
-      res.status(400).json({"status": 400, "message": "An error occured while trying to save user"})
+      res.status(500).json({"status": 500, "message": "An error occured while trying to save user"})
     })
   }
 
@@ -76,7 +76,7 @@ class User {
       })
       .catch((error) => {
         console.log("The login error", error)
-        res.status(400).json({ "status": 400, "error": 'An error occured while trying to log you in Check your details again'})
+        res.status(500).json({ "status":500, "error": 'An error occured while trying to log you in Check your details again'})
       })
   }
 
@@ -86,13 +86,13 @@ class User {
       db.query(query)
       .then((result) => {
         if (result.rowCount ===0) {
-          res.json({"status": 400, "message": "No Users Found"})
+          res.status(204).json({"status": 204, "message": "No Users Found"})
         } else if (result.rowCount >=1 ) {
             res.json({"status": 200, "data": result.rows})
         }
       })
       .catch((error) => {
-        res.status(400).json({"status": 400, "message":"An error occurd when trying to get users from database"})
+        res.status(500).json({"status": 500, "message":"An error occurd when trying to get users from database"})
       })
     } else {
       res.status(403).json({"Message": "Only Admins can access this route"})
@@ -105,16 +105,16 @@ class User {
       db.query(query)
       .then((result) => {
         if (result.rowCount ===0) {
-          res.json({"status": 400, "message": "No Such User Found"})
+          res.status(204).json({"status": 204, "message": "No Such User Found"})
         } else if (result.rowCount >=1 ) {
             res.json({"status": 200, "data": result.rows})
         }
       })
       .catch((error) => {
-        res.status(400).json({"status": 400, "message":"An error occurd when trying to get user from database"})
+        res.status(500).json({"status": 500, "message":"An error occurd when trying to get user from database"})
       })   
     } else {
-      res.status(400).json({"status": 400, "message":"This is an admin functionality"})
+      res.status(403).json({"status": 403, "message":"This is an admin functionality"})
     }
   }
   static getUserParcels (req, res) {
@@ -130,7 +130,7 @@ class User {
         }
       })
       .catch((error) => {
-        res.status(400).json({"status": 400, "message":"An error occurd when trying to get user parcels from database"})
+        res.status(500).json({"status": 500, "message":"An error occurd when trying to get user parcels from database"})
       })
     } else {
       res.status(403).json({"Message": "Only Admins can access this route"})
@@ -142,16 +142,16 @@ class User {
       const adminstatus = true
       const query = `UPDATE users SET isadmin='${adminstatus}' WHERE id='${id}' RETURNING *` 
       db.query(query)
-    .then((result) => {
-      if(result.rowCount === 0) {
-        return res.status(400).json({ "status": 400, "error": 'No such User'})
-      } else if (result.rowCount >= 1) {
-        res.status(200).json({"status": 200, "Message": "The user has been made an Admin successfully "});
-      }
-    })
-    .catch((error) => {
-      res.status(400).json({ "status": 400, "error": "An error occured while trying to make user an Admmin, try again"})
-    })
+      .then((result) => {
+        if(result.rowCount === 0) {
+          return res.status(204).json({ "status": 204, "error": 'No such User'})
+        } else if (result.rowCount >= 1) {
+          res.status(200).json({"status": 200, "Message": "The user has been made an Admin successfully "});
+        }
+      })
+      .catch((error) => {
+        res.status(500).json({ "status": 500, "error": "An error occured while trying to make user an Admmin, try again"})
+      })
   } else {
     res.status(403).json({"Message": "Only Admins can access this route"})
     }

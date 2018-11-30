@@ -36,13 +36,13 @@ class Parcels {
     db.query(query)
     .then((result) => {
       if(result.rowCount === 0) {
-        res.status(400).json({ "status": res.statusCode, "Message": 'An error occured while trying to save your order ensure that weight is a valid number and Address are not empty'})
+        res.status(500).json({ "status": res.statusCode, "Message": 'An error occured while trying to save your order ensure that weight is a valid number and Address are not empty'})
       } else if(result.rowCount >= 1) {
-        res.status(200).json({"status": res.statusCode, "message": "New parcel added successfuly"});
+        res.status(201).json({"status": res.statusCode, "message": "New parcel added successfuly"});
       }
     })
     .catch((error) => {
-      res.status(400).json({ "status": res.statusCode, "error": 'An error occured while trying to save your order,weight may not be a number '})
+      res.status(500).json({ "status": res.statusCode, "error": 'An error occured while trying to save your order,weight may not be a number '})
     })
   }
 
@@ -52,13 +52,13 @@ class Parcels {
         db.query(query)
         .then((result) => {
           if(result.rowCount === 0) {
-            return res.status(400).json({ "status": res.statusCode, "error": 'You have not created any parcels'})
+            return res.status(204).json({ "status": res.statusCode, "error": 'You have not created any parcels'})
           } else if (result.rowCount >= 1) {
             res.status(200).json({"status": res.statusCode, "data": result.rows});
           }
         })
         .catch((error) => {
-          res.status(400).json({ "status": res.statusCode, "error": "Could not get parcels from database"})
+          res.status(500).json({ "status": res.statusCode, "error": "Could not get parcels from database"})
         })
 
       } else {
@@ -66,13 +66,13 @@ class Parcels {
         db.query(query)
         .then((result) => {
           if(result.rowCount === 0) {
-            return res.status(400).json({ "status": res.statusCode, "error": 'No Parcels'})
+            return res.status(204).json({ "status": res.statusCode, "error": 'No Parcels'})
           } else if (result.rowCount >= 1) {
             res.status(200).json({"status": res.statusCode, "data": result.rows});
           }
         })
         .catch((error) => {
-          res.status(400).json({ "status": res.statusCode, "error": "Could not get parcels from database"})
+          res.status(500).json({ "status": res.statusCode, "error": "Could not get parcels from database"})
         })
       }
     }
@@ -90,7 +90,7 @@ class Parcels {
           }
         })
         .catch((error) => {
-          res.status(400).json({ "status": res.statusCode, "error": "Could not get parcels from database"})
+          res.status(500).json({ "status": res.statusCode, "error": "Could not get parcels from database"})
         })
       
     } else {
@@ -98,13 +98,13 @@ class Parcels {
       db.query(query)
         .then((result) => {
           if(result.rowCount === 0) {
-            return res.status(400).json({ "status": res.statusCode, "error": 'No such parcel'})
+            return res.status(204).json({ "status": res.statusCode, "error": 'No such parcel'})
           } else if (result.rowCount >= 1) {
             res.status(200).json({"status": res.statusCode, "data": result.rows[0]});
           }
         })
         .catch((error) => {
-          res.status(400).json({ "status": res.statusCode, "error": "Could not get parcels from database"})
+          res.status(500).json({ "status": res.statusCode, "error": "Could not get parcels from database"})
         })
     }
    }
@@ -122,7 +122,7 @@ class Parcels {
           }
         })
         .catch((error) => {
-          res.status(400).json({ "status": 400, "error": "Could not get parcels from database"})
+          res.status(500).json({ "status": 500, "error": "Could not get parcels from database"})
         })
   }
 
@@ -137,13 +137,13 @@ class Parcels {
     db.query(query)
     .then((result) => {
       if(result.rowCount === 0) {
-        return res.status(400).json({ "status": 400, "error": 'Only parcel owners can change order destination'})
+        return res.status(204).json({ "status": 204, "error": 'Only parcel owners can change order destination'})
       } else if (result.rowCount >= 1) {
         res.status(200).json({"status": 200, "Message": "The destination has been changed successfully "});
       }
     })
     .catch((error) => {
-      res.status(400).json({ "status": 400, "error": "An error ocurred while trying to change the parcel Destination"})
+      res.status(500).json({ "status": 500, "error": "An error ocurred while trying to change the parcel Destination"})
     })
   }
 
@@ -161,13 +161,13 @@ class Parcels {
       db.query(query)
       .then((result) => {
         if(result.rowCount === 0) {
-          return res.status(400).json({ "status": 400, "error": 'No such parcel'})
+          return res.status(204).json({ "status": 204, "error": 'No such parcel'})
         } else if (result.rowCount >= 1) {
           res.status(200).json({"status": 200, "Message": "The current location of the order has been updated successfully "});
         }
     })
     .catch((error) => {
-      res.status(400).json({ "status": 400, "error": "Could not find the parcel in database"})
+      res.status(500).json({ "status": 500, "error": "Could not find the parcel in database"})
     })
   } else {
     res.json({"Message": "Only Admins can access this route"})
@@ -194,7 +194,7 @@ static changeStatus(req, res) {
     }
   })
   .catch((error) => {
-    res.status(400).json({ "status": 400, "error": "Could not find the parcel in database"})
+    res.status(500).json({ "status": 500, "error": "Could not find the parcel in database"})
   })
 } else {
     res.json({"Message": "Only Admins can access this route"})

@@ -26,7 +26,7 @@ https://princesso.github.io/Send-IT/UI/index.html
 
 ## Link to API endpoints 
 
-https://sendit-pro.herokuapp.com/
+https://sendit-it.herokuapp.com/
 
 
 ## API endpoints
