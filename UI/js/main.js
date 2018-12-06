@@ -23,8 +23,6 @@ async function submitLoginForm(e, d) {
       return response.json();
     })
   .then((res) => {
-    console.log(res)
-    debugger
     if(!res.token) throw('no token in response')
     //document.cookie = `user_token=${res.token}`
     window.localStorage.setItem('user_token', res.token)
