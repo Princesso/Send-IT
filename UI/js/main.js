@@ -1,14 +1,11 @@
-
-
 const getUserToken = () => {
-  let tokenStr = document.cookie.split(';')
-    .find(c => c.split('=')[0] == ' user_token')
+  let tokenStr = window.localStorage.getItem('user_token')
   if(tokenStr) {
-    return tokenStr.split('=').pop()
+    return tokenStr
+  } else {
+    return "No token Found"
   }
 }
-
-
 
 function getParcels() {
   fetch('https://sendit-it.herokuapp.com/api/v1/users/1/parcels')
