@@ -26,9 +26,9 @@ body {
   color: white;
   min-height: 70px;
 }
- 
-nav {
-  /* flex: 0 1 30%; */
+
+h3 {
+  text-align: center;
 }
 
 a {
