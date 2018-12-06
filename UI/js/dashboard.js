@@ -12,7 +12,7 @@ const decodeUser = () => {
 }
 
 async function getParcels() {
-  await fetch('https://sendit-it.herokuapp.com/api/v1/parcels',{
+  await fetch('https://sendit-it.herokuapp.com/api/v1/parcels', {
     method: "GET",
     headers: {
       "Authorization": `Bearer ${getUserToken()}`
