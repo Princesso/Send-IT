@@ -1,3 +1,5 @@
+const basePath = "../../resources/pages";
+
 async function submitRegistrationForm(e, d) {
   e.preventDefault()
   const registrationInfo = {

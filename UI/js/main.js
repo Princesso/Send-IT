@@ -1,4 +1,4 @@
-const basePath = 'file:///Users/Princess/Documents/Projects/Send-IT/UI/resources/pages';
+const basePath = "../../resources/pages";
 
 const getUserToken = () => {
   let tokenStr = document.cookie.split(';')
