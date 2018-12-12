@@ -25,17 +25,19 @@
       </nav>
     </header>
     <section class="main-content">
+        <script async defer src="../../js/neworder.js"
+        type="text/javascript"></script> 
       <div class="container">
           <div class="new-order-form">
               <div class="title">
                   <h3>Enter Order Delivery Details</h3>
                 </div>
               <form>
-                <input type="text" placeholder="Item Name" />
-                <input type="number" placeholder="Approximate Weight in Kilograms" />
-                <input type="text" placeholder="Current Location" autocomplete="address-level2" />
-                <input type="text" placeholder="Destination" autocomplete="address-level2" />
-                <a href="./dashboard.html" class="send-parcel">Send Parcel</a>
+                <input type="text" placeholder="Item Name" id="item-name"/>
+                <input type="number" placeholder="Approximate Weight in Kilograms" id="weight"/>
+                <input type="text" placeholder="Current Location" autocomplete="address-level2" id="to-address"/>
+                <input type="text" placeholder="Destination" autocomplete="address-level2" id="from-address"/>
+                <button type="submit" class="send-parcel" id="send-parcel-button">Send Parcel</button>
               </form>
               <div id="quote">
                 <h4>Courier Quote</h4>
