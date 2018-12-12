@@ -7,6 +7,8 @@ const getUserToken = () => {
   }
 }
 
+const basePath = "../../resources/pages";
+
 async function getParcels() {
   await fetch('https://sendit-it.herokuapp.com/api/v1/parcels', {
     method: "GET",
@@ -66,10 +68,6 @@ async function getParcels() {
     })
   })
   .catch(error => console.error('Error:', error))
-}
-
-const getTotalOrders = () => {
-
 }
 
 document.addEventListener( "DOMContentLoaded", getParcels, false );
