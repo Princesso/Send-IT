@@ -16,7 +16,6 @@ async function submitLoginForm(e, d) {
     })
   .then((res) => {
     if(!res.token) throw('no token in response')
-    //document.cookie = `user_token=${res.token}`
     window.localStorage.setItem('user_token', res.token)
     window.location.href = `${basePath}/dashboard.html` 
   })
