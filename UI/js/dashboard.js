@@ -7,10 +7,6 @@ const getUserToken = () => {
   }
 }
 
-const decodeUser = () => {
-
-}
-
 async function getParcels() {
   await fetch('https://sendit-it.herokuapp.com/api/v1/parcels', {
     method: "GET",
@@ -25,6 +21,7 @@ async function getParcels() {
     if (res.status==204) {
       console.log("Does not own any parcels")
     }
+
     // we had stored the attributes to be filled in the rows using the data-attributes of the thead
     // so we grab the thead (for the data attributes)
     // and grab the tbody so we can append our new rows to them
