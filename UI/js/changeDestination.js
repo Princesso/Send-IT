@@ -19,7 +19,7 @@ const changeDestination = () => {
     return response.json()
   })
   .then((res) =>{
-
+    window.location.href = `${basePath}/dashboard.html` 
   })
 }
 
