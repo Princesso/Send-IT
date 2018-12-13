@@ -9,7 +9,9 @@ async function submitLoginForm(e, d) {
  await fetch('https://sendit-it.herokuapp.com/api/v1/auth/login', {
     method: "POST",
     body: JSON.stringify(loginInfo),
-    headers: {"Content-Type": "application/json"}
+    headers: {
+      "Content-Type": "application/json"
+    }
   })
   .then(function(response) {
       return response.json();
