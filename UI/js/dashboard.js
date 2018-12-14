@@ -7,6 +7,8 @@ const getUserToken = () => {
   }
 }
 
+const basePath = "../../resources/pages";
+
 async function getParcels() {
   await fetch('https://sendit-it.herokuapp.com/api/v1/parcels', {
     method: "GET",
@@ -57,6 +59,7 @@ async function getParcels() {
       tag.appendChild(btn)
       let newCell  = newRow.insertCell(i);
       newCell.appendChild(tag);
+      tag.href = `${basePath}/order-detail.html`
 
       document.getElementById('total-orders').innerHTML = totalOrders
       document.getElementById('total-delivered').innerHTML = totalDelivered
@@ -65,10 +68,6 @@ async function getParcels() {
     })
   })
   .catch(error => console.error('Error:', error))
-}
-
-const getTotalOrders = () => {
-
 }
 
 document.addEventListener( "DOMContentLoaded", getParcels, false );
