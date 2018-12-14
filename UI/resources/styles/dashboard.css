@@ -15,6 +15,13 @@
   border-radius: 9px;
 }
 
+.main-content {
+  background: #122c460f;
+  /* height: 80vh; */
+  flex: 1 0 auto;
+  padding: 0 2rem;
+}
+
 #delivery-truck {
   height: 3em;
   width: 3em;
