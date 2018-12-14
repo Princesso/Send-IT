@@ -1,4 +1,5 @@
 const parcelid
+const basePath = "../../resources/pages";
 
 const currentLocation = {
   toAddress: document.getElementById('new-destination').value
