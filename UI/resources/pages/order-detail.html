@@ -18,6 +18,7 @@
 <body>
   <script src="../../js/cancelParcel.js"></script>
   <script src="../../js/changeDestination.js"></script>
+  <script src="../../js/order-detail.js"></script>
     <header class="header">
         <div><h1><a href="../../index.html">Send-It</a></h1></div>
         <nav>
@@ -39,8 +40,12 @@
           <p><span class="title">Order Status </span><span class="info" id="order-status-detail"></span></p><br/>  <hr>
           <p><span class="title">Approximate Price </span><span class="info" id="price-detail"></span><br/></p>
           <div id="button-container"> 
-              <button class="change-destination" id="change-destination-button">Change Destination</button>
-              <button class="cancel-order" id="cancel-order-button"></span>Cancel Order</button>
+              <a>
+                <button class="change-destination" id="change-destination-button">Change Destination</button>
+              </a>
+              <a>
+                  <button class="cancel-order" id="cancel-order-button"></span>Cancel Order</button>
+              </a>   
           </div>
          </div>
         </div>
