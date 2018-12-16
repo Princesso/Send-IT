@@ -59,7 +59,11 @@ async function getParcels() {
       tag.appendChild(btn)
       let newCell  = newRow.insertCell(i);
       newCell.appendChild(tag);
-      tag.href = `${basePath}/order-detail.html`
+      tag.href = `${basePath}/order-detail.html?parcelId=${order.id}`
+
+      btn.onclick = (e) => {
+        let rowId = e.target.parentElement.parentElement.parentElement.cells[0].innerText
+      }
 
       document.getElementById('total-orders').innerHTML = totalOrders
       document.getElementById('total-delivered').innerHTML = totalDelivered
