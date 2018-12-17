@@ -59,10 +59,13 @@ async function getParcels() {
       tag.appendChild(btn)
       let newCell  = newRow.insertCell(i);
       newCell.appendChild(tag);
-      tag.href = `${basePath}/order-detail.html?parcelId=${order.id}`
+      
+
+      const decoded =  JSON.parse(atob(getUserToken().split('.')[1]));
 
       btn.onclick = (e) => {
-        let rowId = e.target.parentElement.parentElement.parentElement.cells[0].innerText
+        if (!decoded.isAdmin) tag.href = `${basePath}/order-detail.html?parcelId=${order.id}`
+        else tag.href = `${basePath}/admin-action.html?parcelId=${order.id}`
       }
 
       document.getElementById('total-orders').innerHTML = totalOrders
