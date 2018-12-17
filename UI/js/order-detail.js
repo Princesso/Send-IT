@@ -37,4 +37,32 @@ window.onload = function(e) {
   }
 
   orderDetail()
+
+  const changeDestination = () => {
+    const basePath = "../../resources/pages";
+    const parcelId = window.location.search.split('=').pop()
+    window.location.href = `${basePath}/change-location.html?parcelId=${parcelId}`
+  }
+  document.getElementById("change-destination-button").addEventListener('click', changeDestination);
+
+  const cancelOrder = () => {
+    const basePath = "../../resources/pages";
+    const parcelId = window.location.search.split('=').pop()
+
+    fetch(`https://sendit-it.herokuapp.com/api/v1/parcels/${parcelId}/cancel`, {
+      method: "PATCH",
+      headers: {
+        "Authorization": `${getUserToken()}`
+      }
+    })
+    .then((response) => {
+      return response.json();
+    })
+    .then((res) => {
+      if(res.status == 200) window.location.href = `${basePath}/dashboard.html` 
+    })
+  }
+  
+  document.getElementById("cancel-order-button").addEventListener('click', cancelOrder);
 }
+
