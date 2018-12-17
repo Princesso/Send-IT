@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>New Order</title>
+  <title>Change Destination</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="SendIT is a courier service that helps users deliver parcels to different destinations. SendIT provides courier quotes based on weight categories.">
   <meta name="keywords" content="SendIT, courier service, deliver parcels anywhere, courier quotes ">
@@ -25,15 +25,15 @@
       </nav>
     </header>
     <section class="main-content">
+      <script src="../../js/changeDestination.js"></script>
       <div class="container">
           <div class="new-order-form">
               <div class="title">
-                  <h3>Enter Order Delivery Details</h3>
+                  <h3>Enter new destination details</h3>
                 </div>
               <form>
-                <input type="text" placeholder="Current Location" autocomplete="address-level2" />
-                <input type="text" placeholder="Destination" autocomplete="address-level2" />
-                <button>Send Parcel</button>
+                <input type="text" placeholder="New Destination" autocomplete="address-level2" id="new-destination"/>
+                <button type="submit" id="update">Update</button>
               </form>
               <div id="quote">
                 <h4>Courier Quote</h4>
@@ -47,7 +47,7 @@
       </div>
     </section>
     <footer class="footer">
-        <div><h4>Copyright made by Oluebube Princess Egbuna © 2018</h4></div>
+      <div><p>Copyright made by Oluebube Princess Egbuna © 2018</p></div>
         <nav>
           <ul>
             <li><a href="#">Contact</a></li>

@@ -25,20 +25,23 @@
       </nav>
     </header>
     <section class="main-content">
+        <script async defer src="../../js/neworder.js"
+        type="text/javascript"></script> 
       <div class="container">
           <div class="new-order-form">
               <div class="title">
                   <h3>Enter Order Delivery Details</h3>
                 </div>
               <form>
-                <input type="text" placeholder="Item Name" />
-                <input type="number" placeholder="Approximate Weight in Kilograms" />
-                <input type="text" placeholder="Current Location" autocomplete="address-level2" />
-                <input type="text" placeholder="Destination" autocomplete="address-level2" />
-                <a href="./dashboard.html"><button class="send-parcel">Send Parcel</button></a>
+                <input type="text" placeholder="Item Name" id="item-name"/>
+                <input type="number" placeholder="Approximate Weight in Kilograms" id="weight"/>
+                <input type="text" placeholder="Current Location" autocomplete="address-level2" id="to-address"/>
+                <input type="text" placeholder="Destination" autocomplete="address-level2" id="from-address"/>
+                <p id="created"></p>
+                <button type="submit" class="send-parcel" id="send-parcel-button">Send Parcel</button>
               </form>
               <div id="quote">
-                <h4>Courier Quote</h4>
+                <h4>Courier Quotes</h4>
                 <p>Approximate Cost per Kg: 234 NGN</p>
                 <p>Speed Courier : 345 NGN</p>
               </div>
@@ -47,12 +50,11 @@
       </div>
     </section>
     <footer class="footer">
-      <div><h1><a href="../../index.html">Send-It</a></h1></div>
+      <div><p>Copyright made by Oluebube Princess Egbuna © 2018</p></div>
         <nav>
           <ul>
             <li><a href="#">Contact</a></li>
             <li><a href="#">FAQs</a></li>
-            <li><a href="#">Join our team</a></li>
           </ul>
         </nav>
     </footer> 

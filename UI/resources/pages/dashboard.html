@@ -22,8 +22,9 @@
             <ul>
               <li><a href="../../index.html">Home</a></li>
               <li><a href="#"><span class="fas fa-bell"></span></a></li>
-              <li><a href="./admin.html">Admin</a></li>
               <li><a href="../../index.html">Logout</a></li>
+              <li><a href="./admin.html">Admin</a></li>
+              
             </ul>
           </nav>
         </header>
@@ -39,7 +40,7 @@
               </div>
               <div>
                   <h6>Orders</h6>
-                  <p>30</p>
+                  <p id="total-orders"></p>
               </div>
             </div>
             <div class="card">
@@ -48,7 +49,7 @@
                 </div>
                 <div>
                     <h6>Delivered</h6>
-                    <p>10</p>
+                    <p id="total-delivered"></p>
                 </div>
             </div>
             <div class="card">
@@ -57,7 +58,7 @@
                 </div>
                 <div>
                     <h6>Pending</h6>
-                    <p>10</p>
+                    <p id="total-pending"></p>
                 </div>
             </div>
             <div class="card">
@@ -66,7 +67,7 @@
                 </div>
                 <div>
                     <h6>Canceled</h6>
-                    <p>10</p>
+                    <p id="total-canceled"></p>
                 </div>
             </div>
           </div>
@@ -87,7 +88,7 @@
               </thead>
 
               <tbody>
-                <tr>
+                <!-- <tr>
                     <td>1</td>
                     <td>Dress</td>
                     <td>Alaba</td>
@@ -110,13 +111,13 @@
                     <td>Obanikoro</td>
                     <td>pending</td>
                     <td><a href="./order-detail.html"><button>View</button></a></td>
-                  </tr> 
+                  </tr>  -->
               </tbody>
             </table>
           </div>
         </section>
         <footer class="footer">
-          <div><h4>Copyright made by Oluebube Princess Egbuna © 2018</h4></div>
+          <div><p>Copyright made by Oluebube Princess Egbuna © 2018</p></div>
             <nav>
               <ul>
                 <li><a href="#">Contact</a></li>
@@ -125,5 +126,6 @@
             </nav>
         </footer> 
   </div>
+  <script src="../../js/dashboard.js"></script>
 </body>
 </html>

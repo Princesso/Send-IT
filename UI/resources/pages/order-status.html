@@ -30,18 +30,18 @@
           <div class="description-child">
             <form>
                 <label>Change the status of this order</label><br>
-                <input type="radio" name="status" value="Pending" checked> Pending<br>
                 <input type="radio" name="status" value="Delivered"> Delivered<br>
-                <input type="radio" name="status" value="Cancelled"> Cancel 
+                <input type="radio" name="status" value="transit"> In transit<br>
             </form>
           </div>
+          <script src="../../js/admin/changeStatus.js"></script>
           <div id="button-container"> 
-              <a href="../pages/admin.html" id="button-link"><button class="change-status"></span>Submit</button></a>
+              <button class="change-status" id="change-status-button"></span>Submit</button>
           </div>
         </div>
       </section>
       <footer class="footer">
-          <div><h4>Copyright made by Oluebube Princess Egbuna © 2018</h4></div>
+        <div><p>Copyright made by Oluebube Princess Egbuna © 2018</p></div>
             <nav>
               <ul>
                 <li><a href="#">Contact</a></li>
