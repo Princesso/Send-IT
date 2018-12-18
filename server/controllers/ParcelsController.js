@@ -22,7 +22,8 @@ class Parcels {
       status: 'pending',
       fromAddress: req.body.fromAddress,
       toAddress: req.body.toAddress,
-      currentLocation: req.body.fromAddress
+      currentLocation: req.body.fromAddress,
+      itemName: req.body.itemName
     };
 
     const fieldError = createParcelsSchema(newOrder)
@@ -30,9 +31,9 @@ class Parcels {
       return res.status(400).json({"status": res.statusCode, "message": fieldError});
     }
 
-    const query = `INSERT INTO parcels (placedby,weight,weightmetric,senton,status,fromaddress,toaddress,currentlocation) 
+    const query = `INSERT INTO parcels (placedby,weight,weightmetric,senton,status,fromaddress,toaddress,currentlocation,itemname) 
                   VALUES('${newOrder.placedBy}','${newOrder.weight}','${newOrder.weightmetric}','${newOrder.sentOn}','${newOrder.status}','${newOrder.fromAddress}'
-                  ,'${newOrder.toAddress}','${newOrder.currentLocation}')`
+                  ,'${newOrder.toAddress}','${newOrder.currentLocation}',${newOrder.itemName})`
     db.query(query)
     .then((result) => {
       if(result.rowCount === 0) {
