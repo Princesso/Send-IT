@@ -68,6 +68,7 @@ class User {
             } else {
               loginData.userId=result.rows[0].id
               loginData.isAdmin=result.rows[0].isadmin
+              loginData.username=result.rows[0].firstname
               delete(loginData.password)
               const token = Helper.generateToken(loginData);
               return res.status(200).json({ "token": token, "message": "Login successful" });
