@@ -21,7 +21,8 @@ const createTables = async () => {
         username VARCHAR(128) NOT NULL,
         registered TIMESTAMP,
         isAdmin BOOLEAN,
-        password VARCHAR NOT NULL
+        password VARCHAR NOT NULL,
+        itemname VARCHAR(30)
       )
   `;
 
