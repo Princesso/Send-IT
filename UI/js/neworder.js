@@ -1,5 +1,14 @@
 const basePath = "../../resources/pages";
 
+const getUserToken = () => {
+  let tokenStr = window.localStorage.getItem('user_token')
+  if(tokenStr) {
+    return tokenStr
+  } else {
+    return "No token Found"
+  }
+}
+
 async function createParcel(e, d) {
   e.preventDefault()
   const newParcel = {
@@ -11,14 +20,19 @@ async function createParcel(e, d) {
  await fetch('https://sendit-it.herokuapp.com/api/v1/parcels', {
     method: "POST",
     body: JSON.stringify(newParcel),
-    headers: {"Content-Type": "application/json"}
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${getUserToken()}`
+    }
   })
   .then(function(response) {
       return response.json();
     })
   .then((res) => {
-    if(!res.token) throw('no token in response')
+    if (res.status == 200 ) {
+      document.getElementById('created').innerText = "Your parcel delivery order has been created"
     window.location.href = `${basePath}/dashboard.html` 
+    }  
   })
   .catch(error => {
     console.log(error)

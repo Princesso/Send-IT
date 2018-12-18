@@ -1,13 +1,22 @@
-const basePath = "../../resources/pages";
-
-const parcelid
+  //refactor this
+const getUserToken = () => {
+  let tokenStr = window.localStorage.getItem('user_token')
+  if(tokenStr) {
+    return tokenStr
+  } else {
+    return "No token Found"
+  }
+}
 
 const newDestination = {
   toAddress: document.getElementById('new-destination').value
 }
-
 const changeDestination = () => {
-  fetch(`https://sendit-it.herokuapp.com/api/v1/parcels/${parcelid}/cancel`, {
+  debugger
+  console.log(newDestination.toAddress) 
+const basePath = "../../resources/pages";
+  const parcelId = window.location.search.split('=').pop()
+  fetch(`https://sendit-it.herokuapp.com/api/v1/parcels/${parcelId}/destination`, {
     method: "PATCH",
     body: JSON.stringify(newDestination),
     headers: {
@@ -16,11 +25,12 @@ const changeDestination = () => {
     }
   })
   .then((response) => {
+    //console.log(response)
     return response.json()
   })
-  .then((res) =>{
-    if(res.status == 200) window.location.href = `${basePath}/dashboard.html` 
+  .then((res) => {
+    //if(res.status == 200) window.location.href = `${basePath}/dashboard.html` 
   })
 }
 
-document.getElementById("change-destination-button").addEventListener('click', changeDestination);
+document.getElementById("update").addEventListener('click', changeDestination);
