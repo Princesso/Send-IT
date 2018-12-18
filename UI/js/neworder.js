@@ -12,7 +12,7 @@ const getUserToken = () => {
 async function createParcel(e, d) {
   e.preventDefault()
   const newParcel = {
-    item_name: document.getElementById('item-name').value,
+    itemName: document.getElementById('item-name').value,
     weight: document.getElementById("weight").value,
     fromAddress: document.getElementById("from-address").value,
     toAddress: document.getElementById("to-address").value
