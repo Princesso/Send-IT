@@ -29,7 +29,7 @@ async function createParcel(e, d) {
       return response.json();
     })
   .then((res) => {
-    if (res.status == 200 ) {
+    if (res.status == 201 ) {
       document.getElementById('created').innerText = "Your parcel delivery order has been created"
     window.location.href = `${basePath}/dashboard.html` 
     }  
