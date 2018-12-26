@@ -33,7 +33,7 @@ class Parcels {
 
     const query = `INSERT INTO parcels (placedby,weight,weightmetric,senton,status,fromaddress,toaddress,currentlocation,itemname) 
                   VALUES('${newOrder.placedBy}','${newOrder.weight}','${newOrder.weightmetric}','${newOrder.sentOn}','${newOrder.status}','${newOrder.fromAddress}'
-                  ,'${newOrder.toAddress}','${newOrder.currentLocation}',${newOrder.itemName})`
+                  ,'${newOrder.toAddress}','${newOrder.currentLocation}','${newOrder.itemName}')`
     db.query(query)
     .then((result) => {
       if(result.rowCount === 0) {
@@ -43,7 +43,7 @@ class Parcels {
       }
     })
     .catch((error) => {
-      res.status(500).json({ "status": res.statusCode, "error": 'An error occured while trying to save your order,weight may not be a number '})
+      res.status(500).json({ "status": res.statusCode, "error": `An error occured while trying to save your order ${error}`})
     })
   }
 
