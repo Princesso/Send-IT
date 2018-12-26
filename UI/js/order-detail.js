@@ -52,7 +52,7 @@ window.onload = function(e) {
     fetch(`https://sendit-it.herokuapp.com/api/v1/parcels/${parcelId}/cancel`, {
       method: "PATCH",
       headers: {
-        "Authorization": `${getUserToken()}`
+        "Authorization": `Bearer ${getUserToken()}`
       }
     })
     .then((response) => {
