@@ -10,6 +10,7 @@
   <meta name="author" description="Priness Oluebube Egbuna">
   <link rel="stylesheet" type="text/css" media="screen" href="../styles/dashboard.css" />
   <link rel="stylesheet" type="text/css" media="screen" href="../styles/main.css" />
+  <link rel="stylesheet" type="text/css" media="screen" href="../styles/admin.css" />
   <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:100,300,400,700" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,700" rel="stylesheet">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css" integrity="sha384-/rXc/GQVaYpyDdyxK+ecHPVYJSN9bmVFBvjA/9eOB+pb3F2w2N6fc5qB9Ew5yIns" crossorigin="anonymous">
@@ -27,8 +28,16 @@
           </nav>
         </header>
         <section class="main-content">
+          <div class="sidebar">
+            <div class="sidebar-content">
+              <a href="#"><p><span class="fas fa-truck" id="favicons"></span>All orders</p></a>
+              <a href="#"></a><p><span class="fas fa-users"id="favicons"></span>Users</p></a>
+              <a href="#"></a><p><span class="fas fa-cogs"id="favicons"></span>Add Admin</p></a>
+            </div>
+          </div>
+          <div id="main-container">
             <div class="welcome">
-                <h5>Welcome Princess (Admin)</h5>
+                <h5>Welcome <span id="username"></span></h5>
               </div>
           <div class="cards">
             <div class="card">
@@ -37,7 +46,7 @@
               </div>
               <div>
                   <h6>Orders</h6>
-                  <p>30</p>
+                  <p id="total-orders"></p>
               </div>
             </div>
             <div class="card">
@@ -46,7 +55,7 @@
                 </div>
                 <div>
                     <h6>Delivered</h6>
-                    <p>10</p>
+                    <p id="total-delivered"></p>
                 </div>
             </div>
             <div class="card">
@@ -55,7 +64,7 @@
                 </div>
                 <div>
                     <h6>Pending</h6>
-                    <p>10</p>
+                    <p id="total-pending"></p>
                 </div>
             </div>
             <div class="card">
@@ -64,7 +73,7 @@
                 </div>
                 <div>
                     <h6>Canceled</h6>
-                    <p>10</p>
+                    <p id="total-canceled"></p>
                 </div>
             </div>
           </div>
@@ -85,7 +94,7 @@
               </thead>
 
               <tbody>
-                <tr>
+                <!-- <tr>
                     <td>1</td>
                     <td>Dress</td>
                     <td>Alaba</td>
@@ -108,9 +117,15 @@
                     <td>Obanikoro</td>
                     <td>pending</td>
                     <td><a href="./admin-action.html"><button>View</button></a></td>
-                  </tr> 
+                  </tr>  -->
               </tbody>
             </table>
+            <!-- <div>
+                <button class="pagination"><- Prev</button>
+                <button class="pagination">Next -></button>
+            </div> -->
+            
+          </div>
           </div>
         </section>
         <footer class="footer">
@@ -122,6 +137,7 @@
                 </ul>
               </nav>
           </footer> 
+          <script src="../../js/dashboard.js"></script>
   </div>
 </body>
 </html>

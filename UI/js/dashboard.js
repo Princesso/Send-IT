@@ -1,3 +1,5 @@
+import Helper from '../js/helpers'
+
 const getUserToken = () => {
   let tokenStr = window.localStorage.getItem('user_token')
   if(tokenStr) {
@@ -20,8 +22,8 @@ async function getParcels() {
     return response.json();
   })
   .then((res) => {
-    if (res.status==204) {
-      console.log("Does not own any parcels")
+    if (res.status==204 || res.status == 400) {
+      document.getElementById("dashboard-error").innerText = "You have not created any parcel delivery orders"
     }
 
     // we had stored the attributes to be filled in the rows using the data-attributes of the thead
@@ -59,16 +61,20 @@ async function getParcels() {
       tag.appendChild(btn)
       let newCell  = newRow.insertCell(i);
       newCell.appendChild(tag);
-      tag.href = `${basePath}/order-detail.html?parcelId=${order.id}`
+      
+
+      const decoded =  JSON.parse(atob(getUserToken().split('.')[1]));
 
       btn.onclick = (e) => {
-        let rowId = e.target.parentElement.parentElement.parentElement.cells[0].innerText
+        if (!decoded.isAdmin) tag.href = `${basePath}/order-detail.html?parcelId=${order.id}`
+        else tag.href = `${basePath}/admin-action.html?parcelId=${order.id}`
       }
 
       document.getElementById('total-orders').innerHTML = totalOrders
       document.getElementById('total-delivered').innerHTML = totalDelivered
       document.getElementById('total-pending').innerHTML = totalPending
       document.getElementById('total-canceled').innerHTML = totalCanceled
+      document.getElementById("username").innerHTML = ""
     })
   })
   .catch(error => console.error('Error:', error))

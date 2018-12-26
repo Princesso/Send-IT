@@ -19,7 +19,13 @@ async function submitLoginForm(e, d) {
   .then((res) => {
     if(!res.token) throw('no token in response')
     window.localStorage.setItem('user_token', res.token)
-    window.location.href = `${basePath}/dashboard.html` 
+    const decoded =  JSON.parse(atob(res.token.split('.')[1]));
+    if(!decoded.isAdmin) {
+      window.location.href = `${basePath}/dashboard.html` 
+    } else {
+      window.location.href = `${basePath}/admin.html` 
+    }
+    
   })
   .catch(error => {
     console.log(error)
