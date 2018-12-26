@@ -1,5 +1,3 @@
-import Helper from '../js/helpers'
-
 const getUserToken = () => {
   let tokenStr = window.localStorage.getItem('user_token')
   if(tokenStr) {
