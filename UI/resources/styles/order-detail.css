@@ -22,6 +22,7 @@ hr {
 .change-destination, .change-status {
   padding: 15px;
   font-size: 20px;
+  cursor: pointer;
 }
 
 ul {
@@ -43,12 +44,14 @@ ul {
   padding: 15px;
   font-size: 20px;
   margin: 10px;
+  cursor: pointer;
 }
 
 button {
   font-size: 0.5em;
   border-radius: 9px;
   padding: 2px;
+  cursor: pointer;
 }
 
 #font-awe {
@@ -70,6 +73,21 @@ button {
   padding:10px;
 }
 
+#track {
+  color: red;
+  display: flex;
+  flex-direction: row-reverse;
+  cursor: pointer;
+}
+
+#googleMap {
+  width: 90%;
+  height: 90%;
+  margin: auto;
+  padding: 10px;
+  margin-top: 2%;
+}
+
 #button-link {
   margin: 8px;
 }
@@ -84,5 +102,6 @@ button {
     font-size: 0.5em !important;
     height: 60%;
     text-align: center;
+    cursor: pointer;
   }
 }
