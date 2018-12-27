@@ -62,7 +62,15 @@ window.onload = function(e) {
       if(res.status == 200) window.location.href = `${basePath}/dashboard.html` 
     })
   }
-  
+
   document.getElementById("cancel-order-button").addEventListener('click', cancelOrder);
+
+  const trackOrder = () => {
+    const basePath = "../../resources/pages";
+    const parcelId = window.location.search.split('=').pop()
+    window.location.href = `${basePath}/track.html?parcelId=${parcelId}`
+  }
+
+  document.getElementById("track").addEventListener('click', trackOrder);
 }
 
