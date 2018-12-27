@@ -35,8 +35,9 @@
               <form>
                 <input type="text" placeholder="Item Name" id="item-name"/>
                 <input type="number" placeholder="Approximate Weight in Kilograms" id="weight"/>
-                <input type="text" placeholder="Current Location" autocomplete="address-level2" id="to-address"/>
-                <input type="text" placeholder="Destination" autocomplete="address-level2" id="from-address"/>
+                <input type="text" placeholder="Parcel Pick-up Location" autocomplete="address-level2" id="from-address"/>
+                <input type="text" placeholder="Recipient's Address" autocomplete="address-level2" id="to-address"/>
+                <input type="number" placeholder="Recipient's phone number" id="recipient-phone"/>
                 <p id="created"></p>
                 <button type="submit" class="send-parcel" id="send-parcel-button">Send Parcel</button>
               </form>
