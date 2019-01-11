@@ -6,6 +6,7 @@
   "scripts": {
     "test": "nyc ./node_modules/.bin/mocha --timeout 100000 --require @babel/register --require @babel/polyfill server/test --exit || true",
     "start": "babel-node server/app.js",
+    "dev": "webpack-dev-server --mode development --open",
     "start:prod": "node dist/app.prod.js",
     "start:prod1": "node dist/server/app.prod.js",
     "build": "babel server -d dist",
@@ -23,7 +24,7 @@
     "eslint": "^5.9.0",
     "html-webpack-plugin": "^3.2.0",
     "should": "^13.2.3",
-    "webpack": "^4.28.1",
+    "webpack": "^4.28.4",
     "webpack-cli": "^3.2.1",
     "webpack-dev-server": "^3.1.14"
   },
