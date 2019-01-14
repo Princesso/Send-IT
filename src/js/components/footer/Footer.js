@@ -6,7 +6,7 @@ const StyledFooter = styled.div`
   background: red;
 `
 
-const Header = () => {
+const Footer = () => {
   return(
     <StyledFooter>
       <h1>Footer</h1>
@@ -14,4 +14,4 @@ const Header = () => {
   )
 }
 
-export default Header
+export default Footer
