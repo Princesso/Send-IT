@@ -23,7 +23,8 @@ class Parcels {
       fromAddress: req.body.fromAddress,
       toAddress: req.body.toAddress,
       currentLocation: req.body.fromAddress,
-      itemName: req.body.itemName
+      itemName: req.body.itemName,
+      recipient: req.body.recipientName
     };
 
     const fieldError = createParcelsSchema(newOrder)
@@ -31,15 +32,15 @@ class Parcels {
       return res.status(400).json({"status": res.statusCode, "message": fieldError});
     }
 
-    const query = `INSERT INTO parcels (placedby,weight,weightmetric,senton,status,fromaddress,toaddress,currentlocation,itemname) 
+    const query = `INSERT INTO parcels (placedby,weight,weightmetric,senton,status,fromaddress,toaddress,currentlocation,itemname, recipient) 
                   VALUES('${newOrder.placedBy}','${newOrder.weight}','${newOrder.weightmetric}','${newOrder.sentOn}','${newOrder.status}','${newOrder.fromAddress}'
-                  ,'${newOrder.toAddress}','${newOrder.currentLocation}','${newOrder.itemName}')`
+                  ,'${newOrder.toAddress}','${newOrder.currentLocation}','${newOrder.itemName}','${newOrder.recipient}') returning *`
     db.query(query)
     .then((result) => {
       if(result.rowCount === 0) {
-        res.status(500).json({ "status": res.statusCode, "Message": 'An error occured while trying to save your order ensure that weight is a valid number and Address are not empty'})
+        return res.status(500).json({ "status": res.statusCode, "Message": 'An error occured while trying to save your order ensure that weight is a valid number and Address are not empty'})
       } else if(result.rowCount >= 1) {
-        res.status(201).json({"status": res.statusCode, "message": "New parcel added successfuly"});
+        return res.status(201).json({"status": res.statusCode, "message": "New parcel added successfuly", "data": result.rows[0]});
       }
     })
     .catch((error) => {
@@ -113,17 +114,17 @@ class Parcels {
   static cancel(req, res) {
     const id = req.params.id;
     const newStatus = 'canceled';
-    const query = `UPDATE parcels SET status='${newStatus}' WHERE id='${id}' and placedby='${req.user}'`
+    const query = `UPDATE parcels SET status='${newStatus}' WHERE id='${id}' and placedby='${req.user}' returning *`
     db.query(query)
         .then((result) => {
           if(result.rowCount === 0) {
             return res.status(400).json({ "status": 400, "error": 'Only parcel owners can cancel their delivery order'})
           } else if (result.rowCount >= 1) {
-            res.status(200).json({"status": 200, "message": "Your parcel delivery order has been cancelled "});
+           return res.status(200).json({"status": 200, "message": "Your parcel delivery order has been cancelled ", "data": result.rows[0] });
           }
         })
         .catch((error) => {
-          res.status(500).json({ "status": 500, "error": "Could not get parcels from database"})
+          return res.status(500).json({ "status": 500, "error": "Could not get parcels from database"})
         })
   }
 
@@ -134,17 +135,17 @@ class Parcels {
       return res.status(400).json({ "status": 400, "error": fieldError})
     }
     const newDestination = req.body.toAddress
-    const query = `UPDATE parcels SET toAddress='${newDestination}' WHERE id='${id}' AND placedby='${req.user}'`
+    const query = `UPDATE parcels SET toAddress='${newDestination}' WHERE id='${id}' AND placedby='${req.user}' returning *`
     db.query(query)
     .then((result) => {
       if(result.rowCount === 0) {
         return res.status(204).json({ "status": 204, "error": 'Only parcel owners can change order destination'})
       } else if (result.rowCount >= 1) {
-        res.status(200).json({"status": 200, "Message": "The destination has been changed successfully "});
+        return res.status(200).json({"status": 200, "Message": "The destination has been changed successfully "});
       }
     })
     .catch((error) => {
-      res.status(500).json({ "status": 500, "error": "An error ocurred while trying to change the parcel Destination"})
+      return res.status(500).json({ "status": 500, "error": "An error ocurred while trying to change the parcel Destination", "data": result.rows[0] })
     })
   }
 
@@ -158,13 +159,13 @@ class Parcels {
 
       }
       const currentLocation = req.body.currentLocation
-      const query = `UPDATE parcels SET toaddress='${currentLocation}' WHERE id='${id}'` 
+      const query = `UPDATE parcels SET toaddress='${currentLocation}' WHERE id='${id}' returning *` 
       db.query(query)
       .then((result) => {
         if(result.rowCount === 0) {
           return res.status(204).json({ "status": 204, "error": 'No such parcel'})
         } else if (result.rowCount >= 1) {
-          res.status(200).json({"status": 200, "Message": "The current location of the order has been updated successfully "});
+          res.status(200).json({"status": 200, "Message": "The current location of the order has been updated successfully ", "data": result.rows[0] });
         }
     })
     .catch((error) => {
