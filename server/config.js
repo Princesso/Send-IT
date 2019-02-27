@@ -1,5 +1,6 @@
 import { Client }  from 'pg';
 import dotenv from 'dotenv';
+import "@babel/polyfill"
 
 dotenv.config();
 
