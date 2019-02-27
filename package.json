@@ -6,6 +6,7 @@
   "scripts": {
     "test": "nyc ./node_modules/.bin/mocha --timeout 100000 --require @babel/register --require @babel/polyfill server/test --exit || true",
     "start": "babel-node server/app.js",
+    "dev": "webpack-dev-server --mode development --open",
     "start:prod": "node dist/app.prod.js",
     "start:prod1": "node dist/server/app.prod.js",
     "build": "babel server -d dist",
@@ -16,20 +17,25 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@babel/core": "^7.2.2",
+    "@babel/preset-env": "^7.2.3",
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "^8.0.5",
     "eslint": "^5.9.0",
-    "should": "^13.2.3"
+    "html-webpack-plugin": "^3.2.0",
+    "should": "^13.2.3",
+    "webpack": "^4.28.4",
+    "webpack-cli": "^3.2.1",
+    "webpack-dev-server": "^3.1.14"
   },
   "dependencies": {
     "@babel/cli": "^7.0.0",
-    "@babel/core": "^7.0.0",
     "@babel/node": "^7.0.0",
     "@babel/polyfill": "^7.0.0",
-    "@babel/preset-env": "^7.1.5",
     "@babel/register": "^7.0.0",
     "@sendgrid/mail": "^6.3.1",
     "assert": "^1.4.1",
     "babel-eslint": "^10.0.1",
-    "babel-loader": "^8.0.4",
     "babel-plugin-istanbul": "^5.1.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
@@ -48,7 +54,10 @@
     "nodemailer": "^4.6.8",
     "nyc": "^13.1.0",
     "pg": "^7.6.1",
+    "react": "^16.7.0",
+    "react-dom": "^16.7.0",
     "serve": "^10.1.1",
+    "styled-components": "^4.1.3",
     "swagger-ui-express": "^4.0.1",
     "uuidv4": "^2.0.0"
   }

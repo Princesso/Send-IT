@@ -6,7 +6,7 @@ dotenv.config();
 
 class Auth {
   static verifyToken (req, res, next) {
-    const bearerHeader = req.headers['authorization']
+    const bearerHeader = req.headers['authorization'] || req.query.token;
     if (typeof bearerHeader !== 'undefined') {
       const bearerArray = bearerHeader.split(" ")
       const bearerToken = bearerArray[1]
