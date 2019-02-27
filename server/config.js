@@ -9,6 +9,19 @@ const client = new Client({
 
 client.connect()
 
+const dropTable = async () => {
+  const drop = `DROP TABLE IF EXISTS parcels;
+                DROP TABLE IF EXISTS users;
+                `
+    try {
+      await client.query(drop);
+      console.log('tables dropped');
+    } catch(error) {
+
+      console.log('error while droppind tables', error);
+    }
+}
+
 const createTables = async () => {
   const userTable = `
     CREATE TABLE IF NOT EXISTS
@@ -21,19 +34,16 @@ const createTables = async () => {
         username VARCHAR(128) NOT NULL,
         registered TIMESTAMP,
         isAdmin BOOLEAN,
-        password VARCHAR NOT NULL,
-        itemname VARCHAR(30)
+        password VARCHAR NOT NULL
       )
   `;
-
-  await client.query(userTable)
-    .then((res) => {
-      console.log('users table created!: ', res);
-    })
-    .catch((err) => {
-      console.log('An error occured while creating users table: ', err);
-      client.end();
-    });
+  try {
+    console.log('users table created!: ');
+    await client.query(userTable)
+  } catch (error) {
+    console.log('An error occured while creating users table: ', error);
+    client.end();
+  }
 
   const parcelsTable = `
     CREATE TABLE IF NOT EXISTS
@@ -47,22 +57,25 @@ const createTables = async () => {
         status VARCHAR NOT NULL,
         fromAddress VARCHAR NOT NULL,
         toAddress VARCHAR NOT NULL,
-        currentLocation VARCHAR
+        currentLocation VARCHAR,
+        itemname VARCHAR(30),
+        recipient VARCHAR(40)
       )
   `;
-  return client.query(parcelsTable)
-  .then((res) => {
-    console.log('parcels table created!: ', res);
-  })
-  .catch((err) => {
-    console.log('An error occured while creating parcels table: ', err);
+  try {
+    console.log('prcels table created!: ');
+    await client.query(parcelsTable)
+  } catch (error) {
+    console.log('An error occured while creating parcels table: ', error);
     client.end();
-  });
+  }
 };
 
-
-createTables().then(res => {
-  console.log('All tables created')
-});
+dropTable().then(res => {
+  console.log('All tables dropped')
+  createTables().then(res => {
+    console.log('All tables created')
+  });
+})
 
 export default  client
