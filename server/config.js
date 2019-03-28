@@ -76,4 +76,5 @@ const createTables = async () => {
     console.log('All tables created')
   });
 
+
 export default  client

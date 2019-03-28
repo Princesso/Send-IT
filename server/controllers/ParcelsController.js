@@ -141,11 +141,11 @@ class Parcels {
       if(result.rowCount === 0) {
         return res.status(204).json({ "status": 204, "error": 'Only parcel owners can change order destination'})
       } else if (result.rowCount >= 1) {
-        return res.status(200).json({"status": 200, "Message": "The destination has been changed successfully "});
+        return res.status(200).json({"status": 200, "Message": "The destination has been changed successfully ", "data": result.rows[0]});
       }
     })
     .catch((error) => {
-      return res.status(500).json({ "status": 500, "error": "An error ocurred while trying to change the parcel Destination", "data": result.rows[0] })
+      return res.status(500).json({ "status": 500, "error": "An error ocurred while trying to change the parcel Destination"})
     })
   }
 
