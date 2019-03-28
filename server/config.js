@@ -72,11 +72,9 @@ const createTables = async () => {
   }
 };
 
-dropTable().then(res => {
-  console.log('All tables dropped')
   createTables().then(res => {
     console.log('All tables created')
   });
-})
+
 
 export default  client
