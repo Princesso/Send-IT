@@ -6,21 +6,21 @@
 # Send-IT
 SendIT is a courier service that helps users deliver parcels to different destinations. SendIT provides courier quotes based on weight categories.
 
-## Feature
-* There are two types of users admin and regular user
-* Users can Register if they have no account or login otherwise
-* Users can create a new parcel delivery order by adding required fields
-* Users can change the destination of their parcels
-* Users can cancel a parcel delivery order
-* Users can see a list of delivery orders they have made if they have made any
-* Admin can change the status of a delivery order
-* Admin can change the location a parcel delivery order
+## Features
+* There are two types of users: admin and regular user.
+* Users can Register if they have no account or login otherwise.
+* Users can create a new parcel delivery order by adding the required fields.
+* Users can change the destination of their parcels.
+* Users can cancel a parcel delivery order.
+* Users can see a list of delivery orders they have made if they have made any.
+* Admin can change the status of a delivery order.
+* Admin can change the location of a parcel delivery order.
 
 ## Technologies Used
-* Nodejs: an open source server framework that allows you to run JavaScript on the server.
+* Nodejs: an open-source server framework that allows you to run JavaScript on the server.
 * Postgresql: open source object-relational database system
 
-## Link to github pages
+## Link to GitHub pages
 
 https://princesso.github.io/Send-IT/UI/index.html
 
